@@ -18,22 +18,20 @@ gallery: true
         <div class="spinner-border text-secondary" role="status"><span class="visually-hidden">Loading...</span></div>
     </div>
 
-    <!-- AQUÍ EMPIEZA NUESTRO NUEVO DISEÑO EN PARALELO -->
+   <!-- AQUÍ EMPIEZA NUESTRO NUEVO DISEÑO EN PARALELO -->
     <div class="row mt-4">
 
-        <!-- COLUMNA IZQUIERDA: Portada (Ocupa 5 de 12 espacios) -->
-        <div class="col-12 col-md-5 mb-4">
-            <!-- El JS inyectará la imagen aquí automáticamente -->
+        <!-- COLUMNA IZQUIERDA: Portada (Ahora ocupa 4 de 12 espacios, más pequeña) -->
+        <div class="col-12 col-md-4 mb-4">
             <div id="item-content"></div>
         </div>
 
-        <!-- COLUMNA DERECHA: Título y Metadatos (Ocupa 7 de 12 espacios) -->
-        <div class="col-12 col-md-7">
-            <!-- Hemos movido el título y el formato aquí adentro -->
+        <!-- COLUMNA DERECHA: Título y Metadatos 
+             Usamos 'offset-md-1' para empujar esta columna 1 espacio a la derecha, creando el hueco -->
+        <div class="col-12 col-md-7 offset-md-1">
             <div class="my-0 h5 text-muted small" id="item-format"></div>
             <h2 id="item-title" class="mb-4"></h2>
             
-            <!-- El JS inyectará la lista de metadatos (descripción, fecha, etc) aquí -->
             <div id="item-metadata"></div>
         </div> 
         
