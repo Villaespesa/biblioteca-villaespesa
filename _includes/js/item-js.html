@@ -102,6 +102,8 @@ function displayItem(record, prev_id, next_id, compound_object) {
 
     /* function to add download, timeline, and map links */
     function addButtons(item) {
+        console.log("🕵️‍♂️ Datos de este libro:", item);
+        
         itemLink = '<div class="btn-group" role="group" aria-label="Item options">';
         
         {% if stubs contains "timeline" %}
