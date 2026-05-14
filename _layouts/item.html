@@ -26,24 +26,43 @@ gallery: true
             <div id="item-content"></div>
         </div>
 
-        <!-- COLUMNA DERECHA: Título y Metadatos -->
+       <!-- COLUMNA DERECHA: Título y Metadatos -->
         <div class="col-12 col-md-7 offset-md-1">
             
-            <!-- ¡AQUÍ ESTÁ EL SALVAVIDAS! El div del formato oculto para que el JS no se rompa -->
+            <!-- El div del formato oculto para que el JS no se rompa -->
             <div id="item-format" class="d-none"></div>
             
             <h2 id="item-title" class="mb-4"></h2>
             
-            <!-- TRUCO CSS: Ocultamos latitud y longitud -->
-            <style>
-                .field-latitude, 
-                .field-longitude {
-                    display: none !important;
-                }
-            </style>
+            <!-- EL VIGILANTE JAVASCRIPT: Oculta Latitud y Longitud en cuanto aparecen -->
+            <script>
+                // Creamos un observador que vigila cuando la página inyecta datos nuevos
+                const observer = new MutationObserver(function(mutations) {
+                    // Buscamos todas las etiquetas de la lista (ya sean <dt> o <th>)
+                    const etiquetas = document.querySelectorAll('#item-metadata dt, #item-metadata th');
+                    etiquetas.forEach(function(etiqueta) {
+                        // Si el texto de la etiqueta contiene "Latitud" o "Longitud"
+                        if (etiqueta.textContent.includes('Latitud') || etiqueta.textContent.includes('Longitud')) {
+                            etiqueta.style.display = 'none'; // Oculta la palabra (Ej: "Latitud:")
+                            if (etiqueta.nextElementSibling) {
+                                etiqueta.nextElementSibling.style.display = 'none'; // Oculta el dato (Ej: "40.416")
+                            }
+                        }
+                    });
+                });
+                
+                // Le decimos al vigilante que empiece a mirar dentro del div de metadatos cuando la página cargue
+                document.addEventListener("DOMContentLoaded", function() {
+                    const cajaMetadatos = document.getElementById('item-metadata');
+                    if(cajaMetadatos) {
+                        observer.observe(cajaMetadatos, { childList: true, subtree: true });
+                    }
+                });
+            </script>
             
+            <!-- Aquí es donde la página inyectará la lista -->
             <div id="item-metadata"></div>
-        </div> 
+        </div>
         
     </div>
 
