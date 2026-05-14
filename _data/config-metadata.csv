@@ -1,8 +1,8 @@
 field,display_name,browse_link,external_link
-title,Título,
-creator,Autor,
-date,Fecha de Publicación,
-description,Descripción,
-subject,Tema,true
-location,Localización
+title,Título,,
+creator,Autor,,
+date,Fecha de Publicación,,
+description,Descripción,,
+subject,Tema,true,
+location,Localización,,
 identifier,Signatura,,
