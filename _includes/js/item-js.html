@@ -137,16 +137,19 @@ function displayItem(record, prev_id, next_id, compound_object) {
         }
         {%- endif -%}
         
-        /* BOTÓN DE DIGITALIZACIÓN EXTERNA */
-        /* Sustituimos la lógica de descarga por la del enlace externo */
-        if (item.enlace) { 
-            var digitalizacionButton = '<a href="' + item.enlace + '" target="_blank" rel="noopener" class="btn btn-primary">Digitalización</a>';
+        /* BOTÓN DE DIGITALIZACIÓN EXTERNA - MODO DEBUG */
+        
+        // 1. El chivato: Esto imprimirá los datos secretos de tu libro en el navegador
+        console.log("🕵️‍♂️ Datos que el código está leyendo de tu Excel:", item);
+        
+        // 2. Forzamos a que el botón se dibuje SIEMPRE (ponemos 'true' en vez de 'item.enlace')
+        if (true) { 
+            // Si no encuentra tu enlace, usará Google por defecto para que no se rompa
+            var linkReal = item.enlace ? item.enlace : "https://www.google.es"; 
+            
+            var digitalizacionButton = '<a href="' + linkReal + '" target="_blank" rel="noopener" class="btn btn-primary">Ver Digitalización</a>';
             itemLink += digitalizacionButton;
         }
-
-        itemLink += '</div>';
-    };
-
     /* create compound object cards */
     function compoundItems(compoundItem) {
         var objectCount = Object.keys(compoundItem).length;
