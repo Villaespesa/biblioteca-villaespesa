@@ -21,13 +21,17 @@ gallery: true
     <!-- DISEÑO EN PARALELO -->
     <div class="row mt-4">
 
-        <!-- COLUMNA IZQUIERDA: Portada (4 espacios) -->
+        <!-- COLUMNA IZQUIERDA: Portada -->
         <div class="col-12 col-md-4 mb-4">
             <div id="item-content"></div>
         </div>
 
-        <!-- COLUMNA DERECHA: Título y Metadatos (7 espacios + 1 de hueco) -->
+        <!-- COLUMNA DERECHA: Título y Metadatos -->
         <div class="col-12 col-md-7 offset-md-1">
+            
+            <!-- ¡AQUÍ ESTÁ EL SALVAVIDAS! El div del formato oculto para que el JS no se rompa -->
+            <div id="item-format" class="d-none"></div>
+            
             <h2 id="item-title" class="mb-4"></h2>
             
             <!-- TRUCO CSS: Ocultamos latitud y longitud -->
