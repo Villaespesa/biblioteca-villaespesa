@@ -34,30 +34,39 @@ gallery: true
             
             <h2 id="item-title" class="mb-4"></h2>
             
-            <!-- EL VIGILANTE JAVASCRIPT: Oculta Latitud y Longitud en cuanto aparecen -->
+            <!-- EL VIGILANTE PERSISTENTE -->
             <script>
-                // Creamos un observador que vigila cuando la página inyecta datos nuevos
-                const observer = new MutationObserver(function(mutations) {
-                    // Buscamos todas las etiquetas de la lista (ya sean <dt> o <th>)
-                    const etiquetas = document.querySelectorAll('#item-metadata dt, #item-metadata th');
-                    etiquetas.forEach(function(etiqueta) {
-                        // Si el texto de la etiqueta contiene "Latitud" o "Longitud"
-                        if (etiqueta.textContent.includes('Latitud') || etiqueta.textContent.includes('Longitud')) {
-                            etiqueta.style.display = 'none'; // Oculta la palabra (Ej: "Latitud:")
-                            if (etiqueta.nextElementSibling) {
-                                etiqueta.nextElementSibling.style.display = 'none'; // Oculta el dato (Ej: "40.416")
+                // Creamos un temporizador que se ejecuta cada 200 milisegundos
+                let vigilante = setInterval(function() {
+                    let caja = document.getElementById('item-metadata');
+                    
+                    // Si la caja ya existe y detecta que CollectionBuilder ha metido la palabra "Latitud"
+                    if (caja && (caja.innerHTML.includes('Latitud') || caja.innerHTML.includes('Longitud'))) {
+                        
+                        // Buscamos todas las posibles etiquetas que usa CollectionBuilder
+                        let elementos = caja.querySelectorAll('dt, th, tr, p');
+                        
+                        elementos.forEach(function(elemento) {
+                            let texto = elemento.textContent || elemento.innerText;
+                            
+                            // Si el texto de esta línea es Latitud o Longitud...
+                            if (texto.includes('Latitud') || texto.includes('Longitud')) {
+                                elemento.style.display = 'none'; // Oculta la palabra
+                                
+                                // Oculta el número que suele ir justo al lado
+                                if (elemento.tagName === 'DT' && elemento.nextElementSibling) {
+                                    elemento.nextElementSibling.style.display = 'none';
+                                }
                             }
-                        }
-                    });
-                });
-                
-                // Le decimos al vigilante que empiece a mirar dentro del div de metadatos cuando la página cargue
-                document.addEventListener("DOMContentLoaded", function() {
-                    const cajaMetadatos = document.getElementById('item-metadata');
-                    if(cajaMetadatos) {
-                        observer.observe(cajaMetadatos, { childList: true, subtree: true });
+                        });
+                        
+                        // ¡Trabajo terminado! Apagamos el temporizador para no gastar recursos
+                        clearInterval(vigilante);
                     }
-                });
+                }, 200); 
+                
+                // Paracaídas de seguridad: apagamos el vigilante a los 10 segundos pase lo que pase
+                setTimeout(() => clearInterval(vigilante), 10000);
             </script>
             
             <!-- Aquí es donde la página inyectará la lista -->
