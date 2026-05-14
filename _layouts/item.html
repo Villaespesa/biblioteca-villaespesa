@@ -6,7 +6,7 @@ gallery: true
 ---
 
 <div class="container py-3">
-    <!-- Migas de pan (Navegación superior) -->
+    <!-- Migas de pan -->
     <ul class="breadcrumb h6">
         <li class="breadcrumb-item"><a class="text-dark" href="{{ '/' | relative_url }}">{{ site.title }}</a></li>
         <li class="breadcrumb-item"><a class="text-dark" href="{{ '/browse.html' | relative_url }}">Browse</a></li>
@@ -18,19 +18,19 @@ gallery: true
         <div class="spinner-border text-secondary" role="status"><span class="visually-hidden">Loading...</span></div>
     </div>
 
-   <!-- AQUÍ EMPIEZA NUESTRO NUEVO DISEÑO EN PARALELO -->
+    <!-- DISEÑO EN PARALELO -->
     <div class="row mt-4">
 
-        <!-- COLUMNA IZQUIERDA: Portada (Ahora ocupa 4 de 12 espacios, más pequeña) -->
+        <!-- COLUMNA IZQUIERDA: Portada (4 espacios) -->
         <div class="col-12 col-md-4 mb-4">
             <div id="item-content"></div>
         </div>
 
-       <!-- COLUMNA DERECHA: Título y Metadatos -->
+        <!-- COLUMNA DERECHA: Título y Metadatos (7 espacios + 1 de hueco) -->
         <div class="col-12 col-md-7 offset-md-1">
             <h2 id="item-title" class="mb-4"></h2>
             
-            <!-- TRUCO CSS: Ocultamos los datos de latitud y longitud visualmente -->
+            <!-- TRUCO CSS: Ocultamos latitud y longitud -->
             <style>
                 .field-latitude, 
                 .field-longitude {
@@ -38,22 +38,20 @@ gallery: true
                 }
             </style>
             
-            <!-- El JS inyectará la lista de metadatos aquí -->
             <div id="item-metadata"></div>
-        </div>
+        </div> 
         
     </div>
 
-    <!-- ESPACIO INFERIOR: Para añadir otras cosas en el futuro -->
+    <!-- SECCIÓN INFERIOR -->
     <div class="row mt-5">
         <div class="col-12">
             <hr>
-            <!-- Puedes borrar este texto cuando quieras, es para que veas dónde va -->
             <h4 class="text-muted">Aquí irá el contenido futuro...</h4>
         </div>
     </div>
 
-    <!-- Botones de navegación inferiores -->
+    <!-- BOTONES -->
     <div id="browse-buttons" class="text-center mt-5">
         <a class="btn btn-secondary" href="{{ '/browse.html' | relative_url }}">&laquo; Back to Collection Browse</a>
     </div>
