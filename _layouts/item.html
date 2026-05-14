@@ -26,7 +26,7 @@ gallery: true
             <div id="item-content"></div>
         </div>
 
-       <!-- COLUMNA DERECHA: Título y Metadatos -->
+        <!-- COLUMNA DERECHA: Título y Metadatos -->
         <div class="col-12 col-md-7 offset-md-1">
             
             <!-- El div del formato oculto para que el JS no se rompa -->
@@ -34,56 +34,43 @@ gallery: true
             
             <h2 id="item-title" class="mb-4"></h2>
             
-            <!-- COLUMNA DERECHA: Título y Metadatos -->
-        <div class="col-12 col-md-7 offset-md-1">
-            
-            <!-- El div del formato oculto para que el JS no se rompa -->
-            <div id="item-format" class="d-none"></div>
-            
-            <h2 id="item-title" class="mb-4"></h2>
-            
-            <!-- EL VIGILANTE PERSISTENTE -->
+            <!-- Aquí es donde la página inyectará la lista -->
+            <div id="item-metadata"></div>
+
+            <!-- SCRIPT LIMPIADOR: Oculta campos técnicos de la vista del usuario -->
             <script>
-                // Creamos un temporizador que se ejecuta cada 200 milisegundos
-                let vigilante = setInterval(function() {
+                let limpiador = setInterval(function() {
                     let caja = document.getElementById('item-metadata');
                     
-                    // Si la caja ya existe y detecta que CollectionBuilder ha metido la palabra "Latitud"
-                    if (caja && (caja.innerHTML.includes('Latitud') || caja.innerHTML.includes('Longitud'))) {
+                    // Comprobamos si la caja ya tiene datos dentro
+                    if (caja && caja.innerHTML.trim() !== '') {
                         
-                        // Buscamos todas las posibles etiquetas que usa CollectionBuilder
-                        let elementos = caja.querySelectorAll('dt, th, tr, p');
+                        // Buscamos las etiquetas de los títulos
+                        let etiquetas = caja.querySelectorAll('dt, th');
                         
-                        elementos.forEach(function(elemento) {
-                            let texto = elemento.textContent || elemento.innerText;
+                        etiquetas.forEach(function(dt) {
+                            let texto = dt.textContent || dt.innerText;
                             
-                            // Si el texto de esta línea es Latitud o Longitud...
-                            if (texto.includes('Latitud') || texto.includes('Longitud')) {
-                                elemento.style.display = 'none'; // Oculta la palabra
+                            // Si contiene Digitalización, Latitud o Longitud, se oculta
+                            if (texto.includes('Digitalización') || texto.includes('Latitud') || texto.includes('Longitud')) {
+                                dt.style.display = 'none'; // Oculta la palabra
                                 
-                                // Oculta el número que suele ir justo al lado
-                                if (elemento.tagName === 'DT' && elemento.nextElementSibling) {
-                                    elemento.nextElementSibling.style.display = 'none';
+                                if (dt.nextElementSibling) {
+                                    dt.nextElementSibling.style.display = 'none'; // Oculta el dato
                                 }
                             }
                         });
                         
-                        // ¡Trabajo terminado! Apagamos el temporizador para no gastar recursos
-                        clearInterval(vigilante);
+                        // Apagamos el motor
+                        clearInterval(limpiador); 
                     }
-                }, 200); 
+                }, 100); 
                 
-                // Paracaídas de seguridad: apagamos el vigilante a los 10 segundos pase lo que pase
-                setTimeout(() => clearInterval(vigilante), 10000);
+                // Paracaídas de seguridad a los 5 segundos
+                setTimeout(() => clearInterval(limpiador), 5000);
             </script>
-            
-            <!-- Aquí es donde la página inyectará la lista -->
-            <div id="item-metadata"></div>
-        </div>
-            
-            <!-- Aquí es donde la página inyectará la lista -->
-            <div id="item-metadata"></div>
-        </div>
+
+        </div> 
         
     </div>
 
