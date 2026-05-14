@@ -26,14 +26,21 @@ gallery: true
             <div id="item-content"></div>
         </div>
 
-        <!-- COLUMNA DERECHA: Título y Metadatos 
-             Usamos 'offset-md-1' para empujar esta columna 1 espacio a la derecha, creando el hueco -->
+       <!-- COLUMNA DERECHA: Título y Metadatos -->
         <div class="col-12 col-md-7 offset-md-1">
-            <div class="my-0 h5 text-muted small" id="item-format"></div>
             <h2 id="item-title" class="mb-4"></h2>
             
+            <!-- TRUCO CSS: Ocultamos los datos de latitud y longitud visualmente -->
+            <style>
+                .field-latitude, 
+                .field-longitude {
+                    display: none !important;
+                }
+            </style>
+            
+            <!-- El JS inyectará la lista de metadatos aquí -->
             <div id="item-metadata"></div>
-        </div> 
+        </div>
         
     </div>
 
