@@ -34,55 +34,52 @@ gallery: true
             
             <h2 id="item-title" class="mb-4"></h2>
             
-            <!-- EL VIGILANTE PERSISTENTE 2.0 (Oculta y Traduce) -->
+            <!-- COLUMNA DERECHA: Título y Metadatos -->
+        <div class="col-12 col-md-7 offset-md-1">
+            
+            <!-- El div del formato oculto para que el JS no se rompa -->
+            <div id="item-format" class="d-none"></div>
+            
+            <h2 id="item-title" class="mb-4"></h2>
+            
+            <!-- EL VIGILANTE PERSISTENTE -->
             <script>
+                // Creamos un temporizador que se ejecuta cada 200 milisegundos
                 let vigilante = setInterval(function() {
-                    
-                    // TAREA 1: Ocultar Latitud y Longitud
                     let caja = document.getElementById('item-metadata');
-                    if (caja) {
+                    
+                    // Si la caja ya existe y detecta que CollectionBuilder ha metido la palabra "Latitud"
+                    if (caja && (caja.innerHTML.includes('Latitud') || caja.innerHTML.includes('Longitud'))) {
+                        
+                        // Buscamos todas las posibles etiquetas que usa CollectionBuilder
                         let elementos = caja.querySelectorAll('dt, th, tr, p');
+                        
                         elementos.forEach(function(elemento) {
                             let texto = elemento.textContent || elemento.innerText;
+                            
+                            // Si el texto de esta línea es Latitud o Longitud...
                             if (texto.includes('Latitud') || texto.includes('Longitud')) {
-                                elemento.style.display = 'none';
+                                elemento.style.display = 'none'; // Oculta la palabra
+                                
+                                // Oculta el número que suele ir justo al lado
                                 if (elemento.tagName === 'DT' && elemento.nextElementSibling) {
                                     elemento.nextElementSibling.style.display = 'none';
                                 }
                             }
                         });
+                        
+                        // ¡Trabajo terminado! Apagamos el temporizador para no gastar recursos
+                        clearInterval(vigilante);
                     }
-
-                    // TAREA 2: Traducir y modificar los botones
-                    let botones = document.querySelectorAll('a.btn');
-                    botones.forEach(function(btn) {
-                        
-                        // Si encuentra el botón del Mapa
-                        if (btn.innerHTML.includes('View on Map')) {
-                            btn.innerHTML = btn.innerHTML.replace('View on Map', 'Ver en el Mapa');
-                        }
-                        
-                        // Si encuentra el botón de la Línea de Tiempo
-                        if (btn.innerHTML.includes('View on Timeline')) {
-                            btn.innerHTML = btn.innerHTML.replace('View on Timeline', 'Ver en la Línea de Tiempo');
-                        }
-
-                        // Si encuentra el botón de Descarga (suele poner 'Download' o 'Download JPG')
-                        if (btn.innerHTML.includes('Download') || btn.innerHTML.includes('Descargar')) {
-                            // Cambiamos el texto
-                            btn.innerHTML = 'Ver Digitalización';
-                            // Le quitamos la orden de "descargar un archivo" al navegador
-                            btn.removeAttribute('download');
-                            // Le ponemos un color diferente si quieres (ej. btn-primary para azul, o lo dejamos igual)
-                            btn.className = btn.className.replace('btn-outline-primary', 'btn-primary');
-                        }
-                    });
-                    
                 }, 200); 
                 
-                // Apagamos el vigilante a los 10 segundos
+                // Paracaídas de seguridad: apagamos el vigilante a los 10 segundos pase lo que pase
                 setTimeout(() => clearInterval(vigilante), 10000);
             </script>
+            
+            <!-- Aquí es donde la página inyectará la lista -->
+            <div id="item-metadata"></div>
+        </div>
             
             <!-- Aquí es donde la página inyectará la lista -->
             <div id="item-metadata"></div>
