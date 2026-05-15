@@ -1,0 +1,29 @@
+---
+layout: page
+---
+
+<div class="container py-4">
+    
+    <!-- Aquí es donde se inyectará el texto normal que escriban tus compañeros -->
+    <div class="introduccion-coleccion mb-5">
+        {{ content }}
+    </div>
+
+    <hr>
+    <h3 class="mb-4">Libros en esta colección</h3>
+
+    <!-- El motor automático que tú has programado -->
+    <div class="row">
+        <!-- Toma los IDs que tu compañero haya escrito y los separa por las comas -->
+        {% assign lista_libros = page.libros | split: "," %}
+        
+        <!-- Por cada ID, dibuja una tarjeta de 4 espacios (3 libros por fila) -->
+        {% for id_libro in lista_libros %}
+            {% assign id_limpio = id_libro | strip %}
+            <div class="col-12 col-md-4 mb-4">
+                {% include feature/card.html objectid=id_limpio %}
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
