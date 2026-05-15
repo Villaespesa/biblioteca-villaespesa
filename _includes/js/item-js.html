@@ -117,7 +117,7 @@ function displayItem(record, prev_id, next_id, compound_object) {
             } else {
                 itemYear = item.date;
             }
-            var timelineButton = '<a href="{{ "/timeline.html" | relative_url }}#y' + itemYear + '" class="btn btn-outline-primary">Línea de Tiempo</a>';
+            var timelineButton = '<a href="{{ "/timeline.html" | relative_url }}#y' + itemYear + '" class="btn btn-outline-primary">Cronología</a>';
             /* add timeline link to children only if specified in theme.yml */
             {% if site.data.theme.timeline-child-objects == true %}
                 itemLink += timelineButton;
@@ -130,7 +130,7 @@ function displayItem(record, prev_id, next_id, compound_object) {
         {% if stubs contains "map" %}
         /* add link to view on map */
         var itemMarker = item.parentid ? item.parentid : itemPageId;
-        var mapButton = '<a href="{{ '/map.html' | relative_url }}?location=' + item.latitude + ',' + item.longitude + '&marker=' + itemMarker +'" class="btn btn-outline-primary">En el Mapa</a>';
+        var mapButton = '<a href="{{ '/map.html' | relative_url }}?location=' + item.latitude + ',' + item.longitude + '&marker=' + itemMarker +'" class="btn btn-outline-primary">Mapa</a>';
         if (item.latitude && item.longitude) {
             /* add map link to children only if specified in theme.yml */
             {% if site.data.theme.map-child-objects == true %}
@@ -143,7 +143,7 @@ function displayItem(record, prev_id, next_id, compound_object) {
         
         /* BOTÓN DE DIGITALIZACIÓN EXTERNA */
         if (item.enlace) { 
-            var digitalizacionButton = '<a href="' + item.enlace + '" target="_blank" rel="noopener" class="btn btn-primary">Ver Digitalización</a>';
+            var digitalizacionButton = '<a href="' + item.enlace + '" target="_blank" rel="noopener" class="btn btn-primary">Digitalización</a>';
             itemLink += digitalizacionButton;
         }
 
