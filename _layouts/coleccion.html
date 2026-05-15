@@ -2,74 +2,78 @@
 layout: default
 ---
 
-<!-- Importamos una tipografía moderna y premium para este diseño -->
+<!-- Importamos tipografía moderna y premium -->
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
 
     .estilo-pixpa {
         font-family: 'Inter', sans-serif;
-        background-color: #ffffff; /* Blanco puro */
+        background-color: #ffffff;
         color: #111111;
     }
 
-    /* Título gigante y responsivo (se adapta al móvil) */
+    /* Título principal contundente */
     .hero-titulo {
         font-weight: 900;
-        font-size: clamp(3rem, 6vw, 5.5rem); 
-        line-height: 1.05;
-        letter-spacing: -2px;
+        font-size: clamp(2.5rem, 5vw, 4.5rem); 
+        line-height: 1.1;
+        letter-spacing: -1.5px;
         text-transform: uppercase;
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem;
     }
 
-    /* Imagen contundente de lado a lado */
+    /* Imagen panorámica controlada (Más bajita, formato cine) */
     .hero-imagen {
         width: 100%;
-        height: 60vh; /* Ocupa el 60% del alto de la pantalla */
+        height: 40vh; /* AJUSTADO: Antes 60vh, ahora 40vh */
+        max-height: 400px; /* Paracaídas de seguridad para pantallas gigantes */
         object-fit: cover;
         object-position: center;
     }
 
-    /* Texto de introducción limpio y legible */
+    /* Texto de introducción */
     .texto-intro p {
-        font-size: 1.3rem;
+        font-size: 1.15rem; /* Un poco más estándar */
         font-weight: 300;
         line-height: 1.6;
         color: #333;
     }
 
-    /* Quitamos el aspecto de "tarjeta clásica" a los libros para hacerlos más modernos */
+    /* Estilización de los libros para hacerlos más finos */
     .cb-galeria .card {
         border: none !important;
         border-radius: 0 !important;
         background: transparent;
     }
     .cb-galeria .card-body {
-        padding: 1.5rem 0 0 0 !important;
+        padding: 1rem 0 0 0 !important;
     }
     .cb-galeria .card-title {
-        font-weight: 800;
-        font-size: 1.1rem;
-        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 1rem;
+        line-height: 1.2;
+    }
+    .cb-galeria .card-text {
+        font-size: 0.85rem;
+        color: #666;
     }
 </style>
 
 <div class="estilo-pixpa pb-5">
 
-    <!-- 1. ZONA DEL TÍTULO (Izquierda, masivo) -->
-    <div class="container pt-5 pb-4">
+    <!-- 1. ZONA DEL TÍTULO -->
+    <div class="container pt-5 pb-3">
         <div class="row">
             <div class="col-12 col-lg-10">
                 <h1 class="hero-titulo">{{ page.title }}</h1>
-                <!-- Pequeña línea negra de acento muy típica en Pixpa -->
-                <div style="width: 60px; height: 5px; background-color: #111; margin-bottom: 2rem;"></div>
+                <div style="width: 50px; height: 4px; background-color: #111; margin-bottom: 1.5rem;"></div>
             </div>
         </div>
     </div>
 
-    <!-- 2. LA IMAGEN (De lado a lado, sin márgenes) -->
+    <!-- 2. LA IMAGEN PANORÁMICA -->
     {% if page.image %}
-    <div class="container-fluid px-0 mb-5">
+    <div class="container-fluid px-0 mb-4">
         <img src="{{ page.image }}" alt="{{ page.title }}" class="hero-imagen">
     </div>
     {% endif %}
@@ -77,30 +81,30 @@ layout: default
     <!-- 3. EL TEXTO DE LA EXPOSICIÓN -->
     <div class="container mb-5">
         <div class="row">
-            <!-- Lo limitamos a 8 columnas para que el texto no sea infinito y se lea bien -->
             <div class="col-12 col-md-10 col-lg-8 texto-intro">
                 {{ content }}
             </div>
         </div>
     </div>
 
-    <!-- 4. CATÁLOGO / CUADRÍCULA -->
-    <div class="container pt-4">
-        <h4 class="mb-4" style="font-weight: 800; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem;">
-            Obras en la colección
-        </h4>
+    <!-- 4. CATÁLOGO / CUADRÍCULA MÁS COMPACTA -->
+    <div class="container pt-3">
+        <div class="d-flex justify-content-between align-items-end border-bottom pb-2 mb-4">
+            <h4 class="mb-0" style="font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem; color:#888;">
+                Obras en la colección
+            </h4>
+        </div>
         
         <div class="row cb-galeria">
             {% assign lista_libros = page.libros | split: "," %}
             {% for id_libro in lista_libros %}
                 {% assign id_limpio = id_libro | strip %}
-                <div class="col-12 col-md-6 col-lg-4 mb-5">
+                <!-- AJUSTADO: col-lg-3 significa que caben 4 libros por fila (haciéndolos un 25% más pequeños) -->
+                <div class="col-12 col-sm-6 col-lg-3 mb-5">
                     {% include feature/card.html objectid=id_limpio %}
                 </div>
             {% endfor %}
         </div>
     </div>
-
-</div>
 
 </div>
