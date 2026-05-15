@@ -2,57 +2,105 @@
 layout: default
 ---
 
-<div class="py-5" style="background-color: #fafafa;">
-    <div class="container text-center py-4">
-        <h1 class="display-3 mb-4" style="font-weight: 300; letter-spacing: -1px; color: #222;">
-            {{ page.title }}
-        </h1>
-        
-        <div style="width: 60px; height: 2px; background-color: #333; margin: 0 auto 40px;"></div>
+<!-- Importamos una tipografía moderna y premium para este diseño -->
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;800;900&display=swap');
 
-        {% if page.image %}
-        <div class="row justify-content-center">
-            <div class="col-12 col-md-10 col-lg-8">
-                <img src="{{ page.image }}" alt="{{ page.title }}" class="img-fluid" 
-                     style="box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #eee; background: white; padding: 10px;">
+    .estilo-pixpa {
+        font-family: 'Inter', sans-serif;
+        background-color: #ffffff; /* Blanco puro */
+        color: #111111;
+    }
+
+    /* Título gigante y responsivo (se adapta al móvil) */
+    .hero-titulo {
+        font-weight: 900;
+        font-size: clamp(3rem, 6vw, 5.5rem); 
+        line-height: 1.05;
+        letter-spacing: -2px;
+        text-transform: uppercase;
+        margin-bottom: 2rem;
+    }
+
+    /* Imagen contundente de lado a lado */
+    .hero-imagen {
+        width: 100%;
+        height: 60vh; /* Ocupa el 60% del alto de la pantalla */
+        object-fit: cover;
+        object-position: center;
+    }
+
+    /* Texto de introducción limpio y legible */
+    .texto-intro p {
+        font-size: 1.3rem;
+        font-weight: 300;
+        line-height: 1.6;
+        color: #333;
+    }
+
+    /* Quitamos el aspecto de "tarjeta clásica" a los libros para hacerlos más modernos */
+    .cb-galeria .card {
+        border: none !important;
+        border-radius: 0 !important;
+        background: transparent;
+    }
+    .cb-galeria .card-body {
+        padding: 1.5rem 0 0 0 !important;
+    }
+    .cb-galeria .card-title {
+        font-weight: 800;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+    }
+</style>
+
+<div class="estilo-pixpa pb-5">
+
+    <!-- 1. ZONA DEL TÍTULO (Izquierda, masivo) -->
+    <div class="container pt-5 pb-4">
+        <div class="row">
+            <div class="col-12 col-lg-10">
+                <h1 class="hero-titulo">{{ page.title }}</h1>
+                <!-- Pequeña línea negra de acento muy típica en Pixpa -->
+                <div style="width: 60px; height: 5px; background-color: #111; margin-bottom: 2rem;"></div>
             </div>
         </div>
-        {% endif %}
     </div>
-</div>
 
-<div class="container mt-5">
-    
-    <div class="row justify-content-center mb-5">
-        <div class="col-12 col-md-8">
-            <div class="introduccion-coleccion" style="font-size: 1.15rem; line-height: 1.8; color: #444; font-family: 'Georgia', serif;">
+    <!-- 2. LA IMAGEN (De lado a lado, sin márgenes) -->
+    {% if page.image %}
+    <div class="container-fluid px-0 mb-5">
+        <img src="{{ page.image }}" alt="{{ page.title }}" class="hero-imagen">
+    </div>
+    {% endif %}
+
+    <!-- 3. EL TEXTO DE LA EXPOSICIÓN -->
+    <div class="container mb-5">
+        <div class="row">
+            <!-- Lo limitamos a 8 columnas para que el texto no sea infinito y se lea bien -->
+            <div class="col-12 col-md-10 col-lg-8 texto-intro">
                 {{ content }}
             </div>
         </div>
     </div>
 
-    <div class="text-center mb-5">
-        <h4 class="text-uppercase" style="letter-spacing: 3px; font-size: 0.9rem; color: #888;">Catálogo de Obras</h4>
-    </div>
-
-    <div class="row pb-5">
-        {% assign lista_libros = page.libros | split: "," %}
-        {% for id_libro in lista_libros %}
-            {% assign id_limpio = id_libro | strip %}
-            <div class="col-12 col-md-4 mb-5">
-                <div class="h-100 shadow-sm border-0 card-hover">
+    <!-- 4. CATÁLOGO / CUADRÍCULA -->
+    <div class="container pt-4">
+        <h4 class="mb-4" style="font-weight: 800; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem;">
+            Obras en la colección
+        </h4>
+        
+        <div class="row cb-galeria">
+            {% assign lista_libros = page.libros | split: "," %}
+            {% for id_libro in lista_libros %}
+                {% assign id_limpio = id_libro | strip %}
+                <div class="col-12 col-md-6 col-lg-4 mb-5">
                     {% include feature/card.html objectid=id_limpio %}
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
 
 </div>
-
-<style>
-    .card-hover { transition: transform 0.3s ease; }
-    .card-hover:hover { transform: translateY(-5px); }
-    hr { border-top: 1px solid #eee; }
-</style>
 
 </div>
