@@ -6,5 +6,7 @@ libros: jimialm1, img0001
 ---
 
 ### Platero y Yo
+- Esto es una prueba de viñetas en Markdown
+- Segunda viñeta
 
 Aquí podéis escribir todo el texto que queráis...
