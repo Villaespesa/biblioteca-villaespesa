@@ -49,45 +49,41 @@ body {
    PORTADA: COMPOSICIÓN BRUTALISTA
    ========================================= */
 
-/* Transformamos el banner para poder centrar el cuadro negro verticalmente */
 #home-banner, .jumbotron {
     display: flex !important;
-    align-items: center !important; /* Centrado vertical */
-    min-height: 60vh !important; /* Altura del banner */
+    align-items: center !important;
+    min-height: 60vh !important;
     padding: 0 !important;
-    border-bottom: 8px solid #111111 !important; /* Línea dura debajo de la foto */
+    border-bottom: 8px solid #111111 !important;
 }
 
-/* EL SÓLIDO NEGRO: La caja que contiene el texto */
-#home-banner .container,
-.jumbotron .container {
-    background-color: #111111 !important; /* Fondo negro puro */
-    margin-left: 5% !important; /* Nace desde la izquierda */
-    margin-right: auto !important; /* Obliga a que no llegue a la derecha */
-    width: 85% !important;
-    max-width: 700px !important; /* Límite máximo para que corte antes de la derecha */
-    padding: 3rem 2rem !important; /* Espacio interior del rectángulo */
-    text-align: left !important; /* Texto alineado a la izquierda */
-}
-
-/* Destruimos las antiguas cajas grises y redondeadas de CollectionBuilder */
-#home-banner .bg-white, #home-banner .bg-light,
-#home-banner .bg-dark, #home-banner .bg-secondary,
-.jumbotron .rounded {
-    background-color: transparent !important;
-    box-shadow: none !important;
+/* En lugar de hacerla transparente, forzamos a que la caja original sea NUESTRO SÓLIDO NEGRO */
+#home-banner .bg-white, 
+#home-banner .bg-light,
+#home-banner .bg-dark,
+#home-banner .bg-secondary,
+.jumbotron .rounded,
+#home-banner .container > div {
+    background-color: #111111 !important; /* Fondo NEGRO puro garantizado */
+    border-radius: 0 !important; /* Esquinas afiladas, nada de curvas */
     border: none !important;
-    padding: 0 !important;
+    box-shadow: none !important; /* Sin sombras suaves */
+    
+    /* Controlamos su tamaño y posición */
+    padding: 3rem 2.5rem !important; /* Aire por dentro */
+    max-width: 650px !important; /* Ancho máximo para que corte antes de la derecha */
+    margin-left: 0 !important; /* Anclado a la izquierda */
+    text-align: left !important;
 }
 
-/* Título Brutalista (Archivo Black, Blanco, Sin Sombras) */
+/* Título Brutalista (Archivo Black) */
 .jumbotron h1, 
 h1.display-4 {
     font-family: 'Archivo Black', sans-serif !important;
     font-size: clamp(2.5rem, 5vw, 4rem) !important;
     line-height: 1.1 !important;
     color: #ffffff !important;
-    text-shadow: none !important; /* Destruimos la sombra */
+    text-shadow: none !important; 
     text-transform: uppercase !important;
     margin-bottom: 1rem !important;
 }
@@ -98,6 +94,6 @@ h1.display-4 {
     font-weight: 400 !important;
     font-size: 1.15rem !important;
     color: #ffffff !important;
-    text-shadow: none !important; /* Destruimos la sombra */
+    text-shadow: none !important; 
     margin-bottom: 0 !important;
 }
