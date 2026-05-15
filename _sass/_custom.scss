@@ -46,53 +46,62 @@ body {
 }
 
 /* =========================================
-   PORTADA: COMPOSICIÓN BRUTALISTA
+   PORTADA: COMPOSICIÓN BRUTALISTA (CINTA SUPERIOR)
    ========================================= */
 
 #home-banner, .jumbotron {
     display: flex !important;
-    align-items: center !important;
-    min-height: 60vh !important;
+    align-items: flex-start !important; /* Empuja el contenido arriba del todo */
+    min-height: 60vh !important; /* Mantenemos la altura total del banner para ver la foto */
     padding: 0 !important;
     border-bottom: 8px solid #111111 !important;
 }
 
-/* En lugar de hacerla transparente, forzamos a que la caja original sea NUESTRO SÓLIDO NEGRO */
+/* Rompemos las cadenas del contenedor para que ocupe el 100% de la pantalla */
+#home-banner .container,
+.jumbotron .container {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* El Sólido Negro transformado en una franja horizontal */
 #home-banner .bg-white, 
 #home-banner .bg-light,
 #home-banner .bg-dark,
 #home-banner .bg-secondary,
 .jumbotron .rounded,
 #home-banner .container > div {
-    background-color: #111111 !important; /* Fondo NEGRO puro garantizado */
-    border-radius: 0 !important; /* Esquinas afiladas, nada de curvas */
+    background-color: #111111 !important; 
+    border-radius: 0 !important; 
     border: none !important;
-    box-shadow: none !important; /* Sin sombras suaves */
+    box-shadow: none !important; 
     
-    /* Controlamos su tamaño y posición */
-    padding: 3rem 2.5rem !important; /* Aire por dentro */
-    max-width: 650px !important; /* Ancho máximo para que corte antes de la derecha */
-    margin-left: 0 !important; /* Anclado a la izquierda */
+    /* Forma de cinta de lado a lado */
+    width: 100% !important; 
+    max-width: 100% !important;
+    padding: 1.5rem 5% !important; /* Menos altura (1.5rem) y se despega un poco de los lados (5%) */
+    margin: 0 !important; 
     text-align: left !important;
 }
 
-/* Título Brutalista (Archivo Black) */
+/* Título Brutalista (Ajustado un poco para que encaje mejor en la cinta) */
 .jumbotron h1, 
 h1.display-4 {
     font-family: 'Archivo Black', sans-serif !important;
-    font-size: clamp(2.5rem, 5vw, 4rem) !important;
+    font-size: clamp(2rem, 4vw, 3.5rem) !important; /* Un pelín más pequeño */
     line-height: 1.1 !important;
     color: #ffffff !important;
     text-shadow: none !important; 
     text-transform: uppercase !important;
-    margin-bottom: 1rem !important;
+    margin-bottom: 0.2rem !important; /* Margen reducido */
 }
 
 /* Subtítulo */
 .jumbotron p.lead {
     font-family: 'Inter', sans-serif !important;
     font-weight: 400 !important;
-    font-size: 1.15rem !important;
+    font-size: 1.1rem !important;
     color: #ffffff !important;
     text-shadow: none !important; 
     margin-bottom: 0 !important;
