@@ -1,23 +1,36 @@
 ---
-layout: page
+layout: default
 ---
 
+<!-- 1. ZONA DEL BANNER -->
+{% if page.image %}
+<!-- Si el compañero ha puesto una imagen, se dibuja el banner gigante -->
+<div class="py-5 mb-4 text-center text-white" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{{ page.image }}'); background-size: cover; background-position: center;">
+    <div class="container my-5">
+        <h1 class="display-4 fw-bold">{{ page.title }}</h1>
+    </div>
+</div>
+{% else %}
+<!-- Si al compañero se le olvida poner imagen, ponemos el título normal para que no se rompa nada -->
 <div class="container py-4">
+    <h1 class="mb-2">{{ page.title }}</h1>
+</div>
+{% endif %}
+
+<!-- 2. ZONA DEL CONTENIDO Y LIBROS -->
+<div class="container py-3">
     
-    <!-- Aquí es donde se inyectará el texto normal que escriban tus compañeros -->
-    <div class="introduccion-coleccion mb-5">
+    <!-- Texto introductorio -->
+    <div class="introduccion-coleccion mb-5" style="font-size: 1.1rem;">
         {{ content }}
     </div>
 
     <hr>
     <h3 class="mb-4">Libros en esta colección</h3>
 
-    <!-- El motor automático que tú has programado -->
+    <!-- Motor de tarjetas -->
     <div class="row">
-        <!-- Toma los IDs que tu compañero haya escrito y los separa por las comas -->
         {% assign lista_libros = page.libros | split: "," %}
-        
-        <!-- Por cada ID, dibuja una tarjeta de 4 espacios (3 libros por fila) -->
         {% for id_libro in lista_libros %}
             {% assign id_limpio = id_libro | strip %}
             <div class="col-12 col-md-4 mb-4">
