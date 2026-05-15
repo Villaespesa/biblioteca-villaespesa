@@ -2,41 +2,57 @@
 layout: default
 ---
 
-<!-- 1. ZONA DEL BANNER -->
-{% if page.image %}
-<!-- Si el compañero ha puesto una imagen, se dibuja el banner gigante -->
-<div class="py-5 mb-4 text-center text-white" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{{ page.image }}'); background-size: cover; background-position: center;">
-    <div class="container my-5">
-        <h1 class="display-4 fw-bold">{{ page.title }}</h1>
+<div class="py-5" style="background-color: #fafafa;">
+    <div class="container text-center py-4">
+        <h1 class="display-3 mb-4" style="font-weight: 300; letter-spacing: -1px; color: #222;">
+            {{ page.title }}
+        </h1>
+        
+        <div style="width: 60px; height: 2px; background-color: #333; margin: 0 auto 40px;"></div>
+
+        {% if page.image %}
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8">
+                <img src="{{ page.image }}" alt="{{ page.title }}" class="img-fluid" 
+                     style="box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #eee; background: white; padding: 10px;">
+            </div>
+        </div>
+        {% endif %}
     </div>
 </div>
-{% else %}
-<!-- Si al compañero se le olvida poner imagen, ponemos el título normal para que no se rompa nada -->
-<div class="container py-4">
-    <h1 class="mb-2">{{ page.title }}</h1>
-</div>
-{% endif %}
 
-<!-- 2. ZONA DEL CONTENIDO Y LIBROS -->
-<div class="container py-3">
+<div class="container mt-5">
     
-    <!-- Texto introductorio -->
-    <div class="introduccion-coleccion mb-5" style="font-size: 1.1rem;">
-        {{ content }}
+    <div class="row justify-content-center mb-5">
+        <div class="col-12 col-md-8">
+            <div class="introduccion-coleccion" style="font-size: 1.15rem; line-height: 1.8; color: #444; font-family: 'Georgia', serif;">
+                {{ content }}
+            </div>
+        </div>
     </div>
 
-    <hr>
-    <h3 class="mb-4">Libros en esta colección</h3>
+    <div class="text-center mb-5">
+        <h4 class="text-uppercase" style="letter-spacing: 3px; font-size: 0.9rem; color: #888;">Catálogo de Obras</h4>
+    </div>
 
-    <!-- Motor de tarjetas -->
-    <div class="row">
+    <div class="row pb-5">
         {% assign lista_libros = page.libros | split: "," %}
         {% for id_libro in lista_libros %}
             {% assign id_limpio = id_libro | strip %}
-            <div class="col-12 col-md-4 mb-4">
-                {% include feature/card.html objectid=id_limpio %}
+            <div class="col-12 col-md-4 mb-5">
+                <div class="h-100 shadow-sm border-0 card-hover">
+                    {% include feature/card.html objectid=id_limpio %}
+                </div>
             </div>
         {% endfor %}
     </div>
+
+</div>
+
+<style>
+    .card-hover { transition: transform 0.3s ease; }
+    .card-hover:hover { transform: translateY(-5px); }
+    hr { border-top: 1px solid #eee; }
+</style>
 
 </div>
