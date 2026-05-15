@@ -1,4 +1,86 @@
-/* 
-    Put your custom SCSS here! 
-    This allows you to override any CollectionBuilder or Bootstrap CSS without modifying the base theme files directly.
-*/
+/* =========================================
+   TEMA GLOBAL: ESTILO GALERÍA / BRUTALISTA 
+   ========================================= */
+
+/* 1. IMPORTAR TIPOGRAFÍA PREMIUM */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
+
+/* 2. APLICACIÓN GLOBAL A TODA LA WEB */
+body {
+    font-family: 'Inter', sans-serif !important;
+    background-color: #ffffff !important; /* Fondo blanco puro general */
+    color: #111111 !important;
+}
+
+/* =========================================
+   BARRA DE NAVEGACIÓN (HEADER)
+   ========================================= */
+
+.navbar {
+    background-color: #ffffff !important;
+    border-bottom: 4px solid #111111 !important; /* Línea gruesa y dura debajo del menú */
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+}
+
+/* Nombre de la biblioteca (Logo texto) */
+.navbar-brand {
+    font-weight: 900 !important;
+    text-transform: uppercase !important;
+    letter-spacing: -1px !important;
+    color: #111111 !important;
+    font-size: 1.5rem !important;
+}
+
+/* Enlaces del menú (Inicio, Browse, etc.) */
+.navbar-light .navbar-nav .nav-link,
+.navbar-dark .navbar-nav .nav-link {
+    color: #111111 !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    font-size: 0.85rem !important;
+    padding: 0.5rem 1rem !important;
+    margin: 0 0.2rem;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Efecto brutalista al pasar el ratón por el menú (Fondo negro, letra blanca) */
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:hover {
+    background-color: #111111 !important;
+    color: #ffffff !important;
+}
+
+/* =========================================
+   PORTADA (JUMBOTRON)
+   ========================================= */
+
+.jumbotron, 
+#home-banner {
+    background-color: #ffffff !important;
+    background-image: none !important;
+    border-bottom: 8px solid #111111 !important;
+    border-radius: 0 !important;
+    padding-top: 5rem !important;
+    padding-bottom: 4rem !important;
+}
+
+/* Título gigante de la portada */
+.jumbotron h1, 
+h1.display-4 {
+    font-weight: 900 !important;
+    font-size: clamp(3rem, 8vw, 6rem) !important;
+    line-height: 1 !important;
+    letter-spacing: -3px !important;
+    text-transform: uppercase !important;
+    color: #111111 !important;
+    margin-bottom: 1.5rem !important;
+}
+
+/* Subtítulo de la portada */
+.jumbotron p.lead {
+    font-weight: 300 !important;
+    font-size: 1.25rem !important;
+    color: #333333 !important;
+}
