@@ -46,35 +46,45 @@ body {
 }
 
 /* =========================================
-   PORTADA: COMPOSICIÓN BRUTALISTA (CINTA SUPERIOR 100%)
+   PORTADA: CINTA SUPERIOR DE LADO A LADO 100%
    ========================================= */
 
+/* 1. Mantenemos el banner base */
 #home-banner, .jumbotron {
-    display: flex !important;
-    align-items: flex-start !important; /* Empuja todo al techo */
     min-height: 60vh !important; 
     padding: 0 !important;
     border-bottom: 8px solid #111111 !important;
+    display: block !important; /* Eliminamos el flex del contenedor principal */
 }
 
-/* DESTRUIMOS LOS LÍMITES DE LA CUADRÍCULA INTERNA DE COLLECTIONBUILDER */
+/* 2. DESTRUIMOS EL CENTRADO NATIVO DE BOOTSTRAP */
 #home-banner .container,
-#home-banner .row,
-#home-banner [class*="col-"] {
-    max-width: 100% !important;
+#home-banner .container-fluid,
+#home-banner .row {
+    height: auto !important; 
+    display: block !important; /* Esto aniquila el 'align-items-center' nativo */
+    margin: 0 !important;
+    padding: 0 !important;
     width: 100% !important;
-    flex: 0 0 100% !important; /* Obliga a la columna a ocupar el 100% */
+    max-width: 100% !important;
+}
+
+/* 3. DESTRUIMOS LAS RESTRICCIONES DE LA COLUMNA (ej. col-md-8) */
+#home-banner .row > div[class*="col-"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: none !important;
     padding: 0 !important;
     margin: 0 !important;
 }
 
-/* El Sólido Negro: Franja de extremo a extremo */
+/* 4. LA CINTA NEGRA DEFINITIVA */
 #home-banner .bg-white, 
 #home-banner .bg-light,
 #home-banner .bg-dark,
 #home-banner .bg-secondary,
 .jumbotron .rounded,
-#home-banner .container > .row > div {
+#home-banner .p-4 {
     background-color: #111111 !important; 
     border-radius: 0 !important; 
     border: none !important;
@@ -85,6 +95,7 @@ body {
     padding: 1.5rem 5% !important; 
     margin: 0 !important; 
     text-align: left !important;
+    display: block !important; /* Asegura que fluya como un bloque */
 }
 
 /* Título Brutalista */
