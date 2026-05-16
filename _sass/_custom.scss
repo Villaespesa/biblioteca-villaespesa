@@ -46,55 +46,57 @@ body {
 }
 
 /* =========================================
-   PORTADA: COMPOSICIÓN BRUTALISTA (CINTA SUPERIOR)
+   PORTADA: COMPOSICIÓN BRUTALISTA (CINTA SUPERIOR 100%)
    ========================================= */
 
 #home-banner, .jumbotron {
     display: flex !important;
-    align-items: flex-start !important; /* Empuja el contenido arriba del todo */
-    min-height: 60vh !important; /* Mantenemos la altura total del banner para ver la foto */
+    align-items: flex-start !important; /* Empuja todo al techo */
+    min-height: 60vh !important; 
     padding: 0 !important;
     border-bottom: 8px solid #111111 !important;
 }
 
-/* Rompemos las cadenas del contenedor para que ocupe el 100% de la pantalla */
+/* DESTRUIMOS LOS LÍMITES DE LA CUADRÍCULA INTERNA DE COLLECTIONBUILDER */
 #home-banner .container,
-.jumbotron .container {
+#home-banner .row,
+#home-banner [class*="col-"] {
     max-width: 100% !important;
+    width: 100% !important;
+    flex: 0 0 100% !important; /* Obliga a la columna a ocupar el 100% */
     padding: 0 !important;
     margin: 0 !important;
 }
 
-/* El Sólido Negro transformado en una franja horizontal */
+/* El Sólido Negro: Franja de extremo a extremo */
 #home-banner .bg-white, 
 #home-banner .bg-light,
 #home-banner .bg-dark,
 #home-banner .bg-secondary,
 .jumbotron .rounded,
-#home-banner .container > div {
+#home-banner .container > .row > div {
     background-color: #111111 !important; 
     border-radius: 0 !important; 
     border: none !important;
     box-shadow: none !important; 
     
-    /* Forma de cinta de lado a lado */
     width: 100% !important; 
     max-width: 100% !important;
-    padding: 1.5rem 5% !important; /* Menos altura (1.5rem) y se despega un poco de los lados (5%) */
+    padding: 1.5rem 5% !important; 
     margin: 0 !important; 
     text-align: left !important;
 }
 
-/* Título Brutalista (Ajustado un poco para que encaje mejor en la cinta) */
+/* Título Brutalista */
 .jumbotron h1, 
 h1.display-4 {
     font-family: 'Archivo Black', sans-serif !important;
-    font-size: clamp(2rem, 4vw, 3.5rem) !important; /* Un pelín más pequeño */
+    font-size: clamp(2rem, 4vw, 3.5rem) !important; 
     line-height: 1.1 !important;
     color: #ffffff !important;
     text-shadow: none !important; 
     text-transform: uppercase !important;
-    margin-bottom: 0.2rem !important; /* Margen reducido */
+    margin-bottom: 0.2rem !important; 
 }
 
 /* Subtítulo */
