@@ -1,9 +1,9 @@
 display_name,stub,dropdown_parent
 Inicio,/
-Navegación,/browse.html
+Libros,/browse.html
 Temas,/subjects.html
-Localizaciones,/locations.html
-Mapas,/map.html
-Líneas de Tiempo,/timeline.html
+Lugar,/locations.html
+Mapa,/map.html
+Cronograma,/timeline.html
 Datos,/data.html
-Sobre nosotros,/about.html
+Nosotros,/about.html
