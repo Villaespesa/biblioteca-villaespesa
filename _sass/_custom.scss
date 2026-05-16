@@ -12,39 +12,49 @@ body {
 }
 
 /* =========================================
-   BARRA DE NAVEGACIÓN (SÓLIDA NEGRA)
+   BARRA DE NAVEGACIÓN (FUSIONADA Y BRUTALISTA)
    ========================================= */
 
 .navbar {
     background-color: #111111 !important;
     border: none !important;
-    padding-top: 1.2rem !important;
-    padding-bottom: 1.2rem !important;
+    padding-top: 1.5rem !important;
+    padding-bottom: 0 !important; /* Elimina el espacio para pegarse al banner */
 }
 
+/* El nombre de tu sitio (Logo textual) */
 .navbar-brand {
     font-family: 'Archivo Black', sans-serif !important;
     color: #ffffff !important;
     text-transform: uppercase !important;
-    font-size: 1.5rem !important;
+    font-size: 1.8rem !important;
     letter-spacing: 1px !important;
 }
 
+/* Enlaces del menú transformados en BOTONES BRUTALISTAS */
 .navbar-light .navbar-nav .nav-link,
 .navbar-dark .navbar-nav .nav-link {
+    font-family: 'Archivo Black', sans-serif !important;
     color: #ffffff !important;
-    font-weight: 700 !important;
     text-transform: uppercase !important;
+    font-size: 0.9rem !important;
     letter-spacing: 1px !important;
-    font-size: 0.85rem !important;
+    
+    /* El estilo exacto del recuadro */
+    border: 2px solid #ffffff !important; 
+    border-radius: 0 !important; /* Cero curvas */
+    padding: 0.5rem 1rem !important;
+    margin-left: 0.5rem !important;
+    margin-bottom: 1rem !important; /* Da un poco de aire antes del título */
+    transition: all 0.2s ease-in-out !important;
 }
 
+/* Efecto al pasar el ratón (Inversión agresiva a blanco) */
 .navbar-light .navbar-nav .nav-link:hover,
 .navbar-dark .navbar-nav .nav-link:hover {
     background-color: #ffffff !important;
     color: #111111 !important;
 }
-
 /* =========================================
    PORTADA: ESTILOS VISUALES PUROS (SIN PARCHES)
    ========================================= */
