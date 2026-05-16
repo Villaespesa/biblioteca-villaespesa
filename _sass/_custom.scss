@@ -2,7 +2,7 @@
    TEMA GLOBAL: ESTILO BRUTALISTA EXTREMO
    ========================================= */
 
-/* 1. IMPORTAR TIPOGRAFÍAS (Archivo Black para títulos, Inter para textos largos) */
+/* 1. IMPORTAR TIPOGRAFÍAS */
 @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;700&display=swap');
 
 body {
@@ -46,43 +46,26 @@ body {
 }
 
 /* =========================================
-   PORTADA: CINTA SUPERIOR (MODO DIOS)
+   PORTADA: ESTILOS VISUALES PUROS (SIN PARCHES)
    ========================================= */
 
-/* 1. El banner principal es nuestra referencia de coordenadas (0,0) */
-div#home-banner, div.jumbotron {
-    position: relative !important;
-    min-height: 60vh !important;
-    padding: 0 !important;
+/* Mantenemos solo el borde inferior duro */
+#home-banner, .jumbotron {
     border-bottom: 8px solid #111111 !important;
-    display: block !important;
 }
 
-/* 2. Apuntamos DIRECTAMENTE a la caja final (saltando contenedores y filas) */
-div#home-banner .container-fluid div.row > div,
-div#home-banner .container div.row > div,
-div.jumbotron div.row > div {
-    position: absolute !important;
-    top: 0 !important;      /* Clavado al techo milimétricamente */
-    left: 0 !important;     /* Clavado a la izquierda */
-    
-    width: 100% !important;
-    max-width: 100% !important;
-    
+/* Esta es la clase visual que aplicaremos luego al HTML */
+.cinta-brutalista {
     background-color: #111111 !important;
-    border-radius: 0 !important;
-    border: none !important;
-    box-shadow: none !important;
-    
     padding: 1.5rem 5% !important;
-    margin: 0 !important;
-    text-align: left !important;
-    z-index: 10 !important; /* Obliga a que la cinta esté siempre por encima de la foto */
+    text-align: left;
+    width: 100%;
 }
 
 /* Título Brutalista */
 .jumbotron h1, 
-h1.display-4 {
+h1.display-4,
+.cinta-brutalista h1 {
     font-family: 'Archivo Black', sans-serif !important;
     font-size: clamp(2rem, 4vw, 3.5rem) !important; 
     line-height: 1.1 !important;
@@ -93,7 +76,8 @@ h1.display-4 {
 }
 
 /* Subtítulo */
-.jumbotron p.lead {
+.jumbotron p.lead,
+.cinta-brutalista p.lead {
     font-family: 'Inter', sans-serif !important;
     font-weight: 400 !important;
     font-size: 1.1rem !important;
