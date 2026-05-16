@@ -46,58 +46,38 @@ body {
 }
 
 /* =========================================
-   PORTADA: CINTA SUPERIOR (MÉTODO ABSOLUTO)
+   PORTADA: CINTA SUPERIOR (MODO DIOS)
    ========================================= */
 
-/* 1. Convertimos el banner en nuestra pared de referencia */
-#home-banner, .jumbotron {
-    min-height: 60vh !important; 
+/* 1. El banner principal es nuestra referencia de coordenadas (0,0) */
+div#home-banner, div.jumbotron {
+    position: relative !important;
+    min-height: 60vh !important;
     padding: 0 !important;
     border-bottom: 8px solid #111111 !important;
-    position: relative !important; /* Crucial para que el texto no se escape del banner */
+    display: block !important;
 }
 
-/* 2. Arrancamos el contenedor de su sitio y lo clavamos al techo */
-#home-banner .container,
-#home-banner .container-fluid {
-    position: absolute !important; /* Rompe todas las reglas de Bootstrap */
-    top: 0 !important; /* Pégate al techo */
-    left: 0 !important; /* Pégate a la izquierda */
+/* 2. Apuntamos DIRECTAMENTE a la caja final (saltando contenedores y filas) */
+div#home-banner .container-fluid div.row > div,
+div#home-banner .container div.row > div,
+div.jumbotron div.row > div {
+    position: absolute !important;
+    top: 0 !important;      /* Clavado al techo milimétricamente */
+    left: 0 !important;     /* Clavado a la izquierda */
+    
     width: 100% !important;
     max-width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-/* 3. Limpiamos cualquier altura residual de la fila interior */
-#home-banner .row {
-    margin: 0 !important;
-    padding: 0 !important;
-    height: auto !important; 
-}
-#home-banner .row > div[class*="col-"] {
-    max-width: 100% !important;
-    flex: 0 0 100% !important;
-    padding: 0 !important;
-}
-
-/* 4. La Cinta Negra */
-#home-banner .bg-white, 
-#home-banner .bg-light,
-#home-banner .bg-dark,
-#home-banner .bg-secondary,
-.jumbotron .rounded,
-#home-banner .p-4 {
-    background-color: #111111 !important; 
-    border-radius: 0 !important; 
-    border: none !important;
-    box-shadow: none !important; 
     
-    width: 100% !important; 
-    max-width: 100% !important;
-    padding: 1.5rem 5% !important; 
-    margin: 0 !important; 
+    background-color: #111111 !important;
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    
+    padding: 1.5rem 5% !important;
+    margin: 0 !important;
     text-align: left !important;
+    z-index: 10 !important; /* Obliga a que la cinta esté siempre por encima de la foto */
 }
 
 /* Título Brutalista */
