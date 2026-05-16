@@ -46,39 +46,42 @@ body {
 }
 
 /* =========================================
-   PORTADA: CINTA SUPERIOR DE LADO A LADO 100%
+   PORTADA: CINTA SUPERIOR (MÉTODO ABSOLUTO)
    ========================================= */
 
-/* 1. Mantenemos el banner base */
+/* 1. Convertimos el banner en nuestra pared de referencia */
 #home-banner, .jumbotron {
     min-height: 60vh !important; 
     padding: 0 !important;
     border-bottom: 8px solid #111111 !important;
-    display: block !important; /* Eliminamos el flex del contenedor principal */
+    position: relative !important; /* Crucial para que el texto no se escape del banner */
 }
 
-/* 2. DESTRUIMOS EL CENTRADO NATIVO DE BOOTSTRAP */
+/* 2. Arrancamos el contenedor de su sitio y lo clavamos al techo */
 #home-banner .container,
-#home-banner .container-fluid,
+#home-banner .container-fluid {
+    position: absolute !important; /* Rompe todas las reglas de Bootstrap */
+    top: 0 !important; /* Pégate al techo */
+    left: 0 !important; /* Pégate a la izquierda */
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* 3. Limpiamos cualquier altura residual de la fila interior */
 #home-banner .row {
+    margin: 0 !important;
+    padding: 0 !important;
     height: auto !important; 
-    display: block !important; /* Esto aniquila el 'align-items-center' nativo */
-    margin: 0 !important;
-    padding: 0 !important;
-    width: 100% !important;
-    max-width: 100% !important;
 }
-
-/* 3. DESTRUIMOS LAS RESTRICCIONES DE LA COLUMNA (ej. col-md-8) */
 #home-banner .row > div[class*="col-"] {
-    width: 100% !important;
     max-width: 100% !important;
-    flex: none !important;
+    flex: 0 0 100% !important;
     padding: 0 !important;
-    margin: 0 !important;
 }
 
-/* 4. LA CINTA NEGRA DEFINITIVA */
+/* 4. La Cinta Negra */
 #home-banner .bg-white, 
 #home-banner .bg-light,
 #home-banner .bg-dark,
@@ -95,7 +98,6 @@ body {
     padding: 1.5rem 5% !important; 
     margin: 0 !important; 
     text-align: left !important;
-    display: block !important; /* Asegura que fluya como un bloque */
 }
 
 /* Título Brutalista */
