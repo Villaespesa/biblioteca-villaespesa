@@ -28,13 +28,23 @@
             {% if site.tagline %}<p class="lead mb-0">{{ site.tagline }}</p>{% endif %}
         </div>
 
-        <!-- Bloque Derecho: Buscador Brutalista -->
+       <!-- Bloque Derecho: Buscador Brutalista (Con Motor Conectado) -->
         <div class="mt-4 mt-md-0 ms-md-4" style="min-width: 280px;">
-            <form class="d-flex" role="search" action="{{ '/search.html' | relative_url }}" method="get">
-                <input class="form-control me-2" type="search" name="q" placeholder="Buscar..." aria-label="Search">
+            <form class="d-flex" id="brutal-search-form" role="search">
+                <input id="brutal-search-input" class="form-control me-2" type="text" placeholder="Buscar..." aria-label="Search" required>
                 <button class="btn btn-outline-light" type="submit" style="border-radius: 0; border-width: 2px; font-family: 'Archivo Black', sans-serif; text-transform: uppercase;">IR</button>
             </form>
         </div>
+
+        <!-- El "Cable" que conecta el buscador con CollectionBuilder -->
+        <script>
+        document.getElementById('brutal-search-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Evita que la página simplemente se recargue
+            var query = document.getElementById('brutal-search-input').value;
+            // Te lanza directamente a la página de resultados nativa con tu palabra
+            window.location.href = "{{ '/search.html' | relative_url }}?q=" + encodeURIComponent(query);
+        });
+        </script>
 
     </div>
 
