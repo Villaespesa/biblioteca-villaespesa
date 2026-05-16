@@ -95,3 +95,35 @@ h1.display-4,
     text-shadow: none !important; 
     margin-bottom: 0 !important;
 }
+/* =========================================
+   BUSCADOR BRUTALISTA
+   ========================================= */
+
+/* 1. Ocultamos el buscador por defecto de la barra de navegación */
+.navbar form[role="search"],
+.navbar form {
+    display: none !important;
+}
+
+/* 2. Estilos para el nuevo buscador en la cinta negra */
+.cinta-brutalista input[type="search"] {
+    border-radius: 0 !important;
+    border: 2px solid #ffffff !important;
+    background-color: transparent !important;
+    color: #ffffff !important;
+    font-family: 'Inter', sans-serif !important;
+    padding: 0.5rem 1rem !important;
+}
+
+/* Color del texto falso "Buscar..." */
+.cinta-brutalista input[type="search"]::placeholder {
+    color: #aaaaaa !important;
+}
+
+/* Inversión agresiva al hacer clic para escribir */
+.cinta-brutalista input[type="search"]:focus {
+    background-color: #ffffff !important;
+    color: #111111 !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
