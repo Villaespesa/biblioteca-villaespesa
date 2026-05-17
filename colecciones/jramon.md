@@ -6,9 +6,6 @@ description: "Cartas, manuscritos y primeras ediciones del poeta."
 libros: jimialm1, img0001
 ---
 
-## Juan Ramón Jiménez: El Arquitecto de la Palabra
-
-
 *(Fotografía de archivo: Juan Ramón Jiménez)*
 
 **Juan Ramón Jiménez** (1881–1958), galardonado con el **Premio Nobel de Literatura en 1956**, es una de las cumbres irrefutables de la literatura hispánica y universal. Su obra no es solo una colección de versos, sino una transición vital y estética desde el modernismo más colorista hasta la desnudez absoluta de la llamada «poesía pura».
