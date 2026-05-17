@@ -6,6 +6,6 @@ description: "Conoce mejor la historia de la ciudad con nuestras obras más anti
 libros: jimialm1, img0001
 ---
 
-Bienvenidos a esta exposición virtual sobre Juan Ramón Jiménez. 
+Bienvenidos a esta exposición virtual sobre Almería. 
 
 Aquí podéis escribir todo el texto que queráis...
