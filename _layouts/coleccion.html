@@ -141,14 +141,37 @@ layout: default
                 {% assign item = items.first %}
                 
                 {% if item %}
+                
+                <!-- RADAR DE IMAGEN: Busca la mejor calidad y evita que los enlaces se rompan -->
+                {% assign img_src = "" %}
+                {% if item.image_small %}
+                    {% assign img_src = item.image_small %}
+                {% elsif item.image_thumb %}
+                    {% assign img_src = item.image_thumb %}
+                {% else %}
+                    {% assign img_src = item.object_location %}
+                {% endif %}
+
+                <!-- Comprueba si la ruta necesita la dirección base de tu web o si ya es un link completo -->
+                {% if img_src contains 'http' %}
+                    {% assign final_img = img_src %}
+                {% else %}
+                    {% assign final_img = img_src | relative_url %}
+                {% endif %}
+                
                 <!-- Columna: 2 en móvil, 4 en tablet, 6 en escritorio -->
                 <div class="col-6 col-md-3 col-lg-2 mb-4">
                     <!-- ENLACE FORZADO: Te lleva sí o sí a la página del libro -->
                     <a href="{{ '/item.html' | relative_url | append: '?id=' | append: item.objectid }}" class="tarjeta-libro">
                         
                         <!-- Caja de la imagen con proporción tipo portada de libro -->
-                        <div style="border: 2px solid #111; aspect-ratio: 2/3; overflow: hidden; background: #f4f4f4;">
-                            <img src="{{ item.image_small | default: item.image_thumb | default: item.object_location | relative_url }}" alt="{{ item.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div style="border: 2px solid #111; aspect-ratio: 2/3; overflow: hidden; background: #f4f4f4; display: flex; align-items: center; justify-content: center;">
+                            {% if img_src != "" and img_src != nil %}
+                            <img src="{{ final_img }}" alt="{{ item.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                            {% else %}
+                            <!-- Si por algún casual un ítem no tiene foto, mostramos un recuadro de aviso elegante -->
+                            <span style="font-family: 'Archivo Black', sans-serif; font-size: 0.7rem; color: #aaaaaa; text-transform: uppercase;">Sin Portada</span>
+                            {% endif %}
                         </div>
                         
                         <!-- Textos de la miniatura -->
