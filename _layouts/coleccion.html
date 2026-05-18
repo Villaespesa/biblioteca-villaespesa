@@ -142,14 +142,21 @@ layout: default
                 
                 {% if item %}
                 
-                <!-- RADAR DE IMAGEN: Busca la mejor calidad y evita que los enlaces se rompan -->
+                <!-- RADAR DE IMAGEN (Actualizado para el tipo "image" y la columna "filename") -->
                 {% assign img_src = "" %}
-                {% if item.image_small %}
+                {% if item.image_small and item.image_small != "" %}
                     {% assign img_src = item.image_small %}
-                {% elsif item.image_thumb %}
+                {% elsif item.image_thumb and item.image_thumb != "" %}
                     {% assign img_src = item.image_thumb %}
-                {% else %}
+                {% elsif item.object_location and item.object_location != "" %}
                     {% assign img_src = item.object_location %}
+                {% elsif item.filename and item.filename != "" %}
+                    <!-- La clave: si solo tenemos el nombre del archivo, le decimos que mire en la carpeta objects -->
+                    {% if item.filename contains '/' %}
+                        {% assign img_src = item.filename %}
+                    {% else %}
+                        {% assign img_src = '/objects/' | append: item.filename %}
+                    {% endif %}
                 {% endif %}
 
                 <!-- Comprueba si la ruta necesita la dirección base de tu web o si ya es un link completo -->
@@ -166,10 +173,9 @@ layout: default
                         
                         <!-- Caja de la imagen con proporción tipo portada de libro -->
                         <div style="border: 2px solid #111; aspect-ratio: 2/3; overflow: hidden; background: #f4f4f4; display: flex; align-items: center; justify-content: center;">
-                            {% if img_src != "" and img_src != nil %}
+                            {% if img_src != "" %}
                             <img src="{{ final_img }}" alt="{{ item.title }}" style="width: 100%; height: 100%; object-fit: cover;">
                             {% else %}
-                            <!-- Si por algún casual un ítem no tiene foto, mostramos un recuadro de aviso elegante -->
                             <span style="font-family: 'Archivo Black', sans-serif; font-size: 0.7rem; color: #aaaaaa; text-transform: uppercase;">Sin Portada</span>
                             {% endif %}
                         </div>
