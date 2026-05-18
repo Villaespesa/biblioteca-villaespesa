@@ -2,9 +2,10 @@
 layout: default
 ---
 
-<!-- Importamos tipografía moderna y premium -->
+<!-- Importamos tipografías -->
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
 
     .estilo-pixpa {
         font-family: 'Inter', sans-serif;
@@ -12,9 +13,9 @@ layout: default
         color: #111111;
     }
 
-    /* Título principal contundente */
+    /* 1. Título principal contundente */
     .hero-titulo {
-        font-weight: 900;
+        font-family: 'Archivo Black', sans-serif;
         font-size: clamp(2.5rem, 5vw, 4.5rem); 
         line-height: 1.1;
         letter-spacing: -1.5px;
@@ -22,108 +23,151 @@ layout: default
         margin-bottom: 1.5rem;
     }
 
-    /* Imagen panorámica controlada (40vh) */
+    /* 2. Imagen panorámica controlada (40vh) */
     .hero-imagen {
         width: 100%;
         height: 40vh; 
         max-height: 400px;
         object-fit: cover;
         object-position: center;
+        border-top: 4px solid #111111;
+        border-bottom: 4px solid #111111;
     }
 
-    /* Texto de introducción */
-    .texto-intro p {
+    /* 3. El Cuerpo del Periódico (2 columnas) */
+    .cuerpo-periodico {
+        font-family: 'Inter', sans-serif;
         font-size: 1.15rem;
-        font-weight: 300;
-        line-height: 1.6;
-        color: #333;
+        line-height: 1.8;
+        color: #111111;
+        column-count: 2; /* Divide a dos columnas */
+        column-gap: 4rem; /* Espacio central */
+        column-rule: 2px solid #111111; /* Raya en medio */
+        text-align: justify;
     }
 
-    /* NUEVO: Etiqueta negra minimalista para la sección de obras */
+    /* Subtítulos dentro del texto que rompen las columnas */
+    .cuerpo-periodico h2, 
+    .cuerpo-periodico h3 {
+        font-family: 'Archivo Black', sans-serif;
+        text-transform: uppercase;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        column-span: all;
+    }
+
+    /* En móvil se vuelve 1 sola columna para poder leerlo bien */
+    @media (max-width: 768px) {
+        .cuerpo-periodico {
+            column-count: 1;
+            column-rule: none;
+            text-align: left;
+        }
+    }
+
+    /* 4. Etiqueta negra minimalista para la sección de obras */
     .etiqueta-obras {
         display: inline-block;
         background-color: #111111;
         color: #ffffff;
-        font-family: 'Inter', sans-serif;
-        font-weight: 700;
-        font-size: 0.85rem;
+        font-family: 'Archivo Black', sans-serif;
+        font-size: 0.9rem;
         text-transform: uppercase;
         letter-spacing: 2px;
         padding: 10px 20px;
         margin-bottom: 2.5rem;
     }
 
-    /* Estilización de los libros reducidos */
-    .cb-galeria .card {
-        border: none !important;
-        border-radius: 0 !important;
-        background: transparent;
+    /* 5. Enlace duro para los libros */
+    .tarjeta-libro {
+        text-decoration: none !important;
+        color: #111111 !important;
+        display: block;
+        transition: transform 0.2s ease, opacity 0.2s ease;
     }
-    .cb-galeria .card-body {
-        padding: 0.8rem 0 0 0 !important;
-    }
-    .cb-galeria .card-title {
-        font-weight: 700;
-        font-size: 0.9rem; /* Letra más pequeña para encajar en portadas reducidas */
-        line-height: 1.2;
-    }
-    .cb-galeria .card-text {
-        font-size: 0.75rem;
-        color: #666;
+    .tarjeta-libro:hover {
+        opacity: 0.8;
+        transform: translateY(-3px); /* Pequeño salto al pasar el ratón */
     }
 </style>
 
 <div class="estilo-pixpa pb-5">
 
-    <!-- 1. ZONA DEL TÍTULO -->
+    <!-- ZONA DEL TÍTULO Y LA ENTRADILLA -->
     <div class="container pt-5 pb-3">
         <div class="row">
             <div class="col-12 col-lg-10">
                 <h1 class="hero-titulo">{{ page.title }}</h1>
-                <div style="width: 50px; height: 4px; background-color: #111; margin-bottom: 1.5rem;"></div>
+                <div style="width: 60px; height: 6px; background-color: #111; margin-bottom: 2rem;"></div>
+                
+                <!-- Ahora usamos "description" para la entradilla periodística -->
+                {% if page.description %}
+                <p style="font-family: 'Inter', sans-serif; font-size: 1.4rem; font-weight: 700; color: #111111; max-width: 900px; line-height: 1.5; border-top: 2px solid #111111; border-bottom: 2px solid #111111; padding: 1.5rem 0; margin-bottom: 1rem;">
+                    {{ page.description }}
+                </p>
+                {% endif %}
             </div>
         </div>
     </div>
 
-    <!-- 2. LA IMAGEN PANORÁMICA -->
+    <!-- LA IMAGEN PANORÁMICA -->
     {% if page.image %}
-    <div class="container-fluid px-0 mb-4">
-        <img src="{{ page.image }}" alt="{{ page.title }}" class="hero-imagen">
+    <div class="container-fluid px-0 mb-5">
+        <img src="{{ page.image | relative_url }}" alt="{{ page.title }}" class="hero-imagen">
     </div>
     {% endif %}
 
-    <!-- 3. EL TEXTO DE LA EXPOSICIÓN -->
+    <!-- EL CUERPO DEL TEXTO (Formato Periódico) -->
     <div class="container mb-5">
-        <div class="row">
-            <div class="col-12 col-md-10 col-lg-8 texto-intro">
-                {{ content }}
-            </div>
-        </div>
+        <article class="cuerpo-periodico">
+            {{ content }}
+        </article>
     </div>
 
-    <!-- 4. CATÁLOGO / CUADRÍCULA MINIATURIZADA -->
-    <div class="container pt-3">
+    <!-- CATÁLOGO / CUADRÍCULA DE OBRAS -->
+    <div class="container pt-5 border-top" style="border-color: #111111 !important; border-width: 4px !important;">
         
-        <!-- Bloque rectangular negro alineado a la izquierda -->
         <div class="etiqueta-obras">
             Obras en la colección
         </div>
         
-        <div class="row cb-galeria">
+        <div class="row">
             {% assign lista_libros = page.libros | split: "," %}
             {% for id_libro in lista_libros %}
                 {% assign id_limpio = id_libro | strip %}
                 
-                <!-- AJUSTADO: col-lg-2 hace que quepan 6 obras por fila, haciéndolas muy elegantes y discretas. 
-                     En móviles (col-6) se verán de dos en dos -->
+                <!-- Buscamos los datos exactos del ítem en la base de datos -->
+                {% assign items = site.data[site.metadata] | where: "objectid", id_limpio %}
+                {% assign item = items.first %}
+                
+                {% if item %}
+                <!-- Columna: 2 en móvil, 4 en tablet, 6 en escritorio -->
                 <div class="col-6 col-md-3 col-lg-2 mb-4">
-                    {% include feature/card.html objectid=id_limpio %}
+                    <!-- ENLACE FORZADO: Te lleva sí o sí a la página del libro -->
+                    <a href="{{ '/item.html' | relative_url | append: '?id=' | append: item.objectid }}" class="tarjeta-libro">
+                        
+                        <!-- Caja de la imagen con proporción tipo portada de libro -->
+                        <div style="border: 2px solid #111; aspect-ratio: 2/3; overflow: hidden; background: #f4f4f4;">
+                            <img src="{{ item.image_small | default: item.image_thumb | default: item.object_location | relative_url }}" alt="{{ item.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        
+                        <!-- Textos de la miniatura -->
+                        <div class="mt-2">
+                            <h4 style="font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.9rem; line-height: 1.2; margin-bottom: 0.2rem;">
+                                {{ item.title | truncatewords: 7 }}
+                            </h4>
+                            {% if item.date %}
+                            <p style="font-family: 'Inter', sans-serif; font-size: 0.75rem; color: #666; margin: 0;">
+                                {{ item.date }}
+                            </p>
+                            {% endif %}
+                        </div>
+                    </a>
                 </div>
+                {% endif %}
                 
             {% endfor %}
         </div>
     </div>
-
-</div>
 
 </div>
