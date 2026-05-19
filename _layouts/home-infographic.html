@@ -24,6 +24,184 @@ layout: page
     </div>
 </div>
 
+<!-- ========================================== -->
+<!-- WIDGET: ÚLTIMAS ADQUISICIONES (5 OBJETOS)  -->
+<!-- ========================================== -->
+
+<style>
+    /* Estilos Brutalistas para la sección de Novedades */
+    .novedades-section {
+        background-color: #ffffff;
+        padding: 5rem 0;
+        border-top: 6px solid #111111;
+    }
+    
+    .novedades-titulo {
+        font-family: 'Archivo Black', sans-serif;
+        text-transform: uppercase;
+        font-size: clamp(2rem, 4vw, 3rem);
+        color: #111111;
+        margin-bottom: 3rem;
+        letter-spacing: -1px;
+        text-align: center;
+    }
+
+    /* Tarjetas de los 5 objetos */
+    .novedades-card {
+        border: 3px solid #111111;
+        text-decoration: none !important;
+        background-color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        color: #111111 !important;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .novedades-card:hover {
+        transform: translate(-4px, -4px);
+        box-shadow: 6px 6px 0px #111111;
+    }
+
+    .novedades-img-wrapper {
+        border-bottom: 3px solid #111111;
+        aspect-ratio: 2/3;
+        overflow: hidden;
+        background: #f4f4f4;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .novedades-img-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .novedades-texto {
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .novedades-titulo-libro {
+        font-family: 'Inter', sans-serif;
+        font-weight: 900;
+        font-size: 1rem;
+        line-height: 1.2;
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+    }
+
+    .novedades-autor {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.8rem;
+        color: #555555;
+        font-weight: 700;
+    }
+
+    /* Botón Gigante Brutalista */
+    .btn-explorar-catalogo {
+        display: inline-block;
+        border: 4px solid #111111;
+        background-color: #111111;
+        color: #ffffff !important;
+        font-family: 'Archivo Black', sans-serif;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        padding: 1rem 3rem;
+        text-decoration: none !important;
+        box-shadow: 6px 6px 0px #111111;
+        transition: all 0.15s ease;
+        margin-top: 3rem;
+    }
+    
+    .btn-explorar-catalogo:hover {
+        background-color: #ffffff;
+        color: #111111 !important;
+        transform: translate(2px, 2px);
+        box-shadow: 2px 2px 0px #111111;
+    }
+</style>
+
+<div class="container-fluid novedades-section" style="padding-left: 5%; padding-right: 5%;">
+    
+    <div class="row">
+        <div class="col-12">
+            <h2 class="novedades-titulo">Últimas Adquisiciones</h2>
+        </div>
+    </div>
+
+    <!-- CUADRÍCULA DE 5 OBJETOS -->
+    <!-- row-cols-5 fuerza a Bootstrap a poner exactamente 5 columnas en pantallas grandes -->
+    <div class="row row-cols-2 row-cols-md-3 row-cols-xl-5 g-4 justify-content-center">
+        
+        <!-- MAGIA: Lee la base de datos AL REVÉS (reversed) y coge solo 5 (limit: 5) -->
+        {% assign items = site.data[site.metadata] %}
+        {% for item in items reversed limit: 5 %}
+        
+            <!-- RADAR DE IMAGEN (El mismo sistema infalible) -->
+            {% assign img_src = "" %}
+            {% if item.image_small and item.image_small != "" %}
+                {% assign img_src = item.image_small %}
+            {% elsif item.image_thumb and item.image_thumb != "" %}
+                {% assign img_src = item.image_thumb %}
+            {% elsif item.object_location and item.object_location != "" %}
+                {% assign img_src = item.object_location %}
+            {% elsif item.filename and item.filename != "" %}
+                {% if item.filename contains '/' %}
+                    {% assign img_src = item.filename %}
+                {% else %}
+                    {% assign img_src = '/objects/' | append: item.filename %}
+                {% endif %}
+            {% endif %}
+
+            {% if img_src contains 'http' %}
+                {% assign final_img = img_src %}
+            {% else %}
+                {% assign final_img = img_src | relative_url %}
+            {% endif %}
+
+            <div class="col">
+                <a href="{{ '/item.html' | relative_url | append: '?id=' | append: item.objectid }}" class="novedades-card">
+                    
+                    <div class="novedades-img-wrapper">
+                        {% if img_src != "" %}
+                        <img src="{{ final_img }}" alt="{{ item.title }}">
+                        {% else %}
+                        <span style="font-family: 'Archivo Black', sans-serif; font-size: 0.8rem; color: #aaaaaa; text-transform: uppercase;">Sin Portada</span>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="novedades-texto">
+                        <h4 class="novedades-titulo-libro">{{ item.title | truncatewords: 6 }}</h4>
+                        {% if item.creator %}
+                        <span class="novedades-autor">{{ item.creator | truncatewords: 4 }}</span>
+                        {% endif %}
+                    </div>
+                    
+                </a>
+            </div>
+            
+        {% endfor %}
+        
+    </div>
+
+    <!-- EL BOTÓN GIGANTE -->
+    <div class="row">
+        <div class="col-12 text-center">
+            <a href="{{ '/browse.html' | relative_url }}" class="btn-explorar-catalogo">Explora todo el catálogo</a>
+        </div>
+    </div>
+    
+</div>
+
+<!-- ========================================== -->
+<!-- FIN WIDGET ÚLTIMAS ADQUISICIONES           -->
+<!-- ========================================== -->
+
 <!-- ==========================================
      PRESENTACIÓN DEL PROYECTO (Rejilla Raw)
      ========================================== -->
