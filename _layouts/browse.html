@@ -1,31 +1,3 @@
-¡Me alegro de que lo hayas solucionado! Los bloqueos corporativos son un clásico, pero con ese truco tienes vía libre.
-
-Tu idea de usar el campo `subject` exclusivamente para los **Géneros Literarios** es una decisión arquitectónica brillante. En los archivos digitales, estandarizar las etiquetas es la diferencia entre un buscador útil y un caos inmanejable.
-
-### 1. La Lista Oficial de Géneros (Para tu CSV)
-
-Para mantener la coherencia, te recomiendo que en la columna `subject` de tu Excel/CSV uses **solo** etiquetas de esta lista cerrada (puedes poner varias separadas por punto y coma `;` si un objeto pertenece a dos géneros):
-
-* **Poesía Lírica**
-* **Prosa Poética**
-* **Manuscrito Original**
-* **Epistolario** *(para cartas)*
-* **Ensayo**
-* **Antología**
-* **Biografía**
-* **Revista Literaria**
-* **Fotografía Histórica** *(si incluyes imágenes de los autores)*
-
-### 2. El Código Actualizado
-
-He creado un bloque de "Géneros Destacados" justo debajo del título.
-**La gran ventaja:** No he escrito los botones a mano. He inyectado un pequeño motor en *Liquid* que lee tu CSV al instante, extrae todos los `subjects` que existan, quita los duplicados y genera un botón brutalista para cada uno. Si mañana añades "Teatro" al CSV, el botón de Teatro aparecerá solo.
-
-Y la magia: al hacer clic en un botón, el código escribe automáticamente el género en la barra de búsqueda y activa el filtro de forma invisible.
-
-Sustituye todo tu archivo **`_layouts/browse.html`** por este código:
-
-```html
 ---
 # collection "Browse" page
 layout: page
@@ -269,5 +241,3 @@ custom-foot: js/browse-js.html
     <div id="browseItems"></div>
 
 </div>
-
-```
