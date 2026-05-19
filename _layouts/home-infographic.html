@@ -28,7 +28,7 @@ layout: page
      DESLIZADOR DE ÚLTIMAS COLECCIONES (MÁX. 4)
      ========================================== -->
 <div class="container-fluid my-5" style="padding: 0 5%;">
-    <h2 class="mb-4" style="font-family: 'Archivo Black', sans-serif; text-transform: uppercase; font-size: 2.5rem; border-bottom: 8px solid #111111; padding-bottom: 0.5rem;">
+    <h2 class="mb-4" style="font-family: 'Archivo Black', sans-serif; text-transform: uppercase; font-size: 2.5rem; border-bottom: 8px solid #111111; padding-bottom: 0.5rem; color: #111111;">
         Nuestras Colecciones 
     </h2>
 
@@ -44,7 +44,7 @@ layout: page
                 <div class="row g-0">
                     
                     <!-- MITAD IZQUIERDA: Textos y Botón -->
-                    <div class="col-12 col-md-6 d-flex flex-column justify-content-center p-5">
+                    <div class="col-12 col-md-6 d-flex flex-column justify-content-center p-5 text-start">
                         <h3 style="font-family: 'Archivo Black', sans-serif; text-transform: uppercase; font-size: 2rem; margin-bottom: 1rem; color: #111111;">
                             {{ pagina.title }}
                         </h3>
@@ -73,7 +73,7 @@ layout: page
 
         </div>
 
-        <!-- Botones de Navegación del Slider (Estilo duro) -->
+        <!-- Botones de Navegación del Slider -->
         <button class="carousel-control-prev" type="button" data-bs-target="#sliderColecciones" data-bs-slide="prev" style="width: 5%;">
             <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color: #111111; border: 2px solid #ffffff; padding: 1.5rem; border-radius: 0;"></span>
             <span class="visually-hidden">Anterior</span>
@@ -84,36 +84,20 @@ layout: page
         </button>
     </div>
 
-    <!-- BOTÓN INFERIOR: Enlace a la página de todas las colecciones -->
-    <div class="text-end mt-4">
-        <a href="{{ '/todas-las-colecciones.html' | relative_url }}" class="btn btn-outline-dark" style="border-radius: 0; font-family: 'Archivo Black', sans-serif; border: 4px solid #111111; text-transform: uppercase; padding: 0.5rem 2rem; font-size: 1.2rem;">
+    <!-- BOTÓN INFERIOR SLIDER (Alineado a la izquierda para armonizar) -->
+    <div class="text-start mt-4">
+        <a href="{{ '/todas-las-colecciones.html' | relative_url }}" class="btn btn-outline-dark" style="border-radius: 0; font-family: 'Archivo Black', sans-serif; border: 4px solid #111111; text-transform: uppercase; padding: 0.5rem 2rem; font-size: 1.2rem; box-shadow: 4px 4px 0px #111111; transition: all 0.15s ease;">
             Ver todas las colecciones &rarr;
         </a>
     </div>
 </div>
 
+
 <!-- ========================================== -->
-<!-- WIDGET: ÚLTIMAS FICHAS (5 OBJETOS)  -->
+<!-- WIDGET: CATÁLOGO / ÚLTIMAS FICHAS (5)      -->
 <!-- ========================================== -->
 
 <style>
-    /* Estilos Brutalistas para la sección de Novedades */
-    .novedades-section {
-        background-color: #ffffff;
-        padding: 5rem 0;
-        border-top: 6px solid #111111;
-    }
-    
-    .novedades-titulo {
-        font-family: 'Archivo Black', sans-serif;
-        text-transform: uppercase;
-        font-size: clamp(2rem, 4vw, 3rem);
-        color: #111111;
-        margin-bottom: 3rem;
-        letter-spacing: -1px;
-        text-align: center;
-    }
-
     /* Tarjetas de los 5 objetos */
     .novedades-card {
         border: 3px solid #111111;
@@ -169,48 +153,23 @@ layout: page
         color: #555555;
         font-weight: 700;
     }
-
-    /* Botón Gigante Brutalista */
-    .btn-explorar-catalogo {
-        display: inline-block;
-        border: 4px solid #111111;
-        background-color: #111111;
-        color: #ffffff !important;
-        font-family: 'Archivo Black', sans-serif;
-        font-size: 1.2rem;
-        text-transform: uppercase;
-        padding: 1rem 3rem;
-        text-decoration: none !important;
-        box-shadow: 6px 6px 0px #111111;
-        transition: all 0.15s ease;
-        margin-top: 3rem;
-    }
-    
-    .btn-explorar-catalogo:hover {
-        background-color: #ffffff;
-        color: #111111 !important;
-        transform: translate(2px, 2px);
-        box-shadow: 2px 2px 0px #111111;
-    }
 </style>
 
-<div class="container-fluid novedades-section" style="padding-left: 5%; padding-right: 5%;">
+<div class="container-fluid my-5" style="padding: 0 5%;">
     
-    <div class="row">
-        <div class="col-12">
-            <h2 class="novedades-titulo">CATÁLOGO</h2>
-        </div>
-    </div>
+    <!-- TÍTULO (Clon exacto del de Colecciones) -->
+    <h2 class="mb-4 text-start" style="font-family: 'Archivo Black', sans-serif; text-transform: uppercase; font-size: 2.5rem; border-bottom: 8px solid #111111; padding-bottom: 0.5rem; color: #111111;">
+        Catálogo
+    </h2>
 
     <!-- CUADRÍCULA DE 5 OBJETOS -->
-    <!-- row-cols-5 fuerza a Bootstrap a poner exactamente 5 columnas en pantallas grandes -->
-    <div class="row row-cols-2 row-cols-md-3 row-cols-xl-5 g-4 justify-content-center">
+    <div class="row row-cols-2 row-cols-md-3 row-cols-xl-5 g-4 mb-4 justify-content-start">
         
-        <!-- MAGIA: Lee la base de datos AL REVÉS (reversed) y coge solo 5 (limit: 5) -->
+        <!-- Lee la base de datos AL REVÉS y coge 5 -->
         {% assign items = site.data[site.metadata] %}
         {% for item in items reversed limit: 5 %}
         
-            <!-- RADAR DE IMAGEN (El mismo sistema infalible) -->
+            <!-- RADAR DE IMAGEN -->
             {% assign img_src = "" %}
             {% if item.image_small and item.image_small != "" %}
                 {% assign img_src = item.image_small %}
@@ -243,7 +202,7 @@ layout: page
                         {% endif %}
                     </div>
                     
-                    <div class="novedades-texto">
+                    <div class="novedades-texto text-start">
                         <h4 class="novedades-titulo-libro">{{ item.title | truncatewords: 6 }}</h4>
                         {% if item.creator %}
                         <span class="novedades-autor">{{ item.creator | truncatewords: 4 }}</span>
@@ -257,17 +216,16 @@ layout: page
         
     </div>
 
-    <!-- EL BOTÓN GIGANTE -->
-    <div class="row">
-        <div class="col-12 text-center">
-            <a href="{{ '/browse.html' | relative_url }}" class="btn-explorar-catalogo">Explora todo el catálogo</a>
-        </div>
+    <!-- BOTÓN INFERIOR CATÁLOGO (Clon exacto del de Colecciones) -->
+    <div class="text-start mt-4">
+        <a href="{{ '/browse.html' | relative_url }}" class="btn btn-outline-dark" style="border-radius: 0; font-family: 'Archivo Black', sans-serif; border: 4px solid #111111; text-transform: uppercase; padding: 0.5rem 2rem; font-size: 1.2rem; box-shadow: 4px 4px 0px #111111; transition: all 0.15s ease; background-color: #ffffff; color: #111111;">
+            Explora todo el catálogo &rarr;
+        </a>
     </div>
     
 </div>
-
 <!-- ========================================== -->
-<!-- FIN WIDGET ÚLTIMAS ADQUISICIONES           -->
+<!-- FIN WIDGET CATÁLOGO                        -->
 <!-- ========================================== -->
 
 <!-- ==========================================
