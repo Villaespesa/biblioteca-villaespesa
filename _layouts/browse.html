@@ -1,3 +1,31 @@
+¡Me alegro de que lo hayas solucionado! Los bloqueos corporativos son un clásico, pero con ese truco tienes vía libre.
+
+Tu idea de usar el campo `subject` exclusivamente para los **Géneros Literarios** es una decisión arquitectónica brillante. En los archivos digitales, estandarizar las etiquetas es la diferencia entre un buscador útil y un caos inmanejable.
+
+### 1. La Lista Oficial de Géneros (Para tu CSV)
+
+Para mantener la coherencia, te recomiendo que en la columna `subject` de tu Excel/CSV uses **solo** etiquetas de esta lista cerrada (puedes poner varias separadas por punto y coma `;` si un objeto pertenece a dos géneros):
+
+* **Poesía Lírica**
+* **Prosa Poética**
+* **Manuscrito Original**
+* **Epistolario** *(para cartas)*
+* **Ensayo**
+* **Antología**
+* **Biografía**
+* **Revista Literaria**
+* **Fotografía Histórica** *(si incluyes imágenes de los autores)*
+
+### 2. El Código Actualizado
+
+He creado un bloque de "Géneros Destacados" justo debajo del título.
+**La gran ventaja:** No he escrito los botones a mano. He inyectado un pequeño motor en *Liquid* que lee tu CSV al instante, extrae todos los `subjects` que existan, quita los duplicados y genera un botón brutalista para cada uno. Si mañana añades "Teatro" al CSV, el botón de Teatro aparecerá solo.
+
+Y la magia: al hacer clic en un botón, el código escribe automáticamente el género en la barra de búsqueda y activa el filtro de forma invisible.
+
+Sustituye todo tu archivo **`_layouts/browse.html`** por este código:
+
+```html
 ---
 # collection "Browse" page
 layout: page
@@ -12,7 +40,7 @@ custom-foot: js/browse-js.html
     .browse-header {
         font-family: 'Archivo Black', sans-serif;
         text-transform: uppercase;
-        font-size: clamp(2rem, 4vw, 3rem); /* Escala menor */
+        font-size: clamp(2rem, 4vw, 3rem);
         border-bottom: 6px solid #111111;
         padding-bottom: 0.5rem;
         letter-spacing: -1px;
@@ -20,13 +48,39 @@ custom-foot: js/browse-js.html
         color: #111111;
     }
 
-    /* 2. Buscador y botones Brutalistas (Escala reducida) */
+    /* 2. Botones de Géneros Destacados (Subjects) */
+    .genre-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        margin-bottom: 2.5rem;
+    }
+    .brutalist-genre-btn {
+        border: 3px solid #111111;
+        background-color: #ffffff;
+        color: #111111;
+        font-family: 'Archivo Black', sans-serif;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: 3px 3px 0px #111111;
+    }
+    .brutalist-genre-btn:hover {
+        background-color: #111111;
+        color: #ffffff;
+        transform: translate(-2px, -2px);
+        box-shadow: 5px 5px 0px #111111;
+    }
+
+    /* 3. Buscador y botones Brutalistas */
     #filterTextBox {
         border: 3px solid #111111;
         border-radius: 0;
         font-family: 'Inter', sans-serif;
         font-weight: 700;
-        font-size: 1rem; /* Letra más pequeña */
+        font-size: 1rem;
         padding: 0.5rem 1rem;
         box-shadow: 3px 3px 0px #111111;
     }
@@ -54,24 +108,23 @@ custom-foot: js/browse-js.html
         color: #111111;
     }
 
-    /* 3. FORZAR CUADRÍCULA DE 6 COLUMNAS (La Magia CSS) */
+    /* 4. FORZAR CUADRÍCULA DE 6 COLUMNAS */
     #browseItems {
         display: grid !important;
-        grid-template-columns: repeat(2, 1fr); /* Móviles: 2 columnas */
-        gap: 1.5rem; /* Espacio entre libros */
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
     }
     @media (min-width: 768px) {
         #browseItems {
-            grid-template-columns: repeat(4, 1fr); /* Tablets: 4 columnas */
+            grid-template-columns: repeat(4, 1fr);
         }
     }
     @media (min-width: 1200px) {
         #browseItems {
-            grid-template-columns: repeat(6, 1fr); /* Escritorio: 6 columnas */
+            grid-template-columns: repeat(6, 1fr);
         }
     }
 
-    /* Anulamos las columnas automáticas de Bootstrap que intenta meter CollectionBuilder */
     #browseItems > div {
         width: 100% !important;
         max-width: 100% !important;
@@ -80,7 +133,7 @@ custom-foot: js/browse-js.html
         margin: 0 !important;
     }
 
-    /* 4. Estilo de las tarjetas (Más compactas) */
+    /* 5. Estilo de las tarjetas (Más compactas) */
     #browseItems .card {
         border: 2px solid #111111 !important;
         border-radius: 0 !important;
@@ -101,7 +154,7 @@ custom-foot: js/browse-js.html
     }
 
     #browseItems .card-body {
-        padding: 0.75rem !important; /* Relleno mínimo para ganar espacio */
+        padding: 0.75rem !important;
         display: flex;
         flex-direction: column;
     }
@@ -109,7 +162,7 @@ custom-foot: js/browse-js.html
     #browseItems .card-title {
         font-family: 'Inter', sans-serif;
         font-weight: 900;
-        font-size: 0.85rem !important; /* Títulos pequeños pero legibles */
+        font-size: 0.85rem !important;
         line-height: 1.2;
         text-transform: uppercase;
         color: #111111;
@@ -118,12 +171,12 @@ custom-foot: js/browse-js.html
     
     #browseItems .card-text {
         font-family: 'Inter', sans-serif;
-        font-size: 0.75rem !important; /* Letra de datos pequeña */
+        font-size: 0.75rem !important;
         color: #555555;
         margin-bottom: 0 !important;
     }
 
-    /* 5. ELIMINAR ETIQUETAS: Ocultamos botones y líneas innecesarias */
+    /* 6. ELIMINAR ETIQUETAS INTERNAS: Ocultamos botones y líneas de la tarjeta original */
     #browseItems .card-body a.btn, 
     #browseItems .card-body a.btn-sm,
     #browseItems .card-body .text-muted,
@@ -141,14 +194,48 @@ custom-foot: js/browse-js.html
         </div>
     </div>
 
-    <!-- Buscador compacto (eliminada clase input-group-lg) -->
+    <!-- NUEVO: ZONA DE GÉNEROS DESTACADOS (Subjects) -->
+    <div class="row mb-2">
+        <div class="col-12">
+            <h3 style="font-family: 'Inter', sans-serif; font-weight: 900; font-size: 1rem; text-transform: uppercase; margin-bottom: 1rem; border-bottom: 3px solid #111; display: inline-block;">
+                Explorar por Género
+            </h3>
+            
+            <div class="genre-container">
+                <!-- Extracción automática de subjects del CSV -->
+                {% assign raw_subjects = site.data[site.metadata] | map: "subject" | join: ";" | split: ";" %}
+                {% assign subjects_string = "" %}
+                {% for s in raw_subjects %}
+                    {% assign s_clean = s | strip %}
+                    {% if s_clean != "" %}
+                        {% assign subjects_string = subjects_string | append: s_clean | append: "|" %}
+                    {% endif %}
+                {% endfor %}
+                {% assign final_subjects = subjects_string | split: "|" | uniq | sort %}
+                
+                <!-- Botón de "Ver Todo" -->
+                <button class="brutalist-genre-btn" style="background-color: #111; color: #fff;" onclick="resetFilter(); return false;">
+                    Todos
+                </button>
+
+                <!-- Botones generados dinámicamente -->
+                {% for tag in final_subjects %}
+                <button class="brutalist-genre-btn" onclick="document.getElementById('filterTextBox').value = '{{ tag }}'; submitFilter(); return false;">
+                    {{ tag }}
+                </button>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Buscador compacto -->
     <div class="row mb-4 justify-content-center">
         <div class="col-md-9 text-center mb-3">
             <form role="search" id="browseFilter" onsubmit="submitFilter(); return false;">
                 <div class="input-group">
                     <input type="text" class="form-control" id="filterTextBox" placeholder="Buscar obras..." aria-label="Search"> 
                     <button class="btn" type="submit" title="Filter items" id="filterButton">Buscar</button>
-                    <button class="btn filter" onclick="resetFilter(); return false;" data-filter="">Reset</button>
+                    <button class="btn filter" onclick="resetFilter(); return false;" data-filter="">Limpiar</button>
                 </div>
             </form>
             <div class="h5 mt-3" id="numberOf" style="font-family: 'Archivo Black', sans-serif; text-transform: uppercase;"></div>
@@ -178,7 +265,9 @@ custom-foot: js/browse-js.html
         </div>
     </div>
 
-    <!-- EL JS RELLENA ESTE ESPACIO, PERO EL CSS GRID MANDA -->
+    <!-- EL JS RELLENA ESTE ESPACIO -->
     <div id="browseItems"></div>
 
 </div>
+
+```
