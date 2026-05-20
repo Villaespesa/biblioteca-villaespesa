@@ -1,7 +1,7 @@
 ---
 layout: coleccion
 title: Historia de Almería
-image: https://github.com/Villaespesa/biblioteca-villaespesa/blob/main/assets/img/banner-almeria.png?raw=true
+image: https://upload.wikimedia.org/wikipedia/commons/0/0f/Almeria_Cathedral_2023_-_Main_fa%C3%A7ade_panorama.jpg
 description: "Conoce mejor la historia de la ciudad con nuestras obras más antiguas"
 libros: jimialm1, img0001
 ---
