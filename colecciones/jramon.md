@@ -1,7 +1,7 @@
 ---
 layout: coleccion
 title: Juan Ramón Jiménez
-image: https://github.com/Villaespesa/biblioteca-villaespesa/blob/main/assets/img/ban-jramon.png?raw=true
+image: https://github.com/Villaespesa/biblioteca-villaespesa/blob/main/assets/img/Joaqu%C3%ADn_Sorolla_-_Retrato_de_Juan_Ram%C3%B3n_Jim%C3%A9nez.jpg?raw=true
 description: "Cartas, manuscritos y primeras ediciones del poeta."
 entradilla: "La figura de Juan Ramón Jiménez representa un punto de inflexión en la poesía hispánica. Antes de su viaje a América, sus cuadernos ya mostraban una obsesión enfermiza por la perfección formal y la palabra exacta. Este es un viaje a través de sus correcciones y tachones."
 libros: jimialm1, img0001
