@@ -16,7 +16,10 @@
         text-transform: uppercase;
         color: #111111 !important;
         font-size: 1.1rem;
-        margin-right: 1.5rem;
+        /* Quitamos el padding izquierdo por defecto de Bootstrap para alinearlo perfecto */
+        padding-left: 0 !important; 
+        padding-right: 1.5rem !important;
+        margin-right: 0.5rem;
         transition: transform 0.1s ease;
     }
     
@@ -28,13 +31,14 @@
         transform: translate(2px, 2px);
     }
 
-    /* Menús desplegables (Dropdowns) por si los usas */
+    /* Menús desplegables (Dropdowns) */
     .brutalist-nav .dropdown-menu {
         border: 4px solid #111111;
         border-radius: 0;
         box-shadow: 4px 4px 0px #111111;
         background-color: #ffffff;
         margin-top: 10px;
+        padding: 0;
     }
     .brutalist-nav .dropdown-item {
         font-family: 'Inter', sans-serif;
@@ -42,7 +46,11 @@
         text-transform: uppercase;
         color: #111111;
         font-size: 0.9rem;
-        padding: 0.5rem 1.5rem;
+        padding: 0.75rem 1.5rem;
+        border-bottom: 1px solid #eeeeee;
+    }
+    .brutalist-nav .dropdown-item:last-child {
+        border-bottom: none;
     }
     .brutalist-nav .dropdown-item:hover, .brutalist-nav .dropdown-item.active {
         background-color: #111111;
@@ -53,12 +61,16 @@
     .brutalist-nav .navbar-toggler {
         border: 3px solid #111111;
         border-radius: 0;
+        padding: 0.5rem;
     }
     .brutalist-nav .navbar-toggler-icon {
         background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(17, 17, 17, 1)' stroke-width='3' stroke-linecap='square' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
     }
 
-    /* Forzar estilo brutalista en el buscador integrado de lunr */
+    /* Buscador integrado brutalista */
+    .brutalist-nav form {
+        display: flex;
+    }
     .brutalist-nav form .form-control {
         border: 3px solid #111111 !important;
         border-radius: 0 !important;
@@ -67,6 +79,7 @@
     }
     .brutalist-nav form .btn {
         border: 3px solid #111111 !important;
+        border-left: none !important; /* Para que se una a la caja de texto */
         border-radius: 0 !important;
         background-color: #111111 !important;
         color: #ffffff !important;
@@ -80,7 +93,8 @@
 </style>
 
 <nav class="navbar navbar-expand-lg brutalist-nav">
-    <div class="container-fluid" style="padding: 0 5%;">
+    <!-- Aquí aseguramos exactamente el mismo padding que el slider -->
+    <div class="container-fluid" style="padding: 0 5% !important;">
         
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#page-nav" aria-controls="page-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -88,12 +102,13 @@
 
         {% if site.organization-logo-nav %}<span class="d-lg-none text-end">
             <a href="{{ site.organization-link }}">
-                <img class="img-fluid" id="mobile-nav-image" src="{{ site.organization-logo-nav | relative_url }}" title="{{ site.organization-name }}" alt="{{ site.organization-name }} home" >
+                <img class="img-fluid" id="mobile-nav-image" src="{{ site.organization-logo-nav | relative_url }}" title="{{ site.organization-name }}" alt="{{ site.organization-name }} home" style="max-height: 40px;" >
             </a>
         </span>{% endif %}
         
         <div class="collapse navbar-collapse" id="page-nav">
-            <ul class="navbar-nav me-auto">
+            <!-- La clase me-auto empuja el buscador a la derecha y deja los enlaces a la izquierda -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 {%- assign navItems = site.data.config-nav | where_exp: 'item', 'item.display_name' | where_exp: 'item', 'item.dropdown_parent == nil' -%} 
                 {% for nav in navItems %}
                 {% if nav.stub %}
@@ -104,7 +119,7 @@
                 <li class="nav-item dropdown">
                     {% assign navChildren = site.data.config-nav | where_exp: 'item', 'item.dropdown_parent == nav.display_name' %}
                     {%- assign childStubs = navChildren | map: 'stub' -%}
-                    <a class="nav-link  dropdown-toggle{% if childStubs contains page.url %} active{% endif %}" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ nav.display_name }}</a>
+                    <a class="nav-link dropdown-toggle{% if childStubs contains page.url %} active{% endif %}" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ nav.display_name }}</a>
                     <div class="dropdown-menu">
                         {% for c in navChildren %}
                         <a class="dropdown-item {% if page.url == c.stub %}active{% endif %}" href="{{ c.stub | relative_url }}">{{ c.display_name }}</a>
@@ -119,4 +134,4 @@
             
         </div>
     </div>
-</nav>
+</nav> 
