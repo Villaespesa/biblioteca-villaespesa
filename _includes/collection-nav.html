@@ -10,16 +10,13 @@
         padding-bottom: 1rem;
     }
 
-    /* Enlaces del menú */
+    /* Enlaces del menú (CENTRADOS) */
     .brutalist-nav .nav-link {
         font-family: 'Archivo Black', sans-serif;
         text-transform: uppercase;
         color: #111111 !important;
         font-size: 1.1rem;
-        /* Quitamos el padding izquierdo por defecto de Bootstrap para alinearlo perfecto */
-        padding-left: 0 !important; 
-        padding-right: 1.5rem !important;
-        margin-right: 0.5rem;
+        padding: 0.5rem 1.2rem !important; /* Espacio igual a los dos lados */
         transition: transform 0.1s ease;
     }
     
@@ -79,7 +76,7 @@
     }
     .brutalist-nav form .btn {
         border: 3px solid #111111 !important;
-        border-left: none !important; /* Para que se una a la caja de texto */
+        border-left: none !important;
         border-radius: 0 !important;
         background-color: #111111 !important;
         color: #ffffff !important;
@@ -93,22 +90,22 @@
 </style>
 
 <nav class="navbar navbar-expand-lg brutalist-nav">
-    <!-- Aquí aseguramos exactamente el mismo padding que el slider -->
     <div class="container-fluid" style="padding: 0 5% !important;">
         
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#page-nav" aria-controls="page-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        {% if site.organization-logo-nav %}<span class="d-lg-none text-end">
+        {% if site.organization-logo-nav %}<span class="d-lg-none text-start">
             <a href="{{ site.organization-link }}">
                 <img class="img-fluid" id="mobile-nav-image" src="{{ site.organization-logo-nav | relative_url }}" title="{{ site.organization-name }}" alt="{{ site.organization-name }} home" style="max-height: 40px;" >
             </a>
         </span>{% endif %}
         
         <div class="collapse navbar-collapse" id="page-nav">
-            <!-- La clase me-auto empuja el buscador a la derecha y deja los enlaces a la izquierda -->
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            
+            <!-- EL TRUCO ESTÁ AQUÍ: mx-auto empuja los botones al centro absoluto -->
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0 justify-content-center">
                 {%- assign navItems = site.data.config-nav | where_exp: 'item', 'item.display_name' | where_exp: 'item', 'item.dropdown_parent == nil' -%} 
                 {% for nav in navItems %}
                 {% if nav.stub %}
@@ -130,8 +127,9 @@
                 {%- endfor -%}
             </ul>
             
+            <!-- El buscador se queda a la derecha de forma natural -->
             {% include nav-search-lunr.html %}
             
         </div>
     </div>
-</nav> 
+</nav>
