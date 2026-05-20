@@ -10,22 +10,47 @@
         padding-bottom: 1rem;
     }
 
-    /* Enlaces del menú (CENTRADOS) */
+    /* Contenedor de cada botón */
+    .brutalist-nav .nav-item {
+        margin: 0 1.2rem; /* Espaciado entre elementos */
+    }
+
+    /* Enlaces del menú (MÁS GRANDES Y DINÁMICOS) */
     .brutalist-nav .nav-link {
         font-family: 'Archivo Black', sans-serif;
         text-transform: uppercase;
         color: #111111 !important;
-        font-size: 1.1rem;
-        padding: 0.5rem 1.2rem !important; /* Espacio igual a los dos lados */
-        transition: transform 0.1s ease;
+        font-size: 1.3rem; /* TAMAÑO AUMENTADO */
+        padding: 0.5rem 0 !important; /* Quitamos relleno lateral para que el subrayado mida lo mismo que la palabra */
+        position: relative;
+        display: inline-block;
+        transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* LA MAGIA: Subrayado grueso que crece desde el centro */
+    .brutalist-nav .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 5px; /* Grosor de la línea */
+        bottom: 2px;
+        left: 0;
+        background-color: #111111;
+        transform: scaleX(0); /* Oculta por defecto */
+        transform-origin: center; /* Crece desde el centro hacia fuera */
+        transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
     
-    .brutalist-nav .nav-link:hover, .brutalist-nav .nav-link.active {
-        text-decoration: underline;
-        text-decoration-thickness: 4px;
-        text-underline-offset: 6px;
+    /* Efecto al pasar el ratón (Hover) y página activa */
+    .brutalist-nav .nav-link:hover::after, 
+    .brutalist-nav .nav-link.active::after {
+        transform: scaleX(1); /* Muestra la línea al 100% */
+    }
+
+    .brutalist-nav .nav-link:hover, 
+    .brutalist-nav .nav-link.active {
         color: #111111 !important;
-        transform: translate(2px, 2px);
+        transform: translateY(-3px); /* Levita ligeramente hacia arriba */
     }
 
     /* Menús desplegables (Dropdowns) */
@@ -34,7 +59,7 @@
         border-radius: 0;
         box-shadow: 4px 4px 0px #111111;
         background-color: #ffffff;
-        margin-top: 10px;
+        margin-top: 15px;
         padding: 0;
     }
     .brutalist-nav .dropdown-item {
@@ -42,9 +67,10 @@
         font-weight: 900;
         text-transform: uppercase;
         color: #111111;
-        font-size: 0.9rem;
+        font-size: 0.95rem;
         padding: 0.75rem 1.5rem;
         border-bottom: 1px solid #eeeeee;
+        transition: all 0.2s ease;
     }
     .brutalist-nav .dropdown-item:last-child {
         border-bottom: none;
@@ -52,6 +78,7 @@
     .brutalist-nav .dropdown-item:hover, .brutalist-nav .dropdown-item.active {
         background-color: #111111;
         color: #ffffff !important;
+        transform: translateX(4px); /* Pequeño deslizamiento a la derecha en submenús */
     }
 
     /* Botón menú móviles (Hamburguesa) */
@@ -82,6 +109,7 @@
         color: #ffffff !important;
         font-family: 'Archivo Black', sans-serif;
         text-transform: uppercase;
+        transition: all 0.2s ease;
     }
     .brutalist-nav form .btn:hover {
         background-color: #ffffff !important;
@@ -104,7 +132,6 @@
         
         <div class="collapse navbar-collapse" id="page-nav">
             
-            <!-- EL TRUCO ESTÁ AQUÍ: mx-auto empuja los botones al centro absoluto -->
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0 justify-content-center">
                 {%- assign navItems = site.data.config-nav | where_exp: 'item', 'item.display_name' | where_exp: 'item', 'item.dropdown_parent == nil' -%} 
                 {% for nav in navItems %}
@@ -127,7 +154,6 @@
                 {%- endfor -%}
             </ul>
             
-            <!-- El buscador se queda a la derecha de forma natural -->
             {% include nav-search-lunr.html %}
             
         </div>
