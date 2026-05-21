@@ -3,9 +3,12 @@
 layout: page
 ---
 
-<!-- ==========================================
-     DESLIZADOR DE ÚLTIMAS COLECCIONES (MÁX. 4)
-     ========================================== -->
+<!-- CONTENEDOR GENERAL PARA ALINEAR TODO CON LA BARRA Y EL FOOTER (5%) -->
+<div class="container-fluid" style="padding: 0 5%; margin-top: 2rem; margin-bottom: 4rem;">
+
+    <!-- ==========================================
+         DESLIZADOR DE ÚLTIMAS COLECCIONES (MÁX. 4)
+         ========================================== -->
 
     <!-- Carrusel Brutalista -->
     <div id="sliderColecciones" class="carousel slide mb-4" data-bs-ride="carousel" style="border: 4px solid #111111;">
@@ -59,80 +62,81 @@ layout: page
         </button>
     </div>
 
-    <!-- BOTÓN INFERIOR SLIDER (Alineado a la izquierda para armonizar) -->
+    <!-- BOTÓN INFERIOR SLIDER -->
     <div class="text-start mt-4">
         <a href="{{ '/todas-las-colecciones.html' | relative_url }}" class="btn btn-outline-dark" style="border-radius: 0; font-family: 'Archivo Black', sans-serif; border: 4px solid #111111; text-transform: uppercase; padding: 0.5rem 2rem; font-size: 1.2rem; box-shadow: 4px 4px 0px #111111; transition: all 0.15s ease;">
             Ver todas las colecciones &rarr;
         </a>
     </div>
-</div>
 
+    <!-- LÍNEA SEPARADORA BRUTALISTA -->
+    <hr style="border-top: 6px solid #111111; opacity: 1; margin: 4rem 0;">
 
-<!-- ========================================== -->
-<!-- WIDGET: CATÁLOGO / ÚLTIMAS FICHAS (5)      -->
-<!-- ========================================== -->
+    <!-- ========================================== -->
+    <!-- WIDGET: CATÁLOGO / ÚLTIMAS FICHAS (5)      -->
+    <!-- ========================================== -->
 
-<style>
-    /* Tarjetas de los 5 objetos */
-    .novedades-card {
-        border: 3px solid #111111;
-        text-decoration: none !important;
-        background-color: #ffffff;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        color: #111111 !important;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    
-    .novedades-card:hover {
-        transform: translate(-4px, -4px);
-        box-shadow: 6px 6px 0px #111111;
-    }
+    <style>
+        /* Tarjetas de los 5 objetos */
+        .novedades-card {
+            border: 3px solid #111111;
+            text-decoration: none !important;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            color: #111111 !important;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .novedades-card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 6px 6px 0px #111111;
+        }
 
-    .novedades-img-wrapper {
-        border-bottom: 3px solid #111111;
-        aspect-ratio: 2/3;
-        overflow: hidden;
-        background: #f4f4f4;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .novedades-img-wrapper img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+        .novedades-img-wrapper {
+            border-bottom: 3px solid #111111;
+            aspect-ratio: 2/3;
+            overflow: hidden;
+            background: #f4f4f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .novedades-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-    .novedades-texto {
-        padding: 1rem;
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-    }
+        .novedades-texto {
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
 
-    .novedades-titulo-libro {
-        font-family: 'Inter', sans-serif;
-        font-weight: 900;
-        font-size: 1rem;
-        line-height: 1.2;
-        text-transform: uppercase;
-        margin-bottom: 0.5rem;
-    }
+        .novedades-titulo-libro {
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+            font-size: 1rem;
+            line-height: 1.2;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
 
-    .novedades-autor {
-        font-family: 'Inter', sans-serif;
-        font-size: 0.8rem;
-        color: #555555;
-        font-weight: 700;
-    }
-</style>
-    
+        .novedades-autor {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            color: #555555;
+            font-weight: 700;
+        }
+    </style>
+        
 
-    <!-- CUADRÍCULA DE 5 OBJETOS -->
-    <div class="row row-cols-2 row-cols-md-3 row-cols-xl-5 g-4 mb-4 justify-content-start">
+    <!-- CUADRÍCULA DE 5 OBJETOS CENTRADA -->
+    <div class="row row-cols-2 row-cols-md-3 row-cols-xl-5 g-4 mb-4 justify-content-center">
         
         <!-- Lee la base de datos AL REVÉS y coge 5 -->
         {% assign items = site.data[site.metadata] %}
@@ -185,7 +189,7 @@ layout: page
         
     </div>
 
-    <!-- BOTÓN INFERIOR CATÁLOGO (Clon exacto del de Colecciones) -->
+    <!-- BOTÓN INFERIOR CATÁLOGO -->
     <div class="text-start mt-4">
         <a href="{{ '/browse.html' | relative_url }}" class="btn btn-outline-dark" style="border-radius: 0; font-family: 'Archivo Black', sans-serif; border: 4px solid #111111; text-transform: uppercase; padding: 0.5rem 2rem; font-size: 1.2rem; box-shadow: 4px 4px 0px #111111; transition: all 0.15s ease; background-color: #ffffff; color: #111111;">
             Explora todo el catálogo &rarr;
@@ -194,7 +198,5 @@ layout: page
     
 </div>
 <!-- ========================================== -->
-<!-- FIN WIDGET CATÁLOGO                        -->
+<!-- FIN CONTENEDOR GENERAL                     -->
 <!-- ========================================== -->
-
-
