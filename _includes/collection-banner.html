@@ -1,38 +1,104 @@
 {% if page.layout == "home-infographic" and site.data.theme.featured-image %}
 <style>
-#home-banner {
-    background-image: url('{% include image/featured-image.html %}');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: {{ site.data.theme.home-banner-image-position | default: 'center' }};
-    min-height: 60vh;
-    display: flex;
-    align-items: flex-start;
-}
+    @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;700;900&display=swap');
+
+    /* 1. PISO SUPERIOR: El marco del título (Negro, elegante y dinámico) */
+    .hero-title-bar {
+        background-color: #111111;
+        color: #ffffff;
+        padding: 3rem 5%; /* Alineación perfecta con el resto de la web */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-bottom: 2px solid #ffffff; /* Fina línea blanca que separa de la foto */
+    }
+
+    .hero-title-text {
+        font-family: 'Archivo Black', sans-serif;
+        font-size: clamp(3rem, 7vw, 6rem); /* Se adapta al móvil */
+        text-transform: uppercase;
+        line-height: 1;
+        margin: 0;
+        letter-spacing: -3px; /* Letras muy juntas por defecto */
+        transition: letter-spacing 0.4s cubic-bezier(0.25, 1, 0.5, 1), transform 0.4s ease;
+        cursor: default;
+    }
+
+    /* Efecto dinámico al pasar el ratón: El título se expande elegantemente */
+    .hero-title-text:hover {
+        letter-spacing: 2px;
+        transform: scale(1.01);
+    }
+
+    .hero-tagline {
+        font-family: 'Inter', sans-serif;
+        font-weight: 300; /* Letra muy fina y sofisticada */
+        font-size: clamp(1rem, 1.5vw, 1.5rem);
+        margin-top: 1rem;
+        color: #aaaaaa;
+        text-transform: uppercase;
+        letter-spacing: 4px; /* Muy espaciado para contrastar con el título */
+    }
+
+    /* 2. PISO INFERIOR: La foto despejada */
+    #home-banner-image {
+        background-image: url('{% include image/featured-image.html %}');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: {{ site.data.theme.home-banner-image-position | default: 'center' }};
+        min-height: 65vh; /* Altura generosa para la foto */
+        width: 100%;
+        position: relative;
+        border-bottom: 8px solid #111111; /* Línea gruesa negra cerrando el banner */
+    }
+
+    /* Etiqueta de la imagen destacada */
+    .credit-tag {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        background-color: #111111;
+        color: #ffffff;
+        font-family: 'Archivo Black', sans-serif;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        padding: 0.5rem 1.5rem;
+        text-decoration: none;
+        transition: background-color 0.2s ease, color 0.2s ease;
+    }
+    .credit-tag:hover {
+        background-color: #ffffff;
+        color: #111111;
+    }
 </style>
 
-<div id="home-banner" class="container-fluid position-relative mb-0 p-0">
+<!-- ESTRUCTURA DEL BANNER PRINCIPAL (HOME) -->
+<div class="container-fluid p-0">
     
-    <!-- NUESTRA CINTA BRUTALISTA PURA (SIN BUSCADOR) -->
-    <div class="cinta-brutalista">
-        
+    <!-- PISO SUPERIOR: Título -->
+    <div class="hero-title-bar">
         {% if site.organization-logo-nav %}
-        <a class="d-none d-md-block mb-3" href="{{ site.organization-link }}">
-            <img id="home-banner-logo" src="{{ site.organization-logo-nav | relative_url }}" alt="{{ site.organization-name | escape }} home" style="max-height: 50px;">
+        <a class="mb-3 d-inline-block" href="{{ site.organization-link }}">
+            <!-- El logo se invierte a blanco para verse en el fondo negro -->
+            <img id="home-banner-logo" src="{{ site.organization-logo-nav | relative_url }}" alt="{{ site.organization-name | escape }} home" style="max-height: 45px; filter: grayscale(100%) invert(1);">
         </a>
         {% endif %}
         
-        <h1 class="display-4">{{ site.title }}</h1>
-        {% if site.tagline %}<p class="lead mb-0">{{ site.tagline }}</p>{% endif %}
+        <h1 class="hero-title-text">{{ site.title }}</h1>
         
+        {% if site.tagline %}
+        <p class="hero-tagline">{{ site.tagline }}</p>
+        {% endif %}
     </div>
 
-    <!-- Crédito de la imagen original -->
-    {% unless site.data.theme.featured-image contains '/' %}
-    <div class="position-absolute bottom-0 end-0 px-3 py-1" style="background-color: #111111; border-radius: 0;">
-        <a class="text-white" style="font-family: 'Inter', sans-serif; font-size: 0.8rem; text-decoration: none; text-transform: uppercase; font-weight: 700;" href="{% if featuredItem.parentid %}{{ site.data.theme.featured-image | prepend: '#' | prepend: featuredItem.parentid | prepend: '/item.html?id=' | relative_url }}{% else %}{{ site.data.theme.featured-image | prepend: '/item.html?id=' | relative_url }}{% endif %}" title="{{ featuredItem.title | escape }}">Imagen Destacada</a>
+    <!-- PISO INFERIOR: Foto libre -->
+    <div id="home-banner-image">
+        <!-- Crédito de la imagen original -->
+        {% unless site.data.theme.featured-image contains '/' %}
+        <a class="credit-tag" href="{% if featuredItem.parentid %}{{ site.data.theme.featured-image | prepend: '#' | prepend: featuredItem.parentid | prepend: '/item.html?id=' | relative_url }}{% else %}{{ site.data.theme.featured-image | prepend: '/item.html?id=' | relative_url }}{% endif %}" title="{{ featuredItem.title | escape }}">Imagen Destacada &rarr;</a>
+        {% endunless %}
     </div>
-    {% endunless %}
 
 </div>
 
@@ -40,18 +106,19 @@
 <!-- ==========================================
      CABECERA PARA EL RESTO DE PÁGINAS SECUNDARIAS
      ========================================== -->
-<div class="container-fluid" style="background-color: #111111; padding: 1rem 5%; border-bottom: 4px solid #ffffff;">
+<div class="container-fluid" style="background-color: #111111; padding: 1.5rem 5%; border-bottom: 6px solid #111111;">
     <div class="row align-items-center">
         <div id="title" class="{% if site.organization-logo-banner %}col-md-9{% else %}col-12{% endif %}">
-            <h1 class="mt-2 m-0" style="font-family: 'Archivo Black', sans-serif; text-transform: uppercase; font-size: 2rem;">
-                <a class="text-white text-decoration-none" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+            <h1 class="mt-2 m-0" style="font-family: 'Archivo Black', sans-serif; text-transform: uppercase; font-size: 2rem; letter-spacing: -1px;">
+                <a class="text-white text-decoration-none" href="{{ '/' | relative_url }}" style="transition: color 0.2s ease;" onmouseover="this.style.color='#cccccc'" onmouseout="this.style.color='#ffffff'">{{ site.title }}</a>
             </h1>   
-            {% if site.tagline %}<p class="text-white m-0" style="font-family: 'Inter', sans-serif; font-size: 0.9rem;">{{ site.tagline }}</p>{% endif %}
+            {% if site.tagline %}<p class="text-white m-0 mt-1" style="font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 300; letter-spacing: 2px; text-transform: uppercase;">{{ site.tagline }}</p>{% endif %}
         </div>
+        
         {% if site.organization-logo-banner %}
         <div class="col-md-3 d-none d-lg-block text-end">
-            <a class="btn btn-outline-light" style="border-radius: 0;" href="{{ site.organization-link }}">
-                <img class="img-fluid" src="{{ site.organization-logo-banner | relative_url }}" title="{{ site.organization-name }}" alt="{{ site.organization-name | escape }} home" >
+            <a href="{{ site.organization-link }}">
+                <img class="img-fluid" src="{{ site.organization-logo-banner | relative_url }}" title="{{ site.organization-name }}" alt="{{ site.organization-name | escape }} home" style="max-height: 40px; filter: grayscale(100%) invert(1); transition: filter 0.2s ease;" onmouseover="this.style.filter='grayscale(0%) invert(0)'" onmouseout="this.style.filter='grayscale(100%) invert(1)'">
             </a>
         </div>
         {% endif %}
