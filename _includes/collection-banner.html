@@ -3,42 +3,42 @@
     @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;700;900&display=swap');
 
-    /* 1. PISO SUPERIOR: El marco del título (Negro, elegante y dinámico) */
+    /* 1. PISO SUPERIOR: El marco del título (Reducido a 2/3) */
     .hero-title-bar {
         background-color: #111111;
         color: #ffffff;
-        padding: 3rem 5%; /* Alineación perfecta con el resto de la web */
+        padding: 1.5rem 5%; /* Relleno vertical reducido a la mitad para afinar la franja */
         display: flex;
         flex-direction: column;
         justify-content: center;
-        border-bottom: 2px solid #ffffff; /* Fina línea blanca que separa de la foto */
+        border-bottom: 2px solid #ffffff; 
     }
 
     .hero-title-text {
         font-family: 'Archivo Black', sans-serif;
-        font-size: clamp(3rem, 7vw, 6rem); /* Se adapta al móvil */
+        font-size: clamp(2rem, 4.5vw, 4rem); /* Reducido de 6rem a 4rem (2/3 exactos) */
         text-transform: uppercase;
         line-height: 1;
         margin: 0;
-        letter-spacing: -3px; /* Letras muy juntas por defecto */
+        letter-spacing: -2px; /* Ajustado proporcionalmente */
         transition: letter-spacing 0.4s cubic-bezier(0.25, 1, 0.5, 1), transform 0.4s ease;
         cursor: default;
     }
 
-    /* Efecto dinámico al pasar el ratón: El título se expande elegantemente */
+    /* Efecto dinámico al pasar el ratón */
     .hero-title-text:hover {
-        letter-spacing: 2px;
+        letter-spacing: 1px;
         transform: scale(1.01);
     }
 
     .hero-tagline {
         font-family: 'Inter', sans-serif;
-        font-weight: 300; /* Letra muy fina y sofisticada */
-        font-size: clamp(1rem, 1.5vw, 1.5rem);
-        margin-top: 1rem;
+        font-weight: 300; 
+        font-size: clamp(0.75rem, 1vw, 1rem); /* Reducido de 1.5rem a 1rem */
+        margin-top: 0.5rem; /* Margen más ajustado */
         color: #aaaaaa;
         text-transform: uppercase;
-        letter-spacing: 4px; /* Muy espaciado para contrastar con el título */
+        letter-spacing: 3px; 
     }
 
     /* 2. PISO INFERIOR: La foto despejada */
@@ -47,10 +47,10 @@
         background-size: cover;
         background-repeat: no-repeat;
         background-position: {{ site.data.theme.home-banner-image-position | default: 'center' }};
-        min-height: 65vh; /* Altura generosa para la foto */
+        min-height: 70vh; /* Al hacer la franja negra más fina, le damos un poco más de espacio a la foto */
         width: 100%;
         position: relative;
-        border-bottom: 8px solid #111111; /* Línea gruesa negra cerrando el banner */
+        border-bottom: 8px solid #111111;
     }
 
     /* Etiqueta de la imagen destacada */
@@ -79,9 +79,9 @@
     <!-- PISO SUPERIOR: Título -->
     <div class="hero-title-bar">
         {% if site.organization-logo-nav %}
-        <a class="mb-3 d-inline-block" href="{{ site.organization-link }}">
-            <!-- El logo se invierte a blanco para verse en el fondo negro -->
-            <img id="home-banner-logo" src="{{ site.organization-logo-nav | relative_url }}" alt="{{ site.organization-name | escape }} home" style="max-height: 45px; filter: grayscale(100%) invert(1);">
+        <a class="mb-2 d-inline-block" href="{{ site.organization-link }}">
+            <!-- Logo también reducido en proporción -->
+            <img id="home-banner-logo" src="{{ site.organization-logo-nav | relative_url }}" alt="{{ site.organization-name | escape }} home" style="max-height: 30px; filter: grayscale(100%) invert(1);">
         </a>
         {% endif %}
         
@@ -118,7 +118,7 @@
         {% if site.organization-logo-banner %}
         <div class="col-md-3 d-none d-lg-block text-end">
             <a href="{{ site.organization-link }}">
-                <img class="img-fluid" src="{{ site.organization-logo-banner | relative_url }}" title="{{ site.organization-name }}" alt="{{ site.organization-name | escape }} home" style="max-height: 40px; filter: grayscale(100%) invert(1); transition: filter 0.2s ease;" onmouseover="this.style.filter='grayscale(0%) invert(0)'" onmouseout="this.style.filter='grayscale(100%) invert(1)'">
+                <img class="img-fluid" src="{{ site.organization-logo-banner | relative_url }}" title="{{ site.organization-name }}" alt="{{ site.organization-name | escape }} home" style="max-height: 35px; filter: grayscale(100%) invert(1); transition: filter 0.2s ease;" onmouseover="this.style.filter='grayscale(0%) invert(0)'" onmouseout="this.style.filter='grayscale(100%) invert(1)'">
             </a>
         </div>
         {% endif %}
