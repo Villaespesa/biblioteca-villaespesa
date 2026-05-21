@@ -2,43 +2,16 @@
     @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
 
-    /* Contenedor principal del Footer */
+    /* Footer extrafino */
     .brutalist-footer {
         background-color: #111111 !important;
         color: #ffffff !important;
-        border-top: 8px solid #111111;
-        padding: 4rem 0 2rem 0;
+        border-top: 6px solid #111111;
+        padding: 2rem 0 1rem 0; /* Relleno drásticamente reducido */
         font-family: 'Inter', sans-serif;
     }
 
-    /* Título del sitio */
-    .footer-site-title {
-        font-family: 'Archivo Black', sans-serif;
-        text-transform: uppercase;
-        font-size: clamp(1.5rem, 3vw, 2.5rem);
-        letter-spacing: -1px;
-        color: #ffffff;
-        margin-bottom: 0.5rem;
-        text-decoration: none;
-        transition: color 0.2s ease;
-    }
-    .footer-site-title:hover {
-        color: #ffffff;
-        text-decoration: underline;
-        text-decoration-thickness: 4px;
-        text-underline-offset: 6px;
-    }
-
-    /* Descripción */
-    .footer-description {
-        font-size: 1rem;
-        line-height: 1.6;
-        color: #cccccc;
-        max-width: 600px;
-        margin-bottom: 2.5rem;
-    }
-
-    /* Menú de navegación (Nav Pills transformado) */
+    /* Navegación horizontal compacta */
     .footer-nav-links {
         display: flex;
         flex-wrap: wrap;
@@ -46,68 +19,74 @@
         list-style: none;
         padding: 0;
         margin: 0;
+        align-items: center;
+        height: 100%;
     }
+    
     .footer-nav-links a {
         color: #ffffff !important;
         text-decoration: none;
         font-family: 'Archivo Black', sans-serif;
         text-transform: uppercase;
-        font-size: 1rem;
-        border-bottom: 3px solid transparent;
+        font-size: 0.85rem; /* Letra discreta */
         transition: all 0.2s ease;
     }
+    
     .footer-nav-links a:hover, .footer-nav-links a.active {
-        border-bottom: 3px solid #ffffff;
-        transform: translateY(-2px);
+        text-decoration: underline;
+        text-decoration-thickness: 3px;
+        text-underline-offset: 4px;
+        color: #cccccc !important;
     }
 
-    /* Logotipos Brutalistas (Filtro gris que se quita al pasar el ratón) */
-    .footer-logo-container img {
-        max-height: 80px;
-        margin-bottom: 1rem;
-        filter: grayscale(100%);
+    /* Logotipos en miniatura extrema */
+    .footer-logos {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end; /* Alineados a la derecha */
+        gap: 1rem;
+    }
+    
+    .footer-logos img {
+        filter: grayscale(100%) brightness(1.5);
         transition: filter 0.3s ease;
     }
-    .footer-logo-container img:hover {
-        filter: grayscale(0%);
-    }
-
-    .footer-cb-logo img {
-        max-width: 150px;
-        filter: grayscale(100%) brightness(1.5); /* Lo aclara un poco para que se vea bien en fondo negro */
-        transition: filter 0.3s ease;
-    }
-    .footer-cb-logo img:hover {
+    
+    .footer-logos img:hover {
         filter: grayscale(0%) brightness(1);
     }
+    
+    .footer-org-logo {
+        max-height: 25px; /* Logo de tu institución súper pequeño */
+    }
+    
+    .footer-cb-logo {
+        max-height: 20px; /* Logo de CB reducido a la mínima expresión */
+        width: auto;
+    }
 
-    /* Barra Inferior (Fecha de actualización) */
+    /* Barra Inferior (Fecha) */
     .footer-bottom-bar {
-        border-top: 4px solid #333333;
-        margin-top: 4rem;
-        padding-top: 1.5rem;
+        border-top: 1px solid #333333;
+        margin-top: 1.5rem;
+        padding-top: 1rem;
         font-family: 'Archivo Black', sans-serif;
         text-transform: uppercase;
-        font-size: 0.85rem;
+        font-size: 0.65rem;
+        color: #666666;
         letter-spacing: 1px;
     }
 </style>
 
 <footer class="brutalist-footer mt-auto">
-    <!-- Mismo alineamiento (5%) que el slider y la cabecera -->
     <div class="container-fluid" style="padding: 0 5%;">
-
-        <div class="row">
+        
+        <div class="row align-items-center">
             
-            <!-- COLUMNA IZQUIERDA: Título, Descripción y Menú -->
-            <div class="col-12 col-md-7 mb-5 mb-md-0 text-start">
-                
-                <h2><a href="{{ '/' | relative_url }}" class="footer-site-title">{{ site.title }}</a></h2>
-                <p class="footer-description">{{ site.description }}</p>
-                
+            <!-- COLUMNA IZQUIERDA: Solo el Menú -->
+            <div class="col-12 col-md-8 mb-3 mb-md-0 text-start">
                 <nav>
                     <ul class="footer-nav-links">
-                        <!-- Lógica original intacta para no romper tus enlaces -->
                         {%- assign navItems = site.data.config-nav | where_exp: 'item', 'item.dropdown_parent == nil' -%}
                         {% for nav in navItems %}
                         <li>
@@ -121,35 +100,31 @@
                         {%- endfor -%}
                     </ul>
                 </nav>
-
             </div>
 
-            <!-- COLUMNA DERECHA: Logotipos (Institución y CollectionBuilder) -->
-            <div class="col-12 col-md-5 text-start text-md-end d-flex flex-column justify-content-center align-items-md-end">
-                
-                {% if site.organization-logo-nav %} 
-                <div class="footer-logo-container">
+            <!-- COLUMNA DERECHA: Logotipos miniatura en una sola línea -->
+            <div class="col-12 col-md-4 text-start text-md-end">
+                <div class="footer-logos d-flex justify-content-md-end justify-content-start align-items-center">
+                    
+                    {% if site.organization-logo-nav %} 
                     <a href="{{ site.organization-link }}">
-                        <img class="img-fluid" src="{{ site.organization-logo-nav | relative_url }}" alt="{{ site.organization-name | escape }} home">
+                        <img class="footer-org-logo" src="{{ site.organization-logo-nav | relative_url }}" alt="{{ site.organization-name | escape }} home">
                     </a>
-                </div>
-                {% endif %}
-                
-                <div class="footer-cb-logo mt-3">
-                    <small style="color: #888888; display: block; margin-bottom: 0.5rem; font-family: 'Inter', sans-serif;"><em>built with</em></small>
+                    {% endif %}
+                    
+                    <span style="color: #666666; font-size: 0.65rem; font-style: italic; margin-right: -0.5rem; font-family: 'Inter', sans-serif;">built with</span>
                     <a href="https://collectionbuilder.github.io/" title="CollectionBuilder">
-                        <img src="{{ '/assets/img/collectionbuilder-logo.png' | relative_url }}" class="img-fluid" alt="CollectionBuilder" >
+                        <img class="footer-cb-logo" src="{{ '/assets/img/collectionbuilder-logo.png' | relative_url }}" alt="CollectionBuilder" >
                     </a>
                 </div>
-
             </div>
 
         </div>
 
-        <!-- BARRA INFERIOR: Fecha de actualización -->
-        <div class="row footer-bottom-bar text-center">
+        <!-- BARRA INFERIOR: Fecha de actualización muy sutil -->
+        <div class="row footer-bottom-bar text-center text-md-start">
             <div class="col-12">
-                <p class="text-white mb-0">Last updated {{ site.time | date: '%Y' }}</p>
+                <p class="mb-0">Last updated {{ site.time | date: '%Y' }}</p>
             </div>
         </div>
 
