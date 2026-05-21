@@ -38,7 +38,7 @@
         box-shadow: 3px 3px 0px #111111 !important;
         transition: all 0.2s ease !important;
         text-decoration: none !important;
-        flex: 1 1 auto; /* Permite que se adapten al móvil */
+        flex: 1 1 auto; 
         text-align: center;
     }
     .brutalist-action-btn:hover {
@@ -209,8 +209,143 @@ function displayItem(record, prev_id, next_id, compound_object) {
         itemLink += '</div>';
     }
 
+    /* create compound object cards */
+    function compoundItems(compoundItem) {
+        var objectCount = Object.keys(compoundItem).length;
+        itemImage = format.includes('compound_object') ? '<div class="row row-cols-2 row-cols-lg-4 g-2">' : "";
+        compoundDownload = '<div class="btn-group" role="group"><button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Download</button> <ul class="dropdown-menu">';
+
+        for (let i = 0; i < compoundItem.length; i++) {
+            var compoundLink = findFileLink(compoundItem[i]);
+            var compoundFormat = compoundItem[i].format;
+            var compoundTitle = compoundItem[i].title;
+            var partOrder = i + 1;
+
+            var itemTitle = typeof compoundTitle !== 'undefined' ? `<div class="small text-dark mb-2">${compoundTitle.split(" ").splice(0,4).join(" ")}...</div>` : '';
+
+            var compoundIcon, compoundThumb;
+            if (compoundFormat.includes('image')) { compoundIcon = compoundLink; } 
+            else if (compoundFormat.includes('pdf')) { compoundIcon = 'icon-pdf'; } 
+            else if (compoundFormat.includes('audio')) { compoundIcon = 'icon-audio'; } 
+            else if (compoundFormat.includes('video')) { compoundIcon = 'icon-video'; } 
+            else if (compoundFormat.includes('record')) { compoundIcon = 'icon-record'; } 
+            else { compoundIcon = 'icon-default'; }
+
+            if (compoundFormat.includes('image')) {
+                compoundThumb = `<img class="img-thumbnail compound-thumb" src="${compoundIcon}" alt="image of ${compoundTitle ? compoundTitle : objectTitle + ', part ' + partOrder}">`;
+            } else {
+                compoundThumb = `
+                    <svg class="bi text-body compound-thumb" fill="currentColor" aria-hidden="true">
+                        <use xlink:href="{{ '/assets/lib/cb-icons.svg' | relative_url }}#${compoundIcon}" />
+                    </svg>
+                    <span class="sr-only d-none">${compoundTitle ? compoundTitle : 'Part ' + partOrder + ' of ' + objectTitle} - ${compoundFormat}</span>`;
+            }
+
+            var itemPrev = i === 0 ? compoundItem[compoundItem.length - 1].objectid : compoundItem[i - 1].objectid;
+            var itemNext = i + 1 === compoundItem.length ? compoundItem[0].objectid : compoundItem[i + 1].objectid;
+
+            addItem(compoundItem[i]);
+            addButtons(compoundItem[i]);
+
+            var mediaType;
+            if (compoundItem[i].youtubeid) { mediaType = "youtube" } 
+            else if (compoundItem[i].vimeoid) { mediaType = "vimeo" } 
+            else if (compoundItem[i].format.includes('video')) { mediaType = "video" } 
+            else if (compoundItem[i].format.includes('audio')) { mediaType = "audio" } 
+            else { mediaType = "nomedia" }
+
+            if (format.includes('multiple')) {
+                itemImage += `
+                    <div id="${compoundItem[i].objectid}" class="mb-4">
+                        ${itemDisplay}
+                        ${compoundTitle ? `<div><small class="text-dark">${compoundTitle}</small></div>` : ''}
+                    </div>`;
+            } else if (format.includes('compound_object')) {
+                var itemModal = `
+                    <div class="modal fade" id="${compoundItem[i].objectid}" tabindex="-1" role="dialog" aria-labelledby="${compoundItem[i].objectid}ModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xxl">
+                            <div class="modal-content text-start">
+                                <div class="modal-header">
+                                    <div class="modal-title w-100" id="${compoundItem[i].objectid}ModalLabel">
+                                        <div class="row">
+                                            <div class="col-12 text-end">
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="stopMedia('${mediaType}', '${compoundItem[i].objectid}');history.pushState('', '', window.location.href.replace(/#.*$/, ''))"></button>
+                                            </div>
+                                            <div class="col-1 col-md-2">
+                                                <button data-bs-target="#${itemPrev}" data-bs-toggle="modal" onclick="stopMedia('${mediaType}', '${compoundItem[i].objectid}');window.location.hash='${itemPrev}'" class="btn btn-outline-dark btn-sm prev-child-button" >
+                                                    <svg class="bi icon-sprite" role="img" aria-label="Previous Item">
+                                                        <use xlink:href="{{ '/assets/lib/cb-icons.svg' | relative_url }}#arrow-left"/>
+                                                    </svg>
+                                                    <span class="d-none d-md-inline">Previous Item</span>
+                                                </button>
+                                            </div>
+                                            <div class="col-9 col-md-8 text-center">
+                                                <h3 class="h5">${objectTitle}
+                                                    <span class="d-none d-md-inline">-</span><span class="d-md-none"><br></span>
+                                                    Item ${partOrder} of ${compoundItem.length}
+                                                </h3>
+                                            </div>
+                                            <div class="col-1 col-md-2 text-end">
+                                                <button data-bs-target="#${itemNext}" data-bs-toggle="modal" onclick="stopMedia('${mediaType}', '${compoundItem[i].objectid}');window.location.hash='${itemNext}'" class="btn btn-outline-dark btn-sm next-child-button">
+                                                    <span class="d-none d-md-inline">Next Item</span>
+                                                    <svg class="bi icon-sprite" role="img" aria-label="Next Item">
+                                                        <use xlink:href="{{ '/assets/lib/cb-icons.svg' | relative_url }}#arrow-right"/>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="card mb-4 text-center">
+                                                <div class="m-2">
+                                                    ${itemDisplay}
+                                                </div>
+                                                <div class="my-2">
+                                                    ${itemLink}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="metadata">
+                                                ${generateMetadata(compoundItem[i])}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                itemImage += `
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="my-auto">
+                                <div class="card-body text-center" id="${compoundItem[i].objectid}Card">
+                                    ${itemTitle}
+                                    <div class="mb-2">
+                                        ${compoundThumb}
+                                    </div>
+                                    <a id="item-${i+1}" role="button" data-bs-toggle="modal" href="#${compoundItem[i].objectid}" onclick="window.location.hash='${compoundItem[i].objectid}'" class="btn btn-sm btn-outline-secondary small stretched-link">
+                                        ${compoundFormat.includes("image") ? compoundFormat.split("/")[0].toUpperCase() : compoundFormat.split("/").pop().toUpperCase()} <svg class="bi icon-sprite" fill="currentColor" aria-hidden="true"><use xlink:href="{{ '/assets/lib/cb-icons.svg' | relative_url }}#${compoundFormat.includes('image') ? 'icon-image' : compoundIcon}"/></svg>
+                                    </a>
+                                    ${itemModal}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            compoundDownload += `<li><a class="dropdown-item" target="_blank" rel="noopener" href="${compoundLink}">${compoundTitle ? compoundTitle.split(" ").splice(0,3).join(" ") + '... (' + compoundFormat + ')' : 'Item ' + partOrder + ' (' + compoundFormat + ')'}</a></li>`;
+        }
+        if (format.includes('compound_object')) { itemImage += '</div>'; }
+        compoundDownload += '</ul></div></div>';
+    };
+
     if(compound_object.length > 0) { 
-        // Lógica de compound omitida para brevedad, usando la original si la necesitas, pero mantuve tu código.
+        compoundItems(compound_object);
     } else {
         addItem(record);
     }
@@ -260,11 +395,44 @@ function displayItem(record, prev_id, next_id, compound_object) {
             <a id="next-button" class="next btn btn-lg btn-secondary" style="border-radius:0; border:3px solid #111; background:#fff; color:#111; font-weight:900;" href="${forwardUrl}">&raquo;</a>
         </div>`;
         
+    /* add back forward key functionality for modal arrows */
+    function leftModalArrowPressed() {
+        var modalshow = document.querySelector(".modal.show");
+        if (modalshow) {
+            const prevButton = modalshow.querySelector(".prev-child-button");
+            if (prevButton) { prevButton.click(); }
+        }
+    };
+    function rightModalArrowPressed() {
+        var modalshow = document.querySelector(".modal.show");
+        if (modalshow) {
+            const nextButton = modalshow.querySelector(".next-child-button");
+            if (nextButton) { nextButton.click(); }
+        }
+    };
+    function isModalShown() {
+        const modal = document.querySelector(".modal.show");
+        return modal && modal.classList.contains("show");
+    };
+    function isSpotlightModalShown() {
+        const spotlight = document.getElementById("spotlight");
+        return spotlight && spotlight.classList.contains("show");
+    }
+
     document.onkeydown = function (evt) {
-        evt = evt || window.event;
-        switch (evt.keyCode) {
-            case 37: location.href = backUrl; break;
-            case 39: location.href = forwardUrl; break;
+        if (isSpotlightModalShown()) {
+        } else if (isModalShown()) {
+            evt = evt || window.event;
+            switch (evt.keyCode) {
+                case 37: leftModalArrowPressed(); break;
+                case 39: rightModalArrowPressed(); break;
+            }
+        } else {
+            evt = evt || window.event;
+            switch (evt.keyCode) {
+                case 37: location.href = backUrl; break;
+                case 39: location.href = forwardUrl; break;
+            }
         }
     };
     {%- endif -%}
@@ -290,8 +458,27 @@ if (record_index != -1 && cb_items[record_index].parentid) {
     displayItem(cb_items[record_index], prev_id, next_id, child_records);
 } else {
     document.getElementById("bc-title").innerHTML = 'Not found?';
-    document.getElementById("item-title").innerHTML = 'Sorry, item not found.';
+    document.getElementById("item-title").innerHTML = 'Sorry, item not found. Please visit <a href="{{ "/browse.html" | relative_url }}">Browse page</a> to find an item.';
 }
 
 document.getElementById("loading").style.display = "none";
+
+function stopMedia(avType, modalId) {
+    var modalElement = document.getElementById(modalId);
+    var mediaElement;
+    switch (avType) {
+        case "youtube":
+        case "vimeo": mediaElement = modalElement.querySelector("iframe"); break;
+        case "video": mediaElement = modalElement.querySelector("video"); break;
+        case "audio": mediaElement = modalElement.querySelector("audio"); break;
+    }
+    if (avType == "youtube") {
+        var message = JSON.stringify({ event: 'command', func: 'pauseVideo', args: '' });
+        mediaElement.contentWindow.postMessage(message, '*');
+    } else if (avType == "vimeo") {
+        mediaElement.contentWindow.postMessage('{"method":"pause"}', '*');
+    } else if (avType == 'video' || avType == 'audio') {
+        mediaElement.pause();
+    }
+};
 </script>
