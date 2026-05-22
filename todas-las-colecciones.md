@@ -4,11 +4,6 @@ layout: page
 permalink: /todas-las-colecciones.html
 ---
 
-<div class="container-fluid my-4" style="padding: 0 2%;">
-    <h1 class="mb-5" style="font-family: 'Archivo Black', sans-serif; text-transform: uppercase; font-size: 3rem; border-bottom: 8px solid #111111; padding-bottom: 0.5rem;">
-        Catálogo Completo
-    </h1>
-
     <!-- CUADRÍCULA DE COLECCIONES -->
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="grid-colecciones">
         
