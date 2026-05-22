@@ -8,10 +8,6 @@ custom-foot: js/timeline-js.html
     @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
 
-    /* ==========================================
-       CRONOGRAMA POR SIGLOS (SCROLL HORIZONTAL)
-       ========================================== */
-
     /* Contenedor de cada siglo */
     .century-wrapper {
         margin-bottom: 4rem;
@@ -19,15 +15,15 @@ custom-foot: js/timeline-js.html
         border-bottom: 2px solid #eeeeee;
     }
 
-    /* Etiqueta Negra del Siglo (Tamaño contenido y elegante) */
+    /* Etiqueta Negra del Siglo (Elegante y contenida) */
     .century-label {
         display: inline-block;
         background-color: #111111;
         color: #ffffff;
         font-family: 'Archivo Black', sans-serif;
-        font-size: 1.1rem; /* Fino y elegante, no gigante */
+        font-size: 1.1rem; 
         text-transform: uppercase;
-        padding: 0.6rem 1.5rem;
+        padding: 0.5rem 1.5rem;
         margin-bottom: 1.5rem;
         letter-spacing: 1px;
         box-shadow: 4px 4px 0px rgba(0,0,0,0.1);
@@ -39,18 +35,17 @@ custom-foot: js/timeline-js.html
         box-shadow: 6px 6px 0px rgba(0,0,0,0.2);
     }
 
-    /* Contenedor de Scroll Horizontal (El truco para no sobrecargar la página) */
+    /* Contenedor de Scroll Horizontal */
     .century-scroll {
         display: flex;
         overflow-x: auto;
         gap: 1.5rem;
         padding-bottom: 1.5rem;
-        /* Scroll suave */
         scroll-behavior: smooth;
         -webkit-overflow-scrolling: touch;
     }
 
-    /* Estilo de la barra de desplazamiento horizontal para que sea elegante */
+    /* Barra de desplazamiento elegante */
     .century-scroll::-webkit-scrollbar {
         height: 8px;
     }
@@ -65,7 +60,7 @@ custom-foot: js/timeline-js.html
 
     /* Tarjeta del Libro */
     .timeline-card {
-        flex: 0 0 220px; /* Ancho fijo para cada tarjeta, así caben muchas en línea */
+        flex: 0 0 220px; /* Ancho fijo para que se pongan en fila */
         display: flex;
         flex-direction: column;
         border: 3px solid #111111;
@@ -74,7 +69,7 @@ custom-foot: js/timeline-js.html
         color: #111111;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
         position: relative;
-        margin-top: 15px; /* Espacio para la etiqueta del año */
+        margin-top: 15px;
     }
     .timeline-card:hover {
         transform: translate(-3px, -3px);
@@ -133,7 +128,7 @@ custom-foot: js/timeline-js.html
     }
 </style>
 
-<!-- LÓGICA INTERNA DE COLLECTIONBUILDER (INTACTA Y SEGURA) -->
+<!-- LÓGICA INTERNA DE COLLECTIONBUILDER (INTACTA) -->
 {%- if site.data.theme.icons -%}{% assign icons = site.data.theme.icons %}{% else %}
 {% assign cb_icons = site.pages | where: "name","cb-icons.svg" | first %}
 {% assign icons = cb_icons.icons %}{%- endif -%}
@@ -148,14 +143,8 @@ custom-foot: js/timeline-js.html
 {%- assign items = items | where_exp: 'item','item[field]' | sort: field -%}
 {%- assign raw-dates = items | map: field | compact | uniq -%}
 
-{%- capture clean-years -%}
-{% for date in raw-dates %}
-    {% if date contains "-" %}{{ date | strip | split: "-" | first }}
-    {% elsif date contains "/" %}{{ date | strip | split: "/" | last }}
-    {% else %}{{ date | strip }}
-    {% endif %}{% unless forloop.last %};{% endunless %}
-{%- endfor -%}
-{%- endcapture -%}
+<!-- EL ERROR ESTABA AQUÍ: Esta línea DEBE estar toda junta sin espacios ocultos -->
+{%- capture clean-years -%}{% for date in raw-dates %}{% if date contains "-" %}{{ date | strip | split: "-" | first }}{% elsif date contains "/" %}{{ date | strip | split: "/" | last }}{% else %}{{ date | strip }}{% endif %}{% unless forloop.last %};{% endunless %}{%- endfor -%}{%- endcapture -%}
 
 {%- assign uniqueYears = clean-years | replace: ";;",";" | split: ";" | compact | uniq | sort -%}
 
@@ -173,29 +162,28 @@ custom-foot: js/timeline-js.html
         </p>
     </div>
 
-    <!-- MAGIA A PRUEBA DE FALLOS: Agrupación dinámica por siglos -->
+    <!-- Agrupación dinámica por siglos -->
     {% assign current_century = 0 %}
     
     {% for year in uniqueYears %}
-        <!-- Forzamos el año a número para limpiarlo de letras -->
-        {% assign y_num = year | plus: 0 %}
+        <!-- Limpiamos espacios y convertimos a número -->
+        {% assign clean_year = year | strip %}
+        {% assign y_num = clean_year | plus: 0 %}
         
-        <!-- Solo procesamos si realmente es un año válido mayor que 0 -->
+        <!-- Solo procesamos si el año es válido (>0) -->
         {% if y_num > 0 %}
             
-            <!-- Calculamos el siglo -->
+            <!-- Matemáticas para el siglo -->
             {% assign c_num = y_num | divided_by: 100 | plus: 1 %}
             
-            <!-- Si el siglo detectado es diferente al que estábamos dibujando, abrimos una nueva sección -->
             {% if c_num != current_century %}
                 
-                <!-- Si ya había un siglo abierto antes, cerramos sus etiquetas -->
+                <!-- Cerrar siglo anterior si existe -->
                 {% if current_century != 0 %}
                     </div> <!-- Cierra century-scroll -->
                     </div> <!-- Cierra century-wrapper -->
                 {% endif %}
                 
-                <!-- Actualizamos el marcador al nuevo siglo -->
                 {% assign current_century = c_num %}
                 
                 <!-- Convertimos a números romanos -->
@@ -211,20 +199,20 @@ custom-foot: js/timeline-js.html
                     {% endif %}
                 {% endcapture %}
 
-                <!-- CREAMOS LA ETIQUETA DEL NUEVO SIGLO -->
+                <!-- ETIQUETA DEL NUEVO SIGLO -->
                 <div class="century-wrapper">
                     <h2 class="century-label">Siglo {{ roman }}</h2>
                     <div class="century-scroll">
             {% endif %}
 
-            <!-- Extraemos los libros correspondientes a este año concreto -->
-            {% assign inYear = items | where_exp: 'item', 'item[field] contains year' %}
+            <!-- Extraemos los libros correspondientes a este año (con la variable limpia) -->
+            {% assign inYear = items | where_exp: 'item', 'item[field] contains clean_year' %}
             
             {% for item in inYear %}
                 <!-- Tarjeta de Libro -->
                 <a class="timeline-card" href="{% if item.parentid == nil %}{{ '/item.html' | relative_url | append: '?id=' | append: item.objectid }}{% elsif item.parentid %}{{ '/item.html' | relative_url | append: '?id=' | append: item.parentid | relative_url }}#{{ item.objectid }}{% endif %}">
                     
-                    <div class="card-year-badge">{{ year }}</div>
+                    <div class="card-year-badge">{{ clean_year }}</div>
                     
                     <div class="card-img-wrapper">
                         {% if item.format contains 'image' or item.youtubeid %}
@@ -240,13 +228,13 @@ custom-foot: js/timeline-js.html
                 </a>
             {% endfor %}
 
-        {% endif %} <!-- Fin comprobación año válido -->
+        {% endif %} 
     {% endfor %}
     
-    <!-- Cerramos el último siglo al terminar el bucle -->
+    <!-- Cerrar último siglo -->
     {% if current_century != 0 %}
-        </div> <!-- Cierra century-scroll final -->
-        </div> <!-- Cierra century-wrapper final -->
+        </div> <!-- Cierra century-scroll -->
+        </div> <!-- Cierra century-wrapper -->
     {% endif %}
 
 </div>
