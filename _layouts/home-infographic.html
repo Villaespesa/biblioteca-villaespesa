@@ -79,6 +79,7 @@ layout: page
     <style>
         /* Tarjetas de los 5 objetos */
         .novedades-card {
+            position: relative; /* Importante para anclar la pestaña del año */
             border: 3px solid #111111;
             text-decoration: none !important;
             background-color: #ffffff;
@@ -87,7 +88,6 @@ layout: page
             height: 100%;
             color: #111111 !important;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
-            position: relative; /* Importante para anclar la pestaña del año */
             margin-top: 15px; /* Deja espacio para que la pestaña no choque con lo de arriba */
         }
         
@@ -96,175 +96,11 @@ layout: page
             box-shadow: 6px 6px 0px #111111;
         }
 
-        /* NUEVO: La pestaña brutalista del año */
+        /* La pestaña brutalista del año */
         .novedades-year-badge {
             position: absolute;
             top: -15px;
             left: -3px;
-            background-color: #111111;
-            color: #ffffff;
-            border: 3px solid #111111;
-            font-family: 'Archivo Black', sans-serif;
-            font-size: 0.9rem;
-            padding: 0.1rem 0.6rem;
-            z-index: 10;
-            transition: all 0.2s ease;
-        }
-
-        /* Efecto al pasar el ratón: La pestaña invierte colores */
-        .novedades-card:hover .novedades-year-badge {
-            background-color: #ffffff;
-            color: #111111;
-        }
-
-        .novedades-img-wrapper {
-            border-bottom: 3px solid #111111;
-            aspect-ratio: 2/3;
-            overflow: hidden;
-            background: #f4f4f4;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .novedades-img-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .novedades-texto {
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
-        .novedades-titulo-libro {
-            font-family: 'Inter', sans-serif;
-            font-weight: 900;
-            font-size: 1rem;
-            line-height: 1.2;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-        }
-
-        .novedades-autor {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.8rem;
-            color: #555555;
-            font-weight: 700;
-        }
-    </style>
-        
-
-    <!-- CUADRÍCULA DE 5 OBJETOS CENTRADA -->
-    <div class="row row-cols-2 row-cols-md-3 row-cols-xl-5 g-4 mb-4 justify-content-center">
-        
-        <!-- Lee la base de datos AL REVÉS y coge 5 -->
-        {% assign items = site.data[site.metadata] %}
-        {% for item in items reversed limit: 5 %}
-        
-            <!-- EXTRACCIÓN Y LIMPIEZA DEL AÑO (4 dígitos) -->
-            {% capture clean_year %}
-                {% if item.date contains "-" %}{{ item.date | strip | split: "-" | first }}
-                {% elsif item.date contains "/" %}{{ item.date | strip | split: "/" | last }}
-                {% else %}{{ item.date | strip }}
-                {% endif %}
-            {% endcapture %}
-            {% assign clean_year = clean_year | strip %}
-        
-            <!-- RADAR DE IMAGEN -->
-            {% assign img_src = "" %}
-            {% if item.image_small and item.image_small != "" %}
-                {% assign img_src = item.image_small %}
-            {% elsif item.image_thumb and item.image_thumb != "" %}
-                {% assign img_src = item.image_thumb %}
-            {% elsif item.object_location and item.object_location != "" %}
-                {% assign img_src = item.object_location %}
-            {% elsif item.filename and item.filename != "" %}
-                {% if item.filename contains '/' %}
-                    {% assign img_src = item.filename %}
-                {% else %}
-                    {% assign img_src = '/objects/' | append: item.filename %}
-                {% endif %}
-            {% endif %}
-
-            {% if img_src contains 'http' %}
-                {% assign final_img = img_src %}
-            {% else %}
-                {% assign final_img = img_src | relative_url %}
-            {% endif %}
-
-            <div class="col">
-                <a href="{{ '/item.html' | relative_url | append: '?id=' | append: item.objectid }}" class="novedades-card">
-                    
-                    <!-- NUEVO: ETIQUETA DEL AÑO (Solo se dibuja si el libro tiene fecha) -->
-                    {% if clean_year != "" %}
-                    <div class="novedades-year-¡Qué gran idea! Mantener la coherenciabadge">{{ clean_year }}</div>
-                    {% endif %}
-                    
-                    <div class="novedades-img-wrapper">
-                        {% if img_src != "" %}
-                        <img src="{{ final_img }}" alt="{{ item.title }}">
-                        {% else %}
-                        <span style="font-family: 'Archivo Black visual en toda la página es lo que diferencia una web normal de un diseño profesional. Añadir esa misma etiqueta con el año en las novedades de la portada conect', sans-serif; font-size: 0.8rem; color: #aaaaaa; text-transform: uppercase;">Sin Portada</span>
-                        {% endif %}ará visualmente esta sección con la línea de tiempo.
-
-Para hacerlo, he añadido la etiqueta con el mismo comportamiento dinámico (se vuelve negra al pasar el rat
-                    </div>
-                    
-                    <div class="novedades-texto text-start">
-                        <h4 class="novedades-titulo-libro">{{ itemón) y me he asegurado de añadirle un `margin-top: 15px;` a la tarjeta para que la etiqueta tenga espacio y.title | truncatewords: 6 }}</h4>
-                        {% if item.creator %}
-                        <span class="novedades-autor">{{ item.creator | truncatewords: 4 }}</span>
-                        {% endif %}
-                    </div>
-                    
-                </a>
-            </div>
-            
-        {% endfor %}
-        
-    </div>
-
-     no se corte con lo que haya arriba. Además, he metido un pequeño filtro en Liquid por si alguna de tus fechas aún tuviera formato largo, para asegur<!-- BOTÓN INFERIOR CATÁLOGO -->
-    <div class="text-start mt-4">
-        <a href="{{ '/browse.html' | relative_url }}" class="btn btn-outline-dark" style="border-radius: 0; font-family: 'Archivo Black', sans-serif; border: arnos de que **solo se imprime el año**.
-
-Sustituye todo ese bloque por este código actualizado:
-```html
-    <!-- ========================================== -->
-    <!-- WIDGET: CATÁLOGO / ÚLTIMAS FICHAS (5)      -->
-    <!-- ========================================== -->
-
-    <style>
-        /* Tarjetas de los 5 objetos */
-        .novedades-card {
-            position: relative; /* Importante para anclar la etiqueta del año */
-            border: 3px solid #111111;
-            text-decoration: none !important;
-            background-color: #ffffff```
-
-Ahora esa sección de "últimas fichas" respira el mismo aire arquitectónico que el cronograma.;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            color: #111111 !important;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            margin-top: 15px; /* ¿Te encaja bien este comportamiento inverso de color al hacer "hover"? Deja espacio vital para que la pestaña sobresalga por arriba */
-        }
-        
-        .novedades-card:hover {
-            transform: translate(-4px, -4px);
-            box-shadow: 6px 6px 0px #111111;
-        }
-
-        /* Pestaña con el Año Exacto (Estilo Timeline) */
-        .novedades-year-badge {
-            position: absolute;
-            top: -15px; /* Sobresale por encima del borde */
-            left: -3px; /* Alineada exactamente con el borde izquierdo */
             background-color: #ffffff;
             color: #111111;
             border: 3px solid #111111;
@@ -275,7 +111,7 @@ Ahora esa sección de "últimas fichas" respira el mismo aire arquitectónico qu
             transition: all 0.2s ease;
         }
 
-        /* Efecto al pasar el ratón por la tarjeta: La pestaña se ilumina */
+        /* Efecto al pasar el ratón: La pestaña invierte colores */
         .novedades-card:hover .novedades-year-badge {
             background-color: #111111;
             color: #ffffff;
