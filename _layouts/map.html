@@ -29,52 +29,63 @@ custom-foot: js/map-js.html
     /* 2. El Contenedor del Mapa */
     #map {
         width: 100%;
-        height: 75vh; /* Ocupa el 75% de la pantalla */
+        height: 75vh;
         min-height: 500px;
-        background-color: #f4f4f4; 
+        background-color: #ffffff; /* Fondo blanco puro antes de cargar */
         border: 4px solid #111111;
         box-shadow: 8px 8px 0px #111111;
         margin-bottom: 5rem;
         z-index: 1; 
     }
 
-    /* 3. Filtro B/N para el plano del mapa */
-    /* Esto quita los verdes/azules por defecto y lo vuelve un plano arquitectónico */
+    /* 3. ALTO CONTRASTE EXTREMO: Blanco puro y Negro profundo */
     .leaflet-tile-pane {
-        filter: grayscale(100%) contrast(1.1) brightness(1.05);
+        /* Al forzar el contraste al 350% y subir el brillo, 
+           los grises medios se queman (blanco) y las líneas se oscurecen (negro) */
+        filter: grayscale(100%) contrast(350%) brightness(1.3);
     }
 
-    /* 4. Botones de Zoom Brutalistas */
+    /* 4. Pines (Marcadores) como Siluetas Negras */
+    .leaflet-marker-icon {
+        /* Destruye el color azul y lo convierte en negro sólido */
+        filter: grayscale(100%) brightness(0) contrast(100) !important;
+    }
+    .leaflet-marker-shadow {
+        opacity: 0.8 !important; /* Sombra más pronunciada para compensar el blanco puro */
+    }
+
+    /* 5. Controles de Zoom en Negativo */
     .leaflet-bar {
-        box-shadow: 4px 4px 0px #111111 !important;
+        box-shadow: 4px 4px 0px rgba(0,0,0,1) !important;
         border: none !important;
         border-radius: 0 !important;
     }
     .leaflet-bar a {
-        background-color: #ffffff !important;
-        color: #111111 !important;
-        border: 2px solid #111111 !important;
+        background-color: #111111 !important;
+        color: #ffffff !important;
+        border: 2px solid #ffffff !important; 
         border-radius: 0 !important;
         font-family: 'Archivo Black', sans-serif !important;
         font-size: 1.2rem !important;
         line-height: 1.5 !important;
         transition: all 0.2s ease !important;
     }
-    .leaflet-bar a:hover {
-        background-color: #111111 !important;
-        color: #ffffff !important;
-    }
     .leaflet-bar a:first-child {
-        border-bottom: none !important; /* Quita la doble línea entre el + y el - */
+        border-bottom: none !important;
     }
-
-    /* 5. Los "Bocadillos" (Pop-ups) al pinchar en un marcador */
-    .leaflet-popup-content-wrapper {
+    .leaflet-bar a:hover {
         background-color: #ffffff !important;
         color: #111111 !important;
-        border: 3px solid #111111 !important;
+        border-color: #111111 !important;
+    }
+
+    /* 6. Pop-ups en Negativo (Elegancia Absoluta) */
+    .leaflet-popup-content-wrapper {
+        background-color: #111111 !important;
+        color: #ffffff !important;
+        border: 4px solid #111111 !important;
         border-radius: 0 !important;
-        box-shadow: 6px 6px 0px #111111 !important;
+        box-shadow: 8px 8px 0px rgba(0,0,0,0.1) !important;
         padding: 0 !important;
     }
     
@@ -83,67 +94,69 @@ custom-foot: js/map-js.html
         background-color: #111111 !important;
         border: none !important;
         box-shadow: none !important;
-        width: 15px !important;
-        height: 15px !important;
+        width: 16px !important;
+        height: 16px !important;
         margin: -8px auto 0 !important;
     }
     
     /* Contenido interno del bocadillo */
     .leaflet-popup-content {
         font-family: 'Inter', sans-serif !important;
-        margin: 1.2rem !important;
+        margin: 1.5rem !important;
         line-height: 1.4 !important;
     }
     
-    /* Textos y enlaces dentro del Pop-up */
+    /* Títulos y enlaces dentro del Pop-up */
     .leaflet-popup-content h4 {
         font-family: 'Archivo Black', sans-serif !important;
         text-transform: uppercase !important;
-        font-size: 1rem !important;
-        border-bottom: 2px solid #111111 !important;
+        font-size: 1.1rem !important;
+        color: #ffffff !important;
+        border-bottom: 2px solid #ffffff !important;
         padding-bottom: 0.5rem !important;
-        margin-bottom: 0.8rem !important;
+        margin-bottom: 1rem !important;
     }
     .leaflet-popup-content a {
-        color: #111111 !important;
+        color: #ffffff !important;
         font-weight: 900 !important;
-        text-decoration: underline !important;
-        text-decoration-thickness: 2px !important;
+        text-decoration: none !important;
+        border-bottom: 2px solid #ffffff !important;
         transition: all 0.2s ease !important;
     }
     .leaflet-popup-content a:hover {
-        color: #ffffff !important;
-        background-color: #111111 !important;
-        text-decoration: none !important;
+        color: #111111 !important;
+        background-color: #ffffff !important;
     }
     .leaflet-popup-content img {
-        border: 2px solid #111111 !important;
-        margin-bottom: 0.8rem !important;
+        border: 2px solid #ffffff !important;
+        margin-bottom: 1rem !important;
         width: 100% !important;
+        filter: grayscale(100%);
+        transition: filter 0.3s ease !important;
+    }
+    .leaflet-popup-content img:hover {
+        filter: grayscale(0%);
     }
 
     /* Botón de cerrar del Pop-up (La 'X') */
     .leaflet-popup-close-button {
-        color: #111111 !important;
+        color: #ffffff !important;
         font-size: 1.5rem !important;
         font-weight: 900 !important;
         padding: 4px 8px !important;
         transition: all 0.2s ease !important;
     }
     .leaflet-popup-close-button:hover {
-        color: #ffffff !important;
-        background-color: #111111 !important;
+        color: #111111 !important;
+        background-color: #ffffff !important;
     }
 </style>
 
-<!-- ESTRUCTURA DE LA PÁGINA -->
 <div class="container-fluid" style="padding: 0 5%;">
     
-    <!-- Título visible y descriptivo -->
     <h1 class="map-page-title">Mapa de la Colección</h1>
     <p class="map-page-desc">Explora la ubicación geográfica de los objetos de nuestro archivo.</p>
     
-    <!-- El mapa en sí -->
     <div id="map"></div>
     
 </div>
