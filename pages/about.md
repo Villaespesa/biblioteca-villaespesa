@@ -125,9 +125,8 @@ permalink: /about.html
         <!-- ============================================================== -->
         <div class="col-lg-4 mt-4 mt-lg-0">
             <div class="credits-box">
-                <h3>Tecnología</h3>
-                <p>Este sitio ha sido construido utilizando <strong>CollectionBuilder</strong>, un proyecto de código abierto impulsado por bibliotecarios e investigadores de la Universidad de Idaho.</p>
-                <p>CollectionBuilder genera arquitecturas digitales estáticas, seguras y ultrarrápidas, garantizando la preservación de los datos históricos a largo plazo mediante metadatos puros (CSV) y metodologías web sostenibles.</p>
+                <h3>PROYECTO BASADO EN COLLECTION BUILDER </h3>
+                <p>Este sitio web está basado en <strong>CollectionBuilder</strong>, un proyecto de código abierto impulsado por bibliotecarios e investigadores de la Universidad de Idaho.</p>
                 <p><a href="https://collectionbuilder.github.io/" target="_blank">Visitar CollectionBuilder &rarr;</a></p>
             </div>
         </div>
