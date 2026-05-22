@@ -105,10 +105,9 @@ permalink: /about.html
                     
                     <!-- DATOS -->
                     
-                    <p><strong>Dirección del Archivo:</strong> Nombre y Apellido</p>
+                    <p><strong>Dirección:</strong> Nombre y Apellido</p>
                     <p><strong>Catalogación y Metadatos:</strong> Nombre y Apellido</p>
-                    <p><strong>Desarrollo y Diseño:</strong> Tu Nombre</p>
-                    
+                    <p><strong>Desarrollo y Diseño:</strong> </p>
                     <p class="mt-4">
                         <strong>Contacto:</strong> 
                         <a href="mailto:correo@ejemplo.com" style="color: #111111; font-weight: 900; text-decoration: underline; text-decoration-thickness: 2px;">correo@ejemplo.com</a>
