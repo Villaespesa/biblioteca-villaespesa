@@ -8,20 +8,6 @@ permalink: /about.html
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
 
-    /* TITULAR GIGANTE */
-    .about-header {
-        font-family: 'Archivo Black', sans-serif;
-        text-transform: uppercase;
-        font-size: clamp(2.5rem, 6vw, 4.5rem);
-        line-height: 1;
-        color: #111111;
-        border-bottom: 8px solid #111111;
-        padding-bottom: 1rem;
-        margin-bottom: 3rem;
-        margin-top: 2rem;
-        letter-spacing: -2px;
-    }
-
     /* CAJAS DE CONTENIDO (Fáciles de editar) */
     .about-box {
         border: 4px solid #111111;
@@ -52,7 +38,7 @@ permalink: /about.html
         margin-bottom: 1.5rem;
     }
 
-    /* CAJA DE CRÉDITOS (CollectionBuilder) EN MODO OSCURO */
+    /* CAJA DE CRÉDITOS (CollectionBuilder) */
     .credits-box {
         background-color: #111111;
         color: #ffffff;
@@ -89,28 +75,23 @@ permalink: /about.html
     }
 </style>
 
-<div class="container-fluid" style="padding: 0 5%; margin-bottom: 5rem;">
-
-    <!-- TÍTULO PRINCIPAL -->
-    <h1 class="about-header">Sobre<br>el archivo</h1>
+<div class="container-fluid" style="padding: 0 5%; margin-top: 3rem; margin-bottom: 5rem;">
 
     <div class="row">
         
         <!-- ============================================================== -->
-        <!-- COLUMNA IZQUIERDA: TEXTOS PARA QUE TUS COMPAÑEROS LOS EDITEN   -->
+        <!-- COLUMNA IZQUIERDA: NUESTROS TEXTOS   -->
         <!-- ============================================================== -->
         <div class="col-lg-8">
             
-            <!-- CAJA 1: EL PROPÓSITO -->
+            <!-- CAJA 1: SOBRE EL PROYECTO -->
             <div class="about-box">
                 <h2>Nuestro Propósito</h2>
                 <div class="about-text">
                     
-                    <!-- TEXTO-->
+                    <!-- Texto del Proyecto -->
                     
                     <p>Este archivo digital nace con la firme intención de preservar, catalogar y difundir nuestra colección. Aquí podéis escribir varios párrafos explicando la historia del proyecto, su contexto histórico o el valor de los objetos que alberga.</p>
-                    
-                    <p>El diseño minimalista de este catálogo nos permite reducir el ruido visual y centrarnos en lo verdaderamente importante: la información pura y las obras mismas.</p>
                     
                     <!-- FIN DE LA ZONA DE EDICIÓN -->
 
@@ -122,7 +103,7 @@ permalink: /about.html
                 <h2>Equipo y Contacto</h2>
                 <div class="about-text">
                     
-                    <!-- TEXTO -->
+                    <!-- DATOS -->
                     
                     <p><strong>Dirección del Archivo:</strong> Nombre y Apellido</p>
                     <p><strong>Catalogación y Metadatos:</strong> Nombre y Apellido</p>
@@ -141,7 +122,7 @@ permalink: /about.html
         </div>
 
         <!-- ============================================================== -->
-        <!-- COLUMNA DERECHA: CRÉDITOS A COLLECTIONBUILDER (No tocar)       -->
+        <!-- COLUMNA DERECHA: CRÉDITOS A COLLECTIONBUILDER       -->
         <!-- ============================================================== -->
         <div class="col-lg-4 mt-4 mt-lg-0">
             <div class="credits-box">
