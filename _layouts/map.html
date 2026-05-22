@@ -39,7 +39,6 @@ custom-foot: js/map-js.html
     }
 
     /* 3. Pines Individuales Negros (Minimalistas) */
-    /* Solo afecta a las imágenes de las chinchetas sueltas */
     img.leaflet-marker-icon {
         filter: grayscale(100%) brightness(0) drop-shadow(2px 2px 0px rgba(0,0,0,0.3)) !important;
     }
@@ -49,10 +48,10 @@ custom-foot: js/map-js.html
         background-color: transparent !important;
     }
     .marker-cluster div {
-        background-color: #111111 !important; /* Círculo negro */
-        color: #ffffff !important; /* Número blanco */
+        background-color: #111111 !important; 
+        color: #ffffff !important; 
         font-family: 'Archivo Black', sans-serif !important;
-        border: 3px solid #ffffff !important; /* Borde blanco para que resalte en el mapa */
+        border: 3px solid #ffffff !important; 
         box-shadow: 3px 3px 0px rgba(0,0,0,0.4) !important;
         border-radius: 50% !important;
         display: flex;
@@ -63,7 +62,7 @@ custom-foot: js/map-js.html
         font-family: 'Archivo Black', sans-serif !important;
     }
 
-    /* 5. Controles de Zoom en Negativo */
+    /* 5. Controles de Zoom */
     .leaflet-bar {
         box-shadow: 4px 4px 0px rgba(0,0,0,1) !important;
         border: none !important;
@@ -88,67 +87,93 @@ custom-foot: js/map-js.html
         border-color: #111111 !important;
     }
 
-    /* 6. Pop-ups en Negativo (Elegancia Absoluta) */
+    /* ==========================================
+       6. POP-UPS (Fichas minimalistas y elegantes)
+       ========================================== */
     .leaflet-popup-content-wrapper {
-        background-color: #111111 !important;
-        color: #ffffff !important;
-        border: 4px solid #111111 !important;
-        border-radius: 0 !important;
-        box-shadow: 8px 8px 0px rgba(0,0,0,0.1) !important;
+        background-color: #ffffff !important; /* Fondo blanco */
+        color: #111111 !important; /* Texto negro */
+        border: 3px solid #111111 !important; /* Borde duro */
+        border-radius: 0 !important; /* Esquinas cuadradas */
+        box-shadow: 6px 6px 0px #111111 !important;
         padding: 0 !important;
     }
     
+    /* El triángulo inferior que apunta al pin */
     .leaflet-popup-tip {
         background-color: #111111 !important;
         border: none !important;
         box-shadow: none !important;
-        width: 16px !important;
-        height: 16px !important;
-        margin: -8px auto 0 !important;
+        width: 14px !important;
+        height: 14px !important;
+        margin: -7px auto 0 !important;
     }
     
+    /* Espaciado interior de la tarjeta */
     .leaflet-popup-content {
         font-family: 'Inter', sans-serif !important;
-        margin: 1.5rem !important;
+        margin: 1.2rem !important;
         line-height: 1.4 !important;
     }
     
+    /* Título de la obra */
     .leaflet-popup-content h4 {
         font-family: 'Archivo Black', sans-serif !important;
         text-transform: uppercase !important;
-        font-size: 1.1rem !important;
-        color: #ffffff !important;
-        border-bottom: 2px solid #ffffff !important;
+        font-size: 1rem !important;
+        color: #111111 !important;
+        border-bottom: 2px solid #111111 !important;
         padding-bottom: 0.5rem !important;
         margin-bottom: 1rem !important;
     }
-    .leaflet-popup-content a {
-        color: #ffffff !important;
-        font-weight: 900 !important;
-        text-decoration: none !important;
-        border-bottom: 2px solid #ffffff !important;
-        transition: all 0.2s ease !important;
-    }
-    .leaflet-popup-content a:hover {
-        color: #111111 !important;
-        background-color: #ffffff !important;
-    }
+
+    /* SOLUCIÓN: Imagen sin deformar */
     .leaflet-popup-content img {
-        border: 2px solid #ffffff !important;
-        margin-bottom: 1rem !important;
         width: 100% !important;
+        height: auto !important; /* Obliga a respetar la proporción */
+        max-height: 200px !important; /* Evita que ocupe media pantalla */
+        object-fit: contain !important; /* Muestra el libro entero sin cortes */
+        background-color: #f9f9f9 !important; /* Fondo sutil por si el libro es muy estrecho */
+        padding: 0.5rem !important;
+        border: 1px solid #eeeeee !important;
+        margin-bottom: 1rem !important;
     }
 
-    .leaflet-popup-close-button {
+    /* Textos genéricos */
+    .leaflet-popup-content p {
+        margin-bottom: 1rem !important;
+    }
+
+    /* EL BOTÓN "View Item" */
+    .leaflet-popup-content .btn {
+        display: block !important;
+        background-color: #111111 !important;
         color: #ffffff !important;
+        font-family: 'Archivo Black', sans-serif !important;
+        text-transform: uppercase !important;
+        text-align: center !important;
+        border: 2px solid #111111 !important;
+        border-radius: 0 !important;
+        padding: 0.5rem 1rem !important;
+        text-decoration: none !important;
+        transition: all 0.2s ease !important;
+    }
+    .leaflet-popup-content .btn:hover {
+        background-color: #ffffff !important;
+        color: #111111 !important;
+    }
+
+    /* Botón de cerrar del Pop-up (La 'X') */
+    .leaflet-popup-close-button {
+        color: #111111 !important;
         font-size: 1.5rem !important;
         font-weight: 900 !important;
         padding: 4px 8px !important;
         transition: all 0.2s ease !important;
     }
     .leaflet-popup-close-button:hover {
-        color: #111111 !important;
-        background-color: #ffffff !important;
+        color: #ffffff !important;
+        background-color: #111111 !important;
     }
 </style>
 
