@@ -4,6 +4,8 @@ layout: page
 permalink: /todas-las-colecciones.html
 ---
 
+<div class="container-fluid my-4" style="padding: 0 2%;">
+
     <!-- CUADRÍCULA DE COLECCIONES -->
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="grid-colecciones">
         
@@ -41,7 +43,7 @@ permalink: /todas-las-colecciones.html
 
     </div>
 
-    <!-- BOTÓN VER MÁS (Alineado a la derecha como pediste) -->
+    <!-- BOTÓN VER MÁS -->
     <!-- Solo se muestra si hay más de 10 colecciones en total -->
     {% if todas_colecciones.size > 10 %}
     <div class="text-end mt-5" id="contenedor-ver-mas">
