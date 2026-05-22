@@ -1,27 +1,156 @@
 ---
-title: About
-layout: about
+title: "Sobre el Proyecto"
+layout: page
 permalink: /about.html
-# include CollectionBuilder info at bottom
-credits: true
-# Edit the markdown on in this file to describe your collection
-# Look in _includes/feature for options to easily add features to the page
 ---
 
-{% include feature/jumbotron.html objectid="https://cdil.lib.uidaho.edu/images/palouse_sm.jpg" %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
 
-{% include feature/nav-menu.html sections="About the Collection;About the About Page" %}
+    /* TITULAR GIGANTE */
+    .about-header {
+        font-family: 'Archivo Black', sans-serif;
+        text-transform: uppercase;
+        font-size: clamp(2.5rem, 6vw, 4.5rem);
+        line-height: 1;
+        color: #111111;
+        border-bottom: 8px solid #111111;
+        padding-bottom: 1rem;
+        margin-bottom: 3rem;
+        margin-top: 2rem;
+        letter-spacing: -2px;
+    }
 
-## About the Collection
+    /* CAJAS DE CONTENIDO (Fáciles de editar) */
+    .about-box {
+        border: 4px solid #111111;
+        background-color: #ffffff;
+        box-shadow: 8px 8px 0px #111111;
+        padding: 2.5rem;
+        margin-bottom: 3rem;
+    }
 
-This site is generated using [CollectionBuilder-GH](https://collectionbuilding.github.io/gh/), a project to create a free and simple digital collection using [GitHub Pages](https://pages.github.com/) from: 
+    .about-box h2 {
+        font-family: 'Archivo Black', sans-serif;
+        text-transform: uppercase;
+        font-size: 1.8rem;
+        border-bottom: 3px solid #111111;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1.5rem;
+        color: #111111;
+    }
 
-- a CSV of collection metadata
-- a folder of JPG images or PDF documents
+    .about-text {
+        font-family: 'Inter', sans-serif;
+        font-size: 1.15rem;
+        line-height: 1.6;
+        color: #111111;
+    }
 
-The template repository features four objects from the University of Idaho Library's [Digital Collections](https://www.lib.uidaho.edu/digital). 
+    .about-text p {
+        margin-bottom: 1.5rem;
+    }
 
-For full details of creating your own collection site, visit [CollectionBuilder Documentation](https://collectionbuilder.github.io/cb-docs/)!
+    /* CAJA DE CRÉDITOS (CollectionBuilder) EN MODO OSCURO */
+    .credits-box {
+        background-color: #111111;
+        color: #ffffff;
+        padding: 2rem;
+        border: 4px solid #111111;
+        box-shadow: 8px 8px 0px #cccccc;
+    }
+    
+    .credits-box h3 {
+        font-family: 'Archivo Black', sans-serif;
+        text-transform: uppercase;
+        font-size: 1.5rem;
+        color: #ffffff;
+        margin-bottom: 1rem;
+        border-bottom: 2px solid #ffffff;
+        padding-bottom: 0.5rem;
+    }
 
-<!-- IMPORTANT!!! DELETE this comment and the include below when you are finished editing this page for your collection. The include below introduces about page features. They will show up on your collection's about page until you delete it.  -->
-{% include cb/about_the_about.md %} 
+    .credits-box p, .credits-box a {
+        font-family: 'Inter', sans-serif;
+        color: #ffffff;
+        font-size: 1rem;
+    }
+
+    .credits-box a {
+        font-weight: 900;
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+    }
+    .credits-box a:hover {
+        background-color: #ffffff;
+        color: #111111;
+        text-decoration: none;
+    }
+</style>
+
+<div class="container-fluid" style="padding: 0 5%; margin-bottom: 5rem;">
+
+    <!-- TÍTULO PRINCIPAL -->
+    <h1 class="about-header">Sobre<br>el archivo</h1>
+
+    <div class="row">
+        
+        <!-- ============================================================== -->
+        <!-- COLUMNA IZQUIERDA: TEXTOS PARA QUE TUS COMPAÑEROS LOS EDITEN   -->
+        <!-- ============================================================== -->
+        <div class="col-lg-8">
+            
+            <!-- CAJA 1: EL PROPÓSITO -->
+            <div class="about-box">
+                <h2>Nuestro Propósito</h2>
+                <div class="about-text">
+                    
+                    <!-- TEXTO-->
+                    
+                    <p>Este archivo digital nace con la firme intención de preservar, catalogar y difundir nuestra colección. Aquí podéis escribir varios párrafos explicando la historia del proyecto, su contexto histórico o el valor de los objetos que alberga.</p>
+                    
+                    <p>El diseño minimalista de este catálogo nos permite reducir el ruido visual y centrarnos en lo verdaderamente importante: la información pura y las obras mismas.</p>
+                    
+                    <!-- FIN DE LA ZONA DE EDICIÓN -->
+
+                </div>
+            </div>
+
+            <!-- CAJA 2: EQUIPO Y CONTACTO -->
+            <div class="about-box">
+                <h2>Equipo y Contacto</h2>
+                <div class="about-text">
+                    
+                    <!-- TEXTO -->
+                    
+                    <p><strong>Dirección del Archivo:</strong> Nombre y Apellido</p>
+                    <p><strong>Catalogación y Metadatos:</strong> Nombre y Apellido</p>
+                    <p><strong>Desarrollo y Diseño:</strong> Tu Nombre</p>
+                    
+                    <p class="mt-4">
+                        <strong>Contacto:</strong> 
+                        <a href="mailto:correo@ejemplo.com" style="color: #111111; font-weight: 900; text-decoration: underline; text-decoration-thickness: 2px;">correo@ejemplo.com</a>
+                    </p>
+                    
+                    <!-- FIN DE LA ZONA DE EDICIÓN -->
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- COLUMNA DERECHA: CRÉDITOS A COLLECTIONBUILDER (No tocar)       -->
+        <!-- ============================================================== -->
+        <div class="col-lg-4 mt-4 mt-lg-0">
+            <div class="credits-box">
+                <h3>Tecnología</h3>
+                <p>Este sitio ha sido construido utilizando <strong>CollectionBuilder</strong>, un proyecto de código abierto impulsado por bibliotecarios e investigadores de la Universidad de Idaho.</p>
+                <p>CollectionBuilder genera arquitecturas digitales estáticas, seguras y ultrarrápidas, garantizando la preservación de los datos históricos a largo plazo mediante metadatos puros (CSV) y metodologías web sostenibles.</p>
+                <p><a href="https://collectionbuilder.github.io/" target="_blank">Visitar CollectionBuilder &rarr;</a></p>
+            </div>
+        </div>
+
+    </div>
+</div>
