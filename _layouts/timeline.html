@@ -8,14 +8,17 @@ custom-foot: js/timeline-js.html
     @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
 
+    /* ==========================================
+       CRONOGRAMA CON HILO DEL TIEMPO CONTINUO
+       ========================================== */
+
     /* Contenedor de cada siglo */
     .century-wrapper {
         margin-bottom: 4rem;
-        padding-bottom: 2rem;
-        border-bottom: 2px solid #eeeeee;
+        padding-bottom: 1rem;
     }
 
-    /* Etiqueta Negra del Siglo (Elegante y contenida) */
+    /* Etiqueta Negra del Siglo */
     .century-label {
         display: inline-block;
         background-color: #111111;
@@ -24,7 +27,7 @@ custom-foot: js/timeline-js.html
         font-size: 1.1rem; 
         text-transform: uppercase;
         padding: 0.5rem 1.5rem;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem;
         letter-spacing: 1px;
         box-shadow: 4px 4px 0px rgba(0,0,0,0.1);
         transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -40,12 +43,13 @@ custom-foot: js/timeline-js.html
         display: flex;
         overflow-x: auto;
         gap: 1.5rem;
-        padding-bottom: 1.5rem;
+        padding-top: 3rem; /* Espacio vital para que quepa "El Hilo del Tiempo" arriba */
+        padding-bottom: 2rem;
         scroll-behavior: smooth;
         -webkit-overflow-scrolling: touch;
     }
 
-    /* Barra de desplazamiento elegante */
+    /* Barra de desplazamiento */
     .century-scroll::-webkit-scrollbar {
         height: 8px;
     }
@@ -60,7 +64,7 @@ custom-foot: js/timeline-js.html
 
     /* Tarjeta del Libro */
     .timeline-card {
-        flex: 0 0 220px; /* Ancho fijo para que se pongan en fila */
+        flex: 0 0 220px;
         display: flex;
         flex-direction: column;
         border: 3px solid #111111;
@@ -69,28 +73,50 @@ custom-foot: js/timeline-js.html
         color: #111111;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
         position: relative;
-        margin-top: 15px;
     }
     .timeline-card:hover {
         transform: translate(-3px, -3px);
         box-shadow: 5px 5px 0px #111111;
     }
 
-    /* Pestaña con el Año Exacto */
+    /* EL HILO DEL TIEMPO (La línea fina que conecta las tarjetas) */
+    .timeline-card::before {
+        content: '';
+        position: absolute;
+        top: -1.5rem; /* Altura donde flota la línea (24px por encima de la tarjeta) */
+        left: -3px; /* Empieza exactamente en el borde izquierdo de la caja */
+        width: calc(100% + 1.5rem + 6px); /* Cruza la caja entera, sus bordes y salta el hueco hasta la siguiente */
+        height: 2px; /* Grosor fino y elegante */
+        background-color: #111111;
+        z-index: 0;
+    }
+    /* El último libro no necesita que la línea siga hacia la nada */
+    .timeline-card:last-child::before {
+        width: calc(100% + 6px);
+    }
+
+    /* Pestaña con el Año Exacto (Anclada al hilo) */
     .card-year-badge {
         position: absolute;
-        top: -15px;
+        top: -2.2rem; /* Centrada perfectamente sobre la línea de -1.5rem */
         left: -3px;
         background-color: #ffffff;
         color: #111111;
-        border: 3px solid #111111;
+        border: 2px solid #111111;
         font-family: 'Archivo Black', sans-serif;
-        font-size: 0.9rem;
-        padding: 0.1rem 0.6rem;
+        font-size: 0.85rem;
+        padding: 0.1rem 0.75rem;
         z-index: 2;
+        transition: all 0.2s ease;
+    }
+    /* Efecto al pasar el ratón: La etiqueta del año se ilumina */
+    .timeline-card:hover .card-year-badge {
+        background-color: #111111;
+        color: #ffffff;
+        transform: translateY(-2px);
     }
 
-    /* Imagen */
+    /* Imagen del objeto */
     .card-img-wrapper {
         aspect-ratio: 2/3;
         background-color: #f8f8f8;
@@ -143,7 +169,6 @@ custom-foot: js/timeline-js.html
 {%- assign items = items | where_exp: 'item','item[field]' | sort: field -%}
 {%- assign raw-dates = items | map: field | compact | uniq -%}
 
-<!-- EL ERROR ESTABA AQUÍ: Esta línea DEBE estar toda junta sin espacios ocultos -->
 {%- capture clean-years -%}{% for date in raw-dates %}{% if date contains "-" %}{{ date | strip | split: "-" | first }}{% elsif date contains "/" %}{{ date | strip | split: "/" | last }}{% else %}{{ date | strip }}{% endif %}{% unless forloop.last %};{% endunless %}{%- endfor -%}{%- endcapture -%}
 
 {%- assign uniqueYears = clean-years | replace: ";;",";" | split: ";" | compact | uniq | sort -%}
@@ -153,32 +178,32 @@ custom-foot: js/timeline-js.html
      ========================================== -->
 <div class="container-fluid" style="padding: 0 5%; margin-top: 3rem; margin-bottom: 5rem;">
 
-    <div style="margin-bottom: 3rem;">
+    <div style="margin-bottom: 2rem;">
         <h1 style="font-family: 'Archivo Black', sans-serif; text-transform: uppercase; font-size: 2rem; color: #111111; margin-bottom: 0.5rem;">
-            Cronología
+            Cronología Histórica
         </h1>
         <p style="font-family: 'Inter', sans-serif; color: #666; font-size: 1rem;">
-            Desliza horizontalmente para explorar los objetos de cada época.
+            Sigue el hilo del tiempo para explorar las obras de cada época.
         </p>
     </div>
 
-    <!-- Agrupación dinámica por siglos -->
+    <!-- Agrupación dinámica por siglos (CON CORRECCIÓN HISTÓRICA DE AÑOS 00) -->
     {% assign current_century = 0 %}
     
     {% for year in uniqueYears %}
-        <!-- Limpiamos espacios y convertimos a número -->
         {% assign clean_year = year | strip %}
         {% assign y_num = clean_year | plus: 0 %}
         
-        <!-- Solo procesamos si el año es válido (>0) -->
         {% if y_num > 0 %}
             
-            <!-- Matemáticas para el siglo -->
-            {% assign c_num = y_num | divided_by: 100 | plus: 1 %}
+            <!-- CORRECCIÓN MATEMÁTICA: Restamos 1 al año antes de dividir.
+                 Ej: (1900 - 1) = 1899 -> 1899 / 100 = 18 -> 18 + 1 = Siglo XIX. (¡Correcto!)
+                 Ej: (1901 - 1) = 1900 -> 1900 / 100 = 19 -> 19 + 1 = Siglo XX.  (¡Correcto!) -->
+            {% assign y_minus_1 = y_num | minus: 1 %}
+            {% assign c_num = y_minus_1 | divided_by: 100 | plus: 1 %}
             
             {% if c_num != current_century %}
                 
-                <!-- Cerrar siglo anterior si existe -->
                 {% if current_century != 0 %}
                     </div> <!-- Cierra century-scroll -->
                     </div> <!-- Cierra century-wrapper -->
@@ -186,7 +211,6 @@ custom-foot: js/timeline-js.html
                 
                 {% assign current_century = c_num %}
                 
-                <!-- Convertimos a números romanos -->
                 {% capture roman %}
                     {% if c_num == 15 %}XV
                     {% elsif c_num == 16 %}XVI
@@ -199,17 +223,14 @@ custom-foot: js/timeline-js.html
                     {% endif %}
                 {% endcapture %}
 
-                <!-- ETIQUETA DEL NUEVO SIGLO -->
                 <div class="century-wrapper">
                     <h2 class="century-label">Siglo {{ roman }}</h2>
                     <div class="century-scroll">
             {% endif %}
 
-            <!-- Extraemos los libros correspondientes a este año (con la variable limpia) -->
             {% assign inYear = items | where_exp: 'item', 'item[field] contains clean_year' %}
             
             {% for item in inYear %}
-                <!-- Tarjeta de Libro -->
                 <a class="timeline-card" href="{% if item.parentid == nil %}{{ '/item.html' | relative_url | append: '?id=' | append: item.objectid }}{% elsif item.parentid %}{{ '/item.html' | relative_url | append: '?id=' | append: item.parentid | relative_url }}#{{ item.objectid }}{% endif %}">
                     
                     <div class="card-year-badge">{{ clean_year }}</div>
@@ -231,7 +252,6 @@ custom-foot: js/timeline-js.html
         {% endif %} 
     {% endfor %}
     
-    <!-- Cerrar último siglo -->
     {% if current_century != 0 %}
         </div> <!-- Cierra century-scroll -->
         </div> <!-- Cierra century-wrapper -->
