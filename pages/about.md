@@ -91,7 +91,7 @@ permalink: /about.html
                     
                     <!-- Texto del Proyecto -->
                     
-                    <p>Este archivo digital nace con la firme intención de preservar, catalogar y difundir nuestra colección. Aquí podéis escribir varios párrafos explicando la historia del proyecto, su contexto histórico o el valor de los objetos que alberga.</p>
+                    <p>Este archivo digital nace con la firme intención de preservar, catalogar y difundir nuestra colección.</p>
                     
                     <!-- FIN DE LA ZONA DE EDICIÓN -->
 
