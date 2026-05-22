@@ -52,6 +52,7 @@
         maxZoom: 19,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     });
+    
     /* add base map switcher */
     var baseMaps = {
         "Esri World StreetMap": Esri_WorldStreetMap,
@@ -60,14 +61,15 @@
         "Open Street Map": OpenStreetMap_Mapnik
     };
     L.control.layers(baseMaps).addTo(map);
+    
     /* load base map */
     {{ site.data.theme.map-base | default: 'Esri_WorldStreetMap' }}.addTo(map);
 
     {% if site.data.theme.map-search == true %}
     /* add leaflet-fusesearch */
     var options = {
-        title: 'Search Map Items',
-        locationholder: 'Search map items...',
+        title: 'Buscar en el mapa',
+        locationholder: 'Buscar objetos...',
         threshold: {{ site.data.theme.map-search-fuzziness | default: 0.35 }},
         showResultFct: function(feature, container) {
             var result = `<strong>${feature.properties.title}</strong><br>`;
@@ -90,7 +92,6 @@
         maxClusterRadius: {{ site.data.theme.map-cluster-radius | default: 15 }}, 
         singleMarkerMode: true,
         iconCreateFunction: function(cluster) {
-            /* custom icon function, tweak default to add more alt text */
             var childCount = cluster.getChildCount();
             var csize;
             if (childCount < 10) {
@@ -132,21 +133,40 @@
         } else {
             thumbSrc = '{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-default }}.svg';
         }    
-        /* create popup content */
+        
+        /* create popup content. AÑADIDO: onload="if(map._popup){ map._popup.update(); }" para forzar el auto-centrado al cargar la foto */
         var popupTemplate = '<h2 class="h4"><a class="text-dark" href="' + itemHref + '">' +
             feature.properties.title + '</a></h2><div class="text-center"><a href="' + itemHref + 
-            '" ><img class="map-thumb img-thumb" src="' +  thumbSrc + '" alt="item thumbnail"></a></div><p>';
-        /* add metadata fields */
+            '" ><img class="map-thumb img-thumb" src="' +  thumbSrc + '" alt="item thumbnail" onload="if(map._popup){ map._popup.update(); }"></a></div><p>';
+        
+        /* add metadata fields - CON TRADUCCIÓN FORZADA Y LIMPIEZA DE AÑO */
         {% for f in fields %}{% if f.display_name %}
         if (feature.properties[{{ f.field | jsonify }}]) {
-            popupTemplate += '<strong>{{ f.display_name }}:</strong> ' + feature.properties[{{ f.field | jsonify }}] + '<br>'; 
+            var displayValue = feature.properties[{{ f.field | jsonify }}];
+            
+            // Traductor interno
+            var displayName = "{{ f.display_name }}";
+            {% if f.field == 'creator' %} displayName = "Autor"; {% endif %}
+            {% if f.field == 'date' %} displayName = "Año"; {% endif %}
+            {% if f.field == 'subject' %} displayName = "Etiquetas"; {% endif %}
+
+            // Filtro para dejar solo el año (los 4 primeros números)
+            {% if f.field == 'date' %}
+            var yearMatch = displayValue.toString().match(/\d{4}/);
+            if (yearMatch) { displayValue = yearMatch[0]; }
+            {% endif %}
+
+            popupTemplate += '<strong>' + displayName + ':</strong> ' + displayValue + '<br>'; 
         }
         {% endif %}{% endfor %}
-        /* add object link button to popup */
-        popupTemplate += '</p><div class="text-center"><a class="btn btn-light" href="' + itemHref + '" >View Item</a></div>';
+        
+        /* add object link button to popup - TRADUCIDO AL ESPAÑOL */
+        popupTemplate += '</p><div class="text-center"><a class="btn" href="' + itemHref + '" >Ver libro</a></div>';
+        
         /* add object popup to map layer */
         layer.bindPopup(popupTemplate);
     }
+
     /* function to add objects to map */
     function objectMarkers(feature,latlng) {
         var marker = L.marker(latlng, {alt: feature.properties.title});
