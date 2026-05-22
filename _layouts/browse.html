@@ -8,19 +8,7 @@ custom-foot: js/browse-js.html
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
 
-    /* 1. Título de la página reducido */
-    .browse-header {
-        font-family: 'Archivo Black', sans-serif;
-        text-transform: uppercase;
-        font-size: clamp(2rem, 4vw, 3rem);
-        border-bottom: 6px solid #111111;
-        padding-bottom: 0.5rem;
-        letter-spacing: -1px;
-        margin-bottom: 2rem;
-        color: #111111;
-    }
-
-    /* 2. Botones de Géneros Destacados (Subjects) */
+    /* 1. Botones de Géneros Destacados (Subjects) */
     .genre-container {
         display: flex;
         flex-wrap: wrap;
@@ -46,7 +34,25 @@ custom-foot: js/browse-js.html
         box-shadow: 5px 5px 0px #111111;
     }
 
-    /* 3. Buscador y botones Brutalistas */
+    /* Botón especial para "Ver más" etiquetas */
+    .brutalist-genre-btn.more-btn {
+        background-color: #eeeeee;
+        color: #555555;
+        border-color: #cccccc;
+        box-shadow: 3px 3px 0px #cccccc;
+    }
+    .brutalist-genre-btn.more-btn:hover {
+        background-color: #cccccc;
+        color: #111111;
+        box-shadow: 5px 5px 0px #aaaaaa;
+    }
+
+    /* Clase para ocultar etiquetas extra */
+    .hidden-genre {
+        display: none;
+    }
+
+    /* 2. Buscador y botones Brutalistas */
     #filterTextBox {
         border: 3px solid #111111;
         border-radius: 0;
@@ -80,7 +86,7 @@ custom-foot: js/browse-js.html
         color: #111111;
     }
 
-    /* 4. FORZAR CUADRÍCULA DE 6 COLUMNAS */
+    /* 3. FORZAR CUADRÍCULA DE 6 COLUMNAS */
     #browseItems {
         display: grid !important;
         grid-template-columns: repeat(2, 1fr);
@@ -105,7 +111,7 @@ custom-foot: js/browse-js.html
         margin: 0 !important;
     }
 
-    /* 5. Estilo de las tarjetas (Más compactas) */
+    /* 4. Estilo de las tarjetas (Más compactas) */
     #browseItems .card {
         border: 2px solid #111111 !important;
         border-radius: 0 !important;
@@ -148,7 +154,7 @@ custom-foot: js/browse-js.html
         margin-bottom: 0 !important;
     }
 
-    /* 6. ELIMINAR ETIQUETAS INTERNAS: Ocultamos botones y líneas de la tarjeta original */
+    /* 5. ELIMINAR ETIQUETAS INTERNAS */
     #browseItems .card-body a.btn, 
     #browseItems .card-body a.btn-sm,
     #browseItems .card-body .text-muted,
@@ -159,13 +165,7 @@ custom-foot: js/browse-js.html
 
 <div class="container-fluid my-4" style="padding: 0 3%;">
 
-    <div class="row">
-        <div class="col-12">
-            <h1 class="browse-header">Catálogo</h1>
-        </div>
-    </div>
-
-    <!-- NUEVO: ZONA DE GÉNEROS DESTACADOS (Subjects) -->
+    <!-- ZONA DE GÉNEROS DESTACADOS (Subjects) -->
     <div class="row mb-2">
         <div class="col-12">
             <h3 style="font-family: 'Inter', sans-serif; font-weight: 900; font-size: 1rem; text-transform: uppercase; margin-bottom: 1rem; border-bottom: 3px solid #111; display: inline-block;">
@@ -189,12 +189,25 @@ custom-foot: js/browse-js.html
                     Todos
                 </button>
 
-                <!-- Botones generados dinámicamente -->
+                <!-- Botones generados dinámicamente con límite de 15 -->
                 {% for tag in final_subjects %}
-                <button class="brutalist-genre-btn" onclick="document.getElementById('filterTextBox').value = '{{ tag }}'; submitFilter(); return false;">
-                    {{ tag }}
-                </button>
+                    {% if forloop.index <= 15 %}
+                        <button class="brutalist-genre-btn" onclick="document.getElementById('filterTextBox').value = '{{ tag }}'; submitFilter(); return false;">
+                            {{ tag }}
+                        </button>
+                    {% else %}
+                        <button class="brutalist-genre-btn hidden-genre" onclick="document.getElementById('filterTextBox').value = '{{ tag }}'; submitFilter(); return false;">
+                            {{ tag }}
+                        </button>
+                    {% endif %}
                 {% endfor %}
+
+                <!-- Botón de puntos suspensivos (solo aparece si hay más de 15) -->
+                {% if final_subjects.size > 15 %}
+                    <button id="showMoreBtn" class="brutalist-genre-btn more-btn" onclick="toggleTags(); return false;">
+                        ...
+                    </button>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -240,3 +253,25 @@ custom-foot: js/browse-js.html
     <div id="browseItems"></div>
 
 </div>
+
+<!-- SCRIPT PARA MOSTRAR/OCULTAR ETIQUETAS -->
+<script>
+    function toggleTags() {
+        var hiddenTags = document.querySelectorAll('.hidden-genre');
+        var btn = document.getElementById('showMoreBtn');
+        
+        hiddenTags.forEach(function(tag) {
+            if (tag.style.display === 'block') {
+                tag.style.display = 'none';
+            } else {
+                tag.style.display = 'block';
+            }
+        });
+
+        if (btn.innerText === '...') {
+            btn.innerText = 'OCULTAR';
+        } else {
+            btn.innerText = '...';
+        }
+    }
+</script>
