@@ -3,5 +3,147 @@
 layout: default
 custom-foot: js/map-js.html
 ---
-<h2 class="visually-hidden">Map of Collection Items</h2>
-<div id="map"></div>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+
+    /* 1. Títulos de la página */
+    .map-page-title {
+        font-family: 'Archivo Black', sans-serif;
+        text-transform: uppercase;
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        color: #111111;
+        margin-top: 3rem;
+        margin-bottom: 0.5rem;
+        letter-spacing: -1px;
+    }
+    
+    .map-page-desc {
+        font-family: 'Inter', sans-serif;
+        font-size: 1.1rem;
+        color: #555555;
+        margin-bottom: 2rem;
+    }
+
+    /* 2. El Contenedor del Mapa */
+    #map {
+        width: 100%;
+        height: 75vh; /* Ocupa el 75% de la pantalla */
+        min-height: 500px;
+        background-color: #f4f4f4; 
+        border: 4px solid #111111;
+        box-shadow: 8px 8px 0px #111111;
+        margin-bottom: 5rem;
+        z-index: 1; 
+    }
+
+    /* 3. Filtro B/N para el plano del mapa */
+    /* Esto quita los verdes/azules por defecto y lo vuelve un plano arquitectónico */
+    .leaflet-tile-pane {
+        filter: grayscale(100%) contrast(1.1) brightness(1.05);
+    }
+
+    /* 4. Botones de Zoom Brutalistas */
+    .leaflet-bar {
+        box-shadow: 4px 4px 0px #111111 !important;
+        border: none !important;
+        border-radius: 0 !important;
+    }
+    .leaflet-bar a {
+        background-color: #ffffff !important;
+        color: #111111 !important;
+        border: 2px solid #111111 !important;
+        border-radius: 0 !important;
+        font-family: 'Archivo Black', sans-serif !important;
+        font-size: 1.2rem !important;
+        line-height: 1.5 !important;
+        transition: all 0.2s ease !important;
+    }
+    .leaflet-bar a:hover {
+        background-color: #111111 !important;
+        color: #ffffff !important;
+    }
+    .leaflet-bar a:first-child {
+        border-bottom: none !important; /* Quita la doble línea entre el + y el - */
+    }
+
+    /* 5. Los "Bocadillos" (Pop-ups) al pinchar en un marcador */
+    .leaflet-popup-content-wrapper {
+        background-color: #ffffff !important;
+        color: #111111 !important;
+        border: 3px solid #111111 !important;
+        border-radius: 0 !important;
+        box-shadow: 6px 6px 0px #111111 !important;
+        padding: 0 !important;
+    }
+    
+    /* El triángulo inferior del bocadillo */
+    .leaflet-popup-tip {
+        background-color: #111111 !important;
+        border: none !important;
+        box-shadow: none !important;
+        width: 15px !important;
+        height: 15px !important;
+        margin: -8px auto 0 !important;
+    }
+    
+    /* Contenido interno del bocadillo */
+    .leaflet-popup-content {
+        font-family: 'Inter', sans-serif !important;
+        margin: 1.2rem !important;
+        line-height: 1.4 !important;
+    }
+    
+    /* Textos y enlaces dentro del Pop-up */
+    .leaflet-popup-content h4 {
+        font-family: 'Archivo Black', sans-serif !important;
+        text-transform: uppercase !important;
+        font-size: 1rem !important;
+        border-bottom: 2px solid #111111 !important;
+        padding-bottom: 0.5rem !important;
+        margin-bottom: 0.8rem !important;
+    }
+    .leaflet-popup-content a {
+        color: #111111 !important;
+        font-weight: 900 !important;
+        text-decoration: underline !important;
+        text-decoration-thickness: 2px !important;
+        transition: all 0.2s ease !important;
+    }
+    .leaflet-popup-content a:hover {
+        color: #ffffff !important;
+        background-color: #111111 !important;
+        text-decoration: none !important;
+    }
+    .leaflet-popup-content img {
+        border: 2px solid #111111 !important;
+        margin-bottom: 0.8rem !important;
+        width: 100% !important;
+    }
+
+    /* Botón de cerrar del Pop-up (La 'X') */
+    .leaflet-popup-close-button {
+        color: #111111 !important;
+        font-size: 1.5rem !important;
+        font-weight: 900 !important;
+        padding: 4px 8px !important;
+        transition: all 0.2s ease !important;
+    }
+    .leaflet-popup-close-button:hover {
+        color: #ffffff !important;
+        background-color: #111111 !important;
+    }
+</style>
+
+<!-- ESTRUCTURA DE LA PÁGINA -->
+<div class="container-fluid" style="padding: 0 5%;">
+    
+    <!-- Título visible y descriptivo -->
+    <h1 class="map-page-title">Mapa de la Colección</h1>
+    <p class="map-page-desc">Explora la ubicación geográfica de los objetos de nuestro archivo.</p>
+    
+    <!-- El mapa en sí -->
+    <div id="map"></div>
+    
+</div>
