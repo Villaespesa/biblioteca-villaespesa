@@ -1,7 +1,7 @@
 ---
 layout: coleccion
 title: Carmen de Burgos
-image: https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Carmen_de_Burgos_by_Julio_Romero_de_Torres.jpg/120px-Carmen_de_Burgos_by_Julio_Romero_de_Torres.jpg
+image: https://github.com/Villaespesa/biblioteca-villaespesa/blob/main/assets/img/coleccion-banner-burgos.jpg?raw=true
 description: "Andalucía lee a sus autores. Carmen de Burgos y su conexión con la Generación del 27 a través."
 entradilla: "La figura de Juan Ramón Jiménez representa un punto de inflexión en la poesía hispánica. Antes de su viaje a América, sus cuadernos ya mostraban una obsesión enfermiza por la perfección formal y la palabra exacta. Este es un viaje a través de sus correcciones y tachones."
 libros: jimialm1, img0001
