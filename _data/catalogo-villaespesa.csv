@@ -1,25 +1,22 @@
 objectid,filename,youtubeid,vimeoid,title,creator,date,description,subject,location,latitude,longitude,source,identifier,type,format,language,rights,rightsstatement,enlace
 jimialm1,jimialm1-001.jpg,,,Almas de violeta,"Jiménez, Juan Ramón",1900-01-01,"- Estado de conservación: Bueno
 
-- Formato de impresión: 52 p., 3 h. ; 19 cm.",Poesía;España;Siglo XX;Modernismo;Juan Ramón Jiménez;Francisco Villaespesa;Madrid;Tipografía Moderna;Atrio;Almas de violeta,Madrid;España,4.041.591.031,-3.707.533.942,"
+- Formato de impresión: 52 p., 3 h. ; 19 cm.",Poesía;España;Siglo XX;Modernismo;Juan Ramón Jiménez;Francisco Villaespesa;Madrid;Tipografía Moderna;Atrio;Almas de violeta,Madrid;España,40.41591031,-3.707533942,"
 ",DL-R-321,Image;StillImage,image/jpeg,es,,,https://www.bibliotecadigitaldeandalucia.es/catalogo/es/catalogo_imagenes/grupo.do?path=1009475
 ludalbo1,https://upload.wikimedia.org/wikipedia/commons/c/c0/Dibujo_de_la_Isla_de_Albor%C3%A1n.png,,,Alborán,"Ludwig Salvator, Erzherzog von Österreich",1898-01-01,"- Estado de conservación: Enc. tela
 
-- Formato de impresión: VII, 89 p., [20] h. de lám., [2] h. de map. pleg. ; 32 cm.",Alborán (Isla);Descripción;Geografía;S. XIX,Almería;Alboirán;España,3.593.846.925,-3.035.693.805,,DL-R-414,Image;StillImage,image/jpeg,ger,dominio público,,https://bnedigital.bne.es/bd/es/viewer?id=f7f164bb-9a74-481e-a3d4-8ae56eed4a60
+- Formato de impresión: VII, 89 p., [20] h. de lám., [2] h. de map. pleg. ; 32 cm.",Alborán (Isla);Descripción;Geografía;S. XIX,Almería;Alboirán;España,35.93846925,-3.035693805,,DL-R-414,Image;StillImage,image/jpeg,ger, dominio público,,https://bnedigital.bne.es/bd/es/viewer?id=f7f164bb-9a74-481e-a3d4-8ae56eed4a60
 valarg1,https://upload.wikimedia.org/wikipedia/commons/4/41/Erasmus_Quellinus_%28II%29-_La_persecuci%C3%B3n_de_las_Harp%C3%ADas%2C_1630.jpg,,,"Los argonáutas / poema latino de C. Valerio Flacco ; traducido en versos castellanos é ilustrado con notas por Javier de Leon Bendicho y Qüilty.
 Los Argonautas
 [Traducción generada por IA]","Valerio Flaco, Cayo.",1868-01-01,"Estado de conservación: Falta el tomo 3
 Formato de impresión: 3 v. ; 23 cm.
-Sinopsis:",historia;españa;siglo XIX;poesía;epopeya;mitología griega;traducción;literatura latina;valerio flaco;javier de leon bendicho,Madrid;España,4.041.711.798,-3.702.776.895,,"	
-DL-R-409",Image;StillImage,image/jpeg,la,,,
+Sinopsis:",historia;españa;siglo XIX;poesía;epopeya;mitología griega;traducción;literatura latina;valerio flaco;javier de leon bendicho,Madrid;España,40.41711798,-3.702776895,,"	
+DL-R-409",Image;StillImage,image/jpeg,la, dominio público,,
 fraens1,https://github.com/Villaespesa/biblioteca-villaespesa/blob/main/assets/img/ana-maria-franco-ensayos-poeticos.png?raw=true,,,"Ensayos poéticos [Manuscrito]
 Ensayos poéticos [Manuscrito]
-[Traducción generada por IA]",Ana María Franco,1849-01-01,,,,,,,,Image;StillImage,image/jpeg,es,,,
+[Traducción generada por IA]",Ana María Franco,1849-01-01,,,Almería;España,36.85155841,-2.451748194,,,Image;StillImage,image/jpeg,es, dominio público,,
 sancri1,https://github.com/Villaespesa/biblioteca-villaespesa/blob/main/assets/img/sancri1.png?raw=true,,,"Crónica de la provincia de Almería
 ",Enrique Santoyo,1869-01-01,"Estado de conservación:
 
-Formato de impresión: 63 p., [3] h. de lám., [1] h. de map. : il. ; 33 cm.",almeria;historia;españa;madrid;siglo XIX;crónica;provincias;península;posesiones;ultramar,Madrid;España,3.593.846.925,-3.035.693.805,,DL-R-319,Image;StillImage,image/jpeg,es,,,https://www.bibliotecadigitaldeandalucia.es/catalogo/es/consulta/registro.do?id=1047985
-perord1,https://github.com/Villaespesa/biblioteca-villaespesa/blob/main/assets/img/PROVISIONAL.jpg?raw=true,,,Ordenanzas Municipales para el régimen y gobierno de la Ciudad de Almeria y su término [Texto impreso],"Pérez Díaz, Antonio",1864-01-01,"Estado de conservación:
-Formato de impresión: 2 h., III, 106 p., 1 h. ; 8º mlla. (22 cm)
-",Legislación,Andalucía;Almería;España,36.84025088,-2.467649932,,"
-DL-R-322",Image;StillImage,image/jpeg,es,,,
+Formato de impresión: 63 p., [3] h. de lám., [1] h. de map. : il. ; 33 cm.",almeria;historia;españa;madrid;siglo XIX;crónica;provincias;península;posesiones;ultramar,Madrid;España,35.93846925,-3.035693805,,DL-R-319,Image;StillImage,image/jpeg,es, dominio público,,https://www.bibliotecadigitaldeandalucia.es/catalogo/es/consulta/registro.do?id=1047985
+perord1,https://github.com/Villaespesa/biblioteca-villaespesa/blob/main/assets/img/PROVISIONAL.jpg?raw=true,,,Ordenanzas Municipales para el régimen y gobierno de la Ciudad de Almeria y su término [Texto impreso],"Pérez Díaz, Antonio",1864-01-01,"Estado de conservación: Formato de impresión: 2 h., III, 106 p., 1 h. ; 8º mlla. (22 cm)",Legislación,Andalucía;Almería;España,36.85155841,-2.451748194,,DL-R-322	,Image;StillImage,image/jpeg,es, dominio público,,
